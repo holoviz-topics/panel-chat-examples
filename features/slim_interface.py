@@ -18,10 +18,12 @@ chat_interface = pn.widgets.ChatInterface(
     show_clear=False,
     show_button_name=False,
     height=875,
+    width=475,
 )
 chat_interface.send("Send a message and hear an echo!", user="System", respond=False)
 
 pn.template.FastListTemplate(
     main=["# Insert the main content here to chat about it; maybe a PDF?"],
-    sidebar=[chat_interface]
+    sidebar=[chat_interface],
+    sidebar_width=500,
 ).servable()
