@@ -4,17 +4,18 @@ in a streaming fashion.
 """
 
 
-from asyncio import sleep
+from time import sleep
 
 import panel as pn
 
 pn.extension()
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    sleep(1)
     message = f"Echoing {user}: "
     for char in contents:
-        await sleep(0.05)
+        sleep(0.05)
         message += char
         yield message
 

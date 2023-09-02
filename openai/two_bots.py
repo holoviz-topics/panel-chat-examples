@@ -14,7 +14,7 @@ async def callback(
     user: str,
     instance: pn.widgets.ChatInterface,
 ):
-    if user in ["User", "Nerd Bot"]:
+    if user in ["User", "Happy Bot"]:
         callback_user = "Nerd Bot"
         callback_avatar = "🤓"
     elif user == "Nerd Bot":
@@ -35,6 +35,7 @@ async def callback(
         yield {"user": callback_user, "avatar": callback_avatar, "value": message}
 
     if len(instance.value) % 6 == 0:  # stop at every 6 messages
+        instance.send("That's it for now! Thanks for chatting!", user="System", respond=False)
         return
     instance.respond()
 
