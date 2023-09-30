@@ -26,7 +26,8 @@ def run():
         # Loop through each .py file in the folder
         for file in folder.glob("*.py"):
             title = file.name.replace(".py", "").replace("_", " ").title()
-            text += f"\n### [{title}]({file.relative_to(EXAMPLES_PATH)})\n"
+            source_path = file.relative_to(EXAMPLES_PATH)
+            text += f"\n### [{title}]({source_path})\n"
 
             with open(file) as f:
                 docstring_lines = []
@@ -45,6 +46,8 @@ def run():
 \n<img src="../{thumbnail.relative_to(EXAMPLES_PATH.parent)}" alt="{title}" style="max-height: 400px; max-width: 100%;">\
 """
                     docstring_lines.append(thumbnail_str)
+                
+                docstring_lines.append(f"\n\n[Source]({source_path})")
 
                 docstring = "\n".join(docstring_lines)
 
