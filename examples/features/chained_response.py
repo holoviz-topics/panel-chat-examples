@@ -18,7 +18,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield {
             "user": ARM_BOT,
             "avatar": "🦾",
-            "value": f"Hey, {LEG_BOT}! Did you hear the user?"
+            "value": f"Hey, {LEG_BOT}! Did you hear the user?",
         }
         instance.respond()
     elif user == ARM_BOT:
@@ -29,6 +29,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
             "avatar": "🦿",
             "value": f'Yeah! They said "{user_contents}".',
         }
+
 
 chat_interface = pn.widgets.ChatInterface(callback=callback)
 chat_interface.send("Send a message!", user="System", respond=False)

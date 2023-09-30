@@ -4,9 +4,8 @@ a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 """
 
 import panel as pn
-
-from langchain.llms import OpenAI
 from langchain.chains import LLMMathChain
+from langchain.llms import OpenAI
 
 pn.extension()
 
