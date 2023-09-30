@@ -21,13 +21,15 @@ def run():
 # Panel Chat Examples Gallery
 """
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
-        text += f"\n## [{folder.name.title()}]({folder.relative_to(EXAMPLES_PATH)})\n"
+        if folder.name=="examples":
+                continue
+        text += f"\n## {folder.name.title()}\n"
 
         # Loop through each .py file in the folder
         for file in folder.glob("*.py"):
             title = file.name.replace(".py", "").replace("_", " ").title()
             source_path = file.relative_to(EXAMPLES_PATH)
-            text += f"\n### [{title}]({source_path})\n"
+            text += f"\n### {title}\n"
 
             with open(file) as f:
                 docstring_lines = []
@@ -43,11 +45,10 @@ def run():
                 thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png")
                 if thumbnail.exists():
                     thumbnail_str = f"""\
-\n<img src="../{thumbnail.relative_to(EXAMPLES_PATH.parent)}" alt="{title}" style="max-height: 400px; max-width: 100%;">\
-"""
+\n[<img src="../{thumbnail.relative_to(EXAMPLES_PATH.parent)}" alt="{title}" style="max-height: 400px; max-width: 100%;">]({source_path})"""
                     docstring_lines.append(thumbnail_str)
                 
-                docstring_lines.append(f"\n\n[Source]({source_path})")
+                docstring_lines.append(f"\nSource: [{source_path}]({source_path})")
 
                 docstring = "\n".join(docstring_lines)
 
