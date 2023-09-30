@@ -1,6 +1,7 @@
 """
-Demonstrates how to use the ChatInterface widget to echo back a message
-in a streaming fashion.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
 """
 
 
@@ -20,9 +21,9 @@ def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="System")
+chat_interface = pn.widgets.ChatInterface(callback=callback)
 chat_interface.send(
-    "Send a message via the TextInput below to receive an echo!",
+    "Enter a message in the TextInput below and receive an echo!",
     user="System",
     respond=False,
 )
