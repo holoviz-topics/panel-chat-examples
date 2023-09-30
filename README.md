@@ -16,7 +16,7 @@ THIS PROJECT IS AN EARLY STAGE AND WILL CHANGE!
 Clone the repository
 
 ```bash
-git clone https://github.com/ahuang11/panel-chat-examples
+git clone https://github.com/ahuang11/panel-chat-examples.git
 ```
 
 Navigate to the repository
