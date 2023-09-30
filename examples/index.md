@@ -11,7 +11,6 @@ The chatbot Assistant echoes back the message entered by the User in a *streamin
 
 <img src="../assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">
 
-
 ### [Echo](basics/echo.py)
 
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
@@ -19,7 +18,6 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to respond
 The chatbot Assistant echoes back the message entered by the User.
 
 <img src="../assets/thumbnails/echo.png" alt="Echo" style="max-height: 400px; max-width: 100%;">
-
 
 ## [Examples](.)
 
@@ -91,4 +89,3 @@ Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
 
 <img src="../assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">
-
