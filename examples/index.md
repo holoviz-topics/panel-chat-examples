@@ -9,7 +9,8 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to stream 
 
 The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
 
-![Echo Stream](../assets/thumbnails/echo_stream.png)
+<img src="../assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">
+
 
 ### [Echo](basics/echo.py)
 
@@ -17,7 +18,8 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to respond
 
 The chatbot Assistant echoes back the message entered by the User.
 
-![Echo](../assets/thumbnails/echo.png)
+<img src="../assets/thumbnails/echo.png" alt="Echo" style="max-height: 400px; max-width: 100%;">
+
 
 ## [Examples](.)
 
@@ -88,4 +90,5 @@ OpenAI's DALL-E API.
 Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
 
-![Authentication](../assets/thumbnails/authentication.png)
+<img src="../assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">
+

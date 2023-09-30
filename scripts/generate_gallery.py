@@ -41,9 +41,10 @@ def run():
 
                 thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png")
                 if thumbnail.exists():
-                    docstring_lines.append(
-                        f"\n![{title}](../{thumbnail.relative_to(EXAMPLES_PATH.parent)})"
-                    )
+                    thumbnail_str = f"""\
+\n<img src="../{thumbnail.relative_to(EXAMPLES_PATH.parent)}" alt="{title}" style="max-height: 400px; max-width: 100%;">
+"""
+                    docstring_lines.append(thumbnail_str)
 
                 docstring = "\n".join(docstring_lines)
 
