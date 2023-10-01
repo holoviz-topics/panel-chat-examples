@@ -98,6 +98,25 @@ SCREENSHOT=true pytest tests --headed
 
 The screenshots can be found in tests/ui/screenshots
 
+### Load testing
+
+To ensure the apps can be deployed for example to Hugging Face spaces we need them to load fast.
+We can test the loading time with [Locust](https://docs.locust.io/en/stable/index.html).
+
+First you need to [serve the examples](#serve-the-examples).
+
+Then you should run
+
+```bash
+locust -f tests/locustfile.py -H http://localhost:5006 --users 1 --spawn-rate 1
+```
+
+Finally you can open [http://localhost:8089/](http://localhost:8089/) and click "Start swarming"
+
+You should make sure the RPS (Request per seconds) stay above 1. In the image below its 2.3.
+
+![Locust](assets/images/panel-chat-examples-locust.png)
+
 ### Pre Commit
 
 Before committing please run
