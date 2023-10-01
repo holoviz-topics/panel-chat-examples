@@ -6,6 +6,8 @@
 
 (listed by order of precedence)
 
+You can use it as a drop in replacement for `os.environ`.
+
 For example you might not have the resources to provide an `OPENAI_API_KEY`, `WEAVIATE_API_KEY` or
 `LANGCHAIN_API_KEY`. In that case you would would like to ask the user for it.
 
@@ -28,6 +30,8 @@ class EnvironmentWidgetBase(pn.viewable.Viewer):
     - user input.
 
     (listed by order of precedence)
+
+    You can use it as a drop in replacement for `os.environ`.
 
     For example you might not have the resources to provide an `OPENAI_API_KEY`, `WEAVIATE_API_KEY`
     or `LANGCHAIN_API_KEY`. In that case you would would like to ask the user for it.
@@ -114,9 +118,19 @@ class EnvironmentWidgetBase(pn.viewable.Viewer):
             else:
                 not_missing.append(key)
         with param.edit_constant(self):
-            self.variables_not_set = missing
-            self.variables_set = not_missing
+            self.variables_not_set = sorted(missing)
+            self.variables_set = sorted(not_missing)
 
+    def get(self, __key: str, default: str)->str:
+        if not __key in self._variables:
+            raise ValueError(f"The __key '{__key}' is not a supported variable!")
+        return getattr(self, __key) or default
+
+    def __getitem__(self, key):
+        value = self.get(key, "")
+        if not value:
+            raise KeyError(f"The key '{key}' is not set!")
+        return value
 
 if pn.state.served:
 
