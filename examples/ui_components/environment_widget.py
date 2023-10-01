@@ -39,7 +39,7 @@ class EnvironmentWidgetBase(pn.viewable.Viewer):
 
     message_alert: str = param.String(
         (
-            "**Protect your secrets!** If you are using this tool online make sure you trust "
+            "**Protect your secrets!** Make sure you trust "
             "the publisher of this app before entering your secrets."
         ),
         doc="""An Alert message to display to the user to make them handle their secrets securely.
