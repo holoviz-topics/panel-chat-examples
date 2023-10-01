@@ -31,7 +31,8 @@ Create and activate your virtual environment
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate # linux or windows git bash
+source .venv/bin/activate # linux or
+source .venv/Scripts/activate # windows git bash
 ```
 
 Install the requirements
@@ -68,6 +69,35 @@ Follow the installation instructions above. Then run
 pip install -r requirements_dev.txt
 ```
 
+To be able to run the UI tests, automatically create thumbnails etc you should also install
+the playwright dependencies.
+
+```bash
+playwright install
+```
+
+### Testing
+
+To run the test you should run
+
+```bash
+pytest tests
+```
+
+To run the playwright tests in *headed* mode (i.e. show the browser) you can run
+
+```bash
+pytest tests --headed
+```
+
+You can take screenshots via
+
+```bash
+SCREENSHOT=true pytest tests --headed
+```
+
+The screenshots can be found in tests/ui/screenshots
+
 ### Pre Commit
 
 Before committing please run
@@ -78,6 +108,7 @@ Run
 isort .
 black .
 python scripts/generate_gallery.py
+pytest tests
 ```
 
 We plan to add pre-commit hooks soon.
