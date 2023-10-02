@@ -11,7 +11,7 @@ Your contributions would mean the world ❤️
 
 Check out the [Gallery](examples/index.md)
 
-THIS PROJECT IS AN EARLY STAGE AND WILL CHANGE!
+*THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!*
 
 ## Install the examples
 
