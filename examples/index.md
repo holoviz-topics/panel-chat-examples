@@ -31,12 +31,6 @@ Demonstrates how to chain responses in a ChatInterface.
 
 Source: [features/chained_response.py](features/chained_response.py)
 
-### Slim Interface
-
-Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
-
-Source: [features/slim_interface.py](features/slim_interface.py)
-
 ### Delayed Placeholder
 
 Demonstrates how to delay the display of the placeholder.
@@ -48,6 +42,12 @@ Source: [features/delayed_placeholder.py](features/delayed_placeholder.py)
 Demonstrates how to update the response of a ChatInterface widget.
 
 Source: [features/replace_response.py](features/replace_response.py)
+
+### Slim Interface
+
+Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+
+Source: [features/slim_interface.py](features/slim_interface.py)
 
 ## Langchain
 
@@ -72,21 +72,33 @@ a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 
 Source: [langchain/math_chain.py](langchain/math_chain.py)
 
+## Llama
+
+### Chat
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Llama2.
+
+Pre-requisites:
+```bash
+pip install llama-cpp-python
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp && make
+curl -L https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF/resolve/main/llama-2-7b-chat.Q3_K_L.gguf" -o models/llama-2-7b-chat.Q3_K_L.gguf
+```
+
+Source: [llama/chat.py](llama/chat.py)
+
 ## Openai
 
-### Two Bots
+### Authentication
 
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
+Demonstrates how to use the ChatInterface widget with authentication for
+OpenAI's API.
 
-Source: [openai/two_bots.py](openai/two_bots.py)
+[<img src="../assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">](openai/authentication.py)
 
-### Upload
-
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
-
-Source: [openai/upload.py](openai/upload.py)
+Source: [openai/authentication.py](openai/authentication.py)
 
 ### Chat
 
@@ -102,18 +114,23 @@ OpenAI's GPT-3 API with async/await.
 
 Source: [openai/chat_async.py](openai/chat_async.py)
 
-### Authentication
-
-Demonstrates how to use the ChatInterface widget with authentication for
-OpenAI's API.
-
-[<img src="../assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">](openai/authentication.py)
-
-Source: [openai/authentication.py](openai/authentication.py)
-
 ### Image
 
 Demonstrates how to use the ChatInterface widget to create an image using
 OpenAI's DALL-E API.
 
 Source: [openai/image.py](openai/image.py)
+
+### Two Bots
+
+Demonstrates how to use the ChatInterface widget to create two bots that
+chat with each other.
+
+Source: [openai/two_bots.py](openai/two_bots.py)
+
+### Upload
+
+Demonstrates how to use the ChatInterface widget to create a chatbot
+that can generate plots using hvplot.
+
+Source: [openai/upload.py](openai/upload.py)

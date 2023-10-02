@@ -26,7 +26,7 @@ def run():
         text += f"\n## {folder.name.title()}\n"
 
         # Loop through each .py file in the folder
-        for file in folder.glob("*.py"):
+        for file in sorted(folder.glob("*.py")):
             title = file.name.replace(".py", "").replace("_", " ").title()
             source_path = file.relative_to(EXAMPLES_PATH)
             text += f"\n### {title}\n"
