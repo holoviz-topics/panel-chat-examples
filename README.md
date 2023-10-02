@@ -1,6 +1,6 @@
 # Panel Chat Examples
 
-This project provides a collection of [examples](examples) of [Panel](https://panel.holoviz.org/)s
+This project provides a collection of [examples](examples/index.md) of [Panel](https://panel.holoviz.org/)s
 chat features.
 
 The examples are based on the next generation of chat features being developed in [PR #5333](https://github.com/holoviz/panel/pull/5333).
@@ -9,9 +9,11 @@ https://github.com/ahuang11/panel-chat-examples/assets/15331990/247ed34a-aa76-4b
 
 Your contributions would mean the world ❤️
 
-THIS PROJECT IS AN EARLY STAGE AND WILL CHANGE!
+Check out the [Gallery](examples/index.md)
 
-## Get Started
+*THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!*
+
+## Install the examples
 
 Clone the repository
 
@@ -55,3 +57,27 @@ panel serve examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --auto
 Open [http://localhost:5006](http://localhost:5006).
 
 ![Panel Index Page](assets/images/panel-chat-examples-index-page.png)
+
+## Develop
+
+### Install
+
+Follow the installation instructions above. Then run
+
+```bash
+pip install -r requirements_dev.txt
+```
+
+### Pre Commit
+
+Before committing please run
+
+Run
+
+```bash
+isort .
+black .
+python scripts/generate_gallery.py
+```
+
+We plan to add pre-commit hooks soon.
