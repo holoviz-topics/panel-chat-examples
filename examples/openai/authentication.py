@@ -4,6 +4,7 @@ OpenAI's API.
 """
 
 import os
+
 import openai
 import panel as pn
 
@@ -20,10 +21,10 @@ def add_key_to_env(key):
 
     os.environ["OPENAI_API_KEY"] = key
     chat_interface.send(
-        "Properly set your OpenAI key; feel free to minimize the sidebar.",
-        respond=False,
+        "Your OpenAI key has been set. Feel free to minimize the sidebar.",
         **SYSTEM_KWARGS
     )
+    chat_interface.disabled = False
 
 
 async def callback(
@@ -49,7 +50,7 @@ async def callback(
 key_input = pn.widgets.PasswordInput(placeholder="sk-...", name="OpenAI Key")
 pn.bind(add_key_to_env, key=key_input, watch=True)
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.widgets.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(
     "First enter your OpenAI key in the sidebar, then send a message!", **SYSTEM_KWARGS
 )

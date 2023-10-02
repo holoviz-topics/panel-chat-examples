@@ -6,10 +6,10 @@ that can generate plots using hvplot.
 import re
 from typing import Union
 
-from panel.io.mime_render import exec_with_return
+import openai
 import pandas as pd
 import panel as pn
-import openai
+from panel.io.mime_render import exec_with_return
 
 DATAFRAME_PROMPT = """
     Here are the columns in your DataFrame: {columns}.

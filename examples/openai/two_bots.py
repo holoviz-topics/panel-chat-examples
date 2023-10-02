@@ -35,7 +35,9 @@ async def callback(
         yield {"user": callback_user, "avatar": callback_avatar, "value": message}
 
     if len(instance.value) % 6 == 0:  # stop at every 6 messages
-        instance.send("That's it for now! Thanks for chatting!", user="System", respond=False)
+        instance.send(
+            "That's it for now! Thanks for chatting!", user="System", respond=False
+        )
         return
     instance.respond()
 

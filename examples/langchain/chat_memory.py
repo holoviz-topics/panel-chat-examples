@@ -4,9 +4,8 @@ OpenAI's GPT-3 API with LangChain.
 """
 
 import panel as pn
-
-from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationChain
+from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
 pn.extension()

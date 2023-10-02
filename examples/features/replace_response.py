@@ -33,5 +33,7 @@ chat_interface = pn.widgets.ChatInterface(
     callback=callback,
     callback_user="Game Master",
 )
-chat_interface.send("Select heads or tails, then click send!", user="System", respond=False)
+chat_interface.send(
+    "Select heads or tails, then click send!", user="System", respond=False
+)
 chat_interface.servable()

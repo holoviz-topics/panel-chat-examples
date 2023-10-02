@@ -7,12 +7,11 @@ import os
 import tempfile
 
 import panel as pn
-
 from langchain.chains import RetrievalQA
-from langchain.llms import OpenAI
 from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
+from langchain.llms import OpenAI
+from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
 pn.extension()
@@ -58,9 +57,9 @@ def initialize_chain():
 
 async def respond(contents, user, chat_interface):
     if not pdf_input.value:
-        chat_interface.send({
-            "user": "System", "value": "Please first upload a PDF!"
-        }, respond=False)
+        chat_interface.send(
+            {"user": "System", "value": "Please first upload a PDF!"}, respond=False
+        )
         return
     elif chat_interface.active == 0:
         chat_interface.active = 1
@@ -79,11 +78,25 @@ async def respond(contents, user, chat_interface):
 
 
 pdf_input = pn.widgets.FileInput(accept=".pdf", value="", height=50)
-key_input = pn.widgets.PasswordInput(name="OpenAI Key", placeholder="sk-...",)
-k_slider = pn.widgets.IntSlider(name="Number of Relevant Chunks", start=1, end=5, step=1, value=2)
-chain_select = pn.widgets.RadioButtonGroup(name="Chain Type", options=["stuff", "map_reduce", "refine", "map_rerank"])
+key_input = pn.widgets.PasswordInput(
+    name="OpenAI Key",
+    placeholder="sk-...",
+)
+k_slider = pn.widgets.IntSlider(
+    name="Number of Relevant Chunks", start=1, end=5, step=1, value=2
+)
+chain_select = pn.widgets.RadioButtonGroup(
+    name="Chain Type", options=["stuff", "map_reduce", "refine", "map_rerank"]
+)
 chat_input = pn.widgets.TextInput(placeholder="First, upload a PDF!")
-chat_interface = pn.widgets.ChatInterface(callback=respond, sizing_mode="stretch_width", widgets=[pdf_input, chat_input])
-chat_interface.send({"user": "System", "value": "Please first upload a PDF and click send!"}, respond=False)
-template = pn.template.BootstrapTemplate(sidebar=[key_input, k_slider, chain_select], main=[chat_interface])
+chat_interface = pn.widgets.ChatInterface(
+    callback=respond, sizing_mode="stretch_width", widgets=[pdf_input, chat_input]
+)
+chat_interface.send(
+    {"user": "System", "value": "Please first upload a PDF and click send!"},
+    respond=False,
+)
+template = pn.template.BootstrapTemplate(
+    sidebar=[key_input, k_slider, chain_select], main=[chat_interface]
+)
 template.servable()
