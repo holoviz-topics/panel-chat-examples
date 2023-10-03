@@ -21,7 +21,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
     response = llm(contents, max_tokens=2048)
     message = ""
     for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
+        message += chunk["choices"][0]["text"]
         yield message
 
 
