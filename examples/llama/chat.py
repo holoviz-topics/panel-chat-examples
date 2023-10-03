@@ -4,7 +4,7 @@ Llama2.
 
 Pre-requisites:
 ```bash
-pip install llama-cpp-python
+pip install llama-cpp-python  # see https://abetlen.github.io/llama-cpp-python/macos_install/ for M1 chips
 git clone https://github.com/ggerganov/llama.cpp
 cd llama.cpp && make
 curl -L https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF/resolve/main/llama-2-7b-chat.Q3_K_L.gguf" -o models/llama-2-7b-chat.Q3_K_L.gguf
