@@ -6,9 +6,7 @@ Llama2.
 import panel as pn
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
-from langchain.chains import ConversationChain, LLMChain
-from langchain.chat_models import ChatOpenAI
-from langchain.memory import ConversationBufferMemory
+from langchain.chains import LLMChain
 
 pn.extension()
 
