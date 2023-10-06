@@ -48,7 +48,7 @@ def run():
                 if thumbnail.exists():
                     thumbnail_str = (
                         "\n"
-                        f'[<img src="../{thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
+                        f'[<img src="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
                         f'alt="{title}" style="max-height: 400px; max-width: 100%;">]({source_path})'
                     )
                     docstring_lines.append(thumbnail_str)
