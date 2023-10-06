@@ -1,114 +1,81 @@
 # Panel Chat Examples
 
-This project provides a collection of [examples](examples/index.md) of [Panel](https://panel.holoviz.org/)s
-chat features.
+- THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!
+- The examples are based on the next generation of chat features being developed in [PR #5333](https://github.com/holoviz/panel/pull/5333)
+- Many examples require an `OPENAI_API_KEY` environment variable: `export OPENAI_API_KEY='sk-...' # linux or git bash on windows`
 
-The examples are based on the next generation of chat features being developed in [PR #5333](https://github.com/holoviz/panel/pull/5333).
+<p align="center">
+    <em>Example recipes for Panel ChatInterface.</em>
+</p>
 
-https://github.com/ahuang11/panel-chat-examples/assets/15331990/247ed34a-aa76-4be4-8f83-70aca60af046
+[![build](https://github.com/holoviz-topics/panel-chat-examples/workflows/Build/badge.svg)](https://github.com/holoviz-topics/panel-chat-examples/actions)
+[![codecov](https://codecov.io/gh/holoviz-topics/panel-chat-examples/branch/master/graph/badge.svg)](https://codecov.io/gh/holoviz-topics/panel-chat-examples)
+[![PyPI version](https://badge.fury.io/py/panel-chat-examples.svg)](https://badge.fury.io/py/panel-chat-examples)
 
-Your contributions would mean the world ❤️
+---
 
-Check out the [Gallery](examples/index.md)
+**Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
 
-*THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!*
+**Source Code**: <a href="https://github.com/holoviz-topics/panel-chat-examples" target="_blank">https://github.com/holoviz-topics/panel-chat-examples</a>
 
-## Install the examples
+---
 
-Clone the repository
+## Development
 
-```bash
-git clone https://github.com/ahuang11/panel-chat-examples.git
-```
+### Clone repository
 
-Navigate to the repository
+`git clone https://github.com/holoviz-topics/panel-chat-examples.git`
 
-```bash
-cd panel-chat-examples
-```
+### Setup environment
 
-Create and activate your virtual environment
+We use [Hatch](https://hatch.pypa.io/latest/install/) to manage the development environment and production build. Ensure it's installed on your system with `pip install hatch`
 
-```bash
-python -m venv .venv
-source .venv/bin/activate # linux or
-source .venv/Scripts/activate # windows git bash
-```
+### Run unit tests
 
-Install the requirements
+You can run all the tests with:
 
 ```bash
-pip install -r requirements.txt
+hatch run test
 ```
 
-Set the `OPENAI_API_KEY` environment variable.
+### Format the code
+
+Execute the following command to apply linting and check typing:
 
 ```bash
-export OPENAI_API_KEY='sk-...' # linux or git bash on windows
+hatch run lint
 ```
 
-## Serve the examples
+### Publish a new version
 
-Serve the apps
+You can bump the version, create a commit and associated tag with one command:
 
 ```bash
-panel serve examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload # linux
+hatch version patch
 ```
-
-Open [http://localhost:5006](http://localhost:5006).
-
-![Panel Index Page](assets/images/panel-chat-examples-index-page.png)
-
-## Develop
-
-### Install
-
-Follow the installation instructions above. Then run
 
 ```bash
-pip install -r requirements_dev.txt
+hatch version minor
 ```
-
-To be able to run the UI tests, automatically create thumbnails etc you should also install
-the playwright dependencies.
 
 ```bash
-playwright install
+hatch version major
 ```
 
-### Testing
+Your default Git text editor will open so you can add information about the release.
 
-To run the test you should run
+When you push the tag on GitHub, the workflow will automatically publish it on PyPi and a GitHub release will be created as draft.
+
+## Serve the documentation
+
+You can serve the Mkdocs documentation with:
 
 ```bash
-pytest tests
+hatch run docs-serve
 ```
 
-To run the playwright tests in *headed* mode (i.e. show the browser) you can run
+It'll automatically watch for changes in your code.
 
-```bash
-pytest tests --headed
-```
+## License
 
-You can take screenshots via
-
-```bash
-SCREENSHOT=true pytest tests --headed
-```
-
-The screenshots can be found in tests/ui/screenshots
-
-### Pre Commit
-
-Before committing please run
-
-Run
-
-```bash
-isort .
-black .
-python scripts/generate_gallery.py
-pytest tests
-```
-
-We plan to add pre-commit hooks soon.
+This project is licensed under the terms of the MIT license.
