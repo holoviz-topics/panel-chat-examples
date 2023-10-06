@@ -1,12 +1,15 @@
 # Panel Chat Examples
 
-- THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!
-- The examples are based on the next generation of chat features being developed in [PR #5333](https://github.com/holoviz/panel/pull/5333)
-- Many examples require an `OPENAI_API_KEY` environment variable: `export OPENAI_API_KEY='sk-...' # linux or git bash on windows`
-
 <p align="center">
     <em>Example recipes for Panel ChatInterface.</em>
 </p>
+
+THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!
+
+The examples are based on the next generation of chat features being developed in [PR #5333](https://github.com/holoviz/panel/pull/5333)
+
+To run the examples:
+- `hatch run panel serve examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload`
 
 [![build](https://github.com/holoviz-topics/panel-chat-examples/workflows/Build/badge.svg)](https://github.com/holoviz-topics/panel-chat-examples/actions)
 [![codecov](https://codecov.io/gh/holoviz-topics/panel-chat-examples/branch/master/graph/badge.svg)](https://codecov.io/gh/holoviz-topics/panel-chat-examples)
