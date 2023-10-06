@@ -21,12 +21,14 @@ def run():
 
     text = dedent(
         """
+        # Examples
+
         To run all of these examples locally:
         ```bash
         git clone https://github.com/holoviz-topics/panel-chat-examples
         cd panel-chat-examples
         pip install hatch
-        hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload
+        hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
         ```
 
         Note the default installation is not optimized for GPU usage. To enable GPU support for local
