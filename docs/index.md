@@ -6,7 +6,7 @@ To run all of these examples locally:
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
-hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload
+hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```
 
 Note the default installation is not optimized for GPU usage. To enable GPU support for local
@@ -22,6 +22,7 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to respond
 The chatbot Assistant echoes back the message entered by the User.
 
 [<img src="assets/thumbnails/echo.png" alt="Echo" style="max-height: 400px; max-width: 100%;">](examples/basics/echo.py)
+
 <details>
 <summary>Source code for <a href='examples/basics/echo.py' target='_blank'>echo.py</a></summary>
 ```python
@@ -48,7 +49,6 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -60,6 +60,7 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to stream 
 The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
 
 [<img src="assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
+
 <details>
 <summary>Source code for <a href='examples/basics/echo_stream.py' target='_blank'>echo_stream.py</a></summary>
 ```python
@@ -93,7 +94,6 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -142,7 +142,6 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 chat_interface = pn.widgets.ChatInterface(callback=callback)
 chat_interface.send("Send a message!", user="System", respond=False)
 chat_interface.servable()
-
 ```
 </details>
 
@@ -188,7 +187,6 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -238,7 +236,6 @@ chat_interface.send(
     "Select heads or tails, then click send!", user="System", respond=False
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -279,7 +276,6 @@ pn.template.FastListTemplate(
     sidebar=[chat_interface],
     sidebar_width=500,
 ).servable()
-
 ```
 </details>
 
@@ -322,7 +318,6 @@ llm = ChatOpenAI(streaming=True, callbacks=[callback_handler])
 memory = ConversationBufferMemory()
 chain = ConversationChain(llm=llm, memory=memory)
 chat_interface.servable()
-
 ```
 </details>
 
@@ -436,7 +431,6 @@ template = pn.template.BootstrapTemplate(
     sidebar=[key_input, k_slider, chain_select], main=[chat_interface]
 )
 template.servable()
-
 ```
 </details>
 
@@ -501,7 +495,6 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -541,7 +534,6 @@ callback_handler = pn.widgets.langchain.PanelCallbackHandler(
 llm = OpenAI(streaming=True, callbacks=[callback_handler])
 llm_math = LLMMathChain.from_llm(llm, verbose=True)
 chat_interface.servable()
-
 ```
 </details>
 
@@ -554,6 +546,7 @@ Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
 
 [<img src="assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">](examples/openai/authentication.py)
+
 <details>
 <summary>Source code for <a href='examples/openai/authentication.py' target='_blank'>authentication.py</a></summary>
 ```python
@@ -619,7 +612,6 @@ pn.template.MaterialTemplate(
     sidebar=[key_input],
     main=[chat_interface],
 ).servable()
-
 ```
 </details>
 
@@ -659,7 +651,6 @@ chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -699,7 +690,6 @@ chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -735,7 +725,6 @@ chat_interface.send(
     "Create an image by providing a prompt!", user="System", respond=False
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -798,7 +787,6 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
-
 ```
 </details>
 
@@ -892,6 +880,5 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
-
 ```
 </details>

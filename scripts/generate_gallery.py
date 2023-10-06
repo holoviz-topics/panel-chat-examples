@@ -1,6 +1,6 @@
 """Generates a markdown file describing the examples apps"""
 
-from textwrap import dedent
+from textwrap import dedent, indent
 from pathlib import Path
 
 DOCS_PATH = Path(__file__).parent.parent / "docs"
@@ -63,14 +63,14 @@ def run():
                     thumbnail_str = (
                         "\n"
                         f'[<img src="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
-                        f'alt="{title}" style="max-height: 400px; max-width: 100%;">]({source_path})'
+                        f'alt="{title}" style="max-height: 400px; max-width: 100%;">]({source_path})\n'
                     )
                     docstring_lines.append(thumbnail_str)
                 docstring_lines.append(
                     f"<details>\n"
                     f"<summary>Source code for <a href='{source_path}' target='_blank'>{source_path.name}</a></summary>\n"
                     f"```python\n"
-                    f"{file.read_text()}\n"
+                    f"{indent(file.read_text(), '' * 4).rstrip()}\n"
                     f"```\n"
                     "</details>\n"
                 )
