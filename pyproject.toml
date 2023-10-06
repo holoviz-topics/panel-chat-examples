@@ -1,0 +1,76 @@
+[tool.ruff]
+target-version = "py39"
+extend-select = ["I", "TRY"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=panel_chat_examples/ --cov-report=term-missing"
+asyncio_mode = "strict"
+
+[tool.hatch]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+source = "regex_commit"
+commit_extra_args = ["-e"]
+path = "panel_chat_examples/__init__.py"
+
+[tool.hatch.envs.default]
+python = "3.9"
+dependencies = [
+    "black",
+    "mypy",
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "pytest-asyncio",
+    "pytest-playwright",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest"
+test-cov-xml = "pytest --cov-report=xml"
+lint = [
+  "black .",
+  "ruff --fix .",
+  "mypy panel_chat_examples/",
+]
+lint-check = [
+  "black --check .",
+  "ruff .",
+  "mypy panel_chat_examples/",
+]
+docs-serve = "mkdocs serve"
+docs-build = "mkdocs build"
+
+[build-system]
+requires = ["hatchling", "hatch-regex-commit"]
+build-backend = "hatchling.build"
+
+[project]
+name = "panel-chat-examples"
+authors = [
+  { name = "panel-chat-examples", email = "developers@holoviz.org" }
+]
+description = "Example recipes for Panel ChatInterface."
+readme = "README.md"
+dynamic = ["version"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "chromadb",
+    "langchain",
+    "openai",
+    "numexpr",
+    "ctransformers",
+    "panel @ git+https://github.com/holoviz/panel.git@chat_components"
+]
+
+[project.urls]
+Documentation = "https://holoviz-topics.github.io/panel-chat-examples/"
+Source = "https://github.com/holoviz-topics/panel-chat-examples"
