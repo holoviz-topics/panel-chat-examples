@@ -15,7 +15,7 @@ The examples are based on the next generation of chat features being developed i
 To run the examples:
 
 ```bash
-hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload
+hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```
 
 Note the default installation is not optimized for GPU usage. To enable GPU support for local
