@@ -1,6 +1,12 @@
 # Panel Chat Examples
 
-Example recipes for Panel ChatInterface.
+[![build](https://github.com/holoviz-topics/panel-chat-examples/workflows/Build/badge.svg)](https://github.com/holoviz-topics/panel-chat-examples/actions)
+[![codecov](https://codecov.io/gh/holoviz-topics/panel-chat-examples/branch/master/graph/badge.svg)](https://codecov.io/gh/holoviz-topics/panel-chat-examples)
+[![PyPI version](https://badge.fury.io/py/panel-chat-examples.svg)](https://badge.fury.io/py/panel-chat-examples)
+
+Examples of Chat Bots using Panels chat features: Traditional, LLMs, AI Agents, LangChain, OpenAI, etc.
+
+**Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
 
 THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!
 
@@ -24,17 +30,6 @@ Mac M1/2:
 ```bash
 CT_METAL=1 pip install ctransformers --no-binary ctransformers  # for m1
 ```
-
-[![build](https://github.com/holoviz-topics/panel-chat-examples/workflows/Build/badge.svg)](https://github.com/holoviz-topics/panel-chat-examples/actions)
-[![codecov](https://codecov.io/gh/holoviz-topics/panel-chat-examples/branch/master/graph/badge.svg)](https://codecov.io/gh/holoviz-topics/panel-chat-examples)
-[![PyPI version](https://badge.fury.io/py/panel-chat-examples.svg)](https://badge.fury.io/py/panel-chat-examples)
-
----
-
-**Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
-
-**Source Code**: <a href="https://github.com/holoviz-topics/panel-chat-examples" target="_blank">https://github.com/holoviz-topics/panel-chat-examples</a>
-
 ---
 
 ## Development
