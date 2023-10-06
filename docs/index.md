@@ -1,5 +1,11 @@
 
-# Panel Chat Examples Gallery
+To run all of these examples locally:
+```bash
+git clone https://github.com/holoviz-topics/panel-chat-examples
+cd panel-chat-examples
+pip install hatch
+hatch run panel serve examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload
+```
 
 ## Basics
 
@@ -9,9 +15,9 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to respond
 
 The chatbot Assistant echoes back the message entered by the User.
 
-[<img src="../assets/thumbnails/echo.png" alt="Echo" style="max-height: 400px; max-width: 100%;">](examples/basics/echo.py)
+[<img src="assets/thumbnails/echo.png" alt="Echo" style="max-height: 400px; max-width: 100%;">](examples/basics/echo.py)
 <details>
-<summary>Source code for <a href='echo.py' target='_blank'>echo.py</a></summary>
+<summary>Source code for <a href='examples/basics/echo.py' target='_blank'>echo.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
@@ -47,9 +53,9 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to stream 
 
 The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
 
-[<img src="../assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
+[<img src="assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
 <details>
-<summary>Source code for <a href='echo_stream.py' target='_blank'>echo_stream.py</a></summary>
+<summary>Source code for <a href='examples/basics/echo_stream.py' target='_blank'>echo_stream.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
@@ -92,7 +98,7 @@ chat_interface.servable()
 
 Demonstrates how to chain responses in a ChatInterface.
 <details>
-<summary>Source code for <a href='chained_response.py' target='_blank'>chained_response.py</a></summary>
+<summary>Source code for <a href='examples/features/chained_response.py' target='_blank'>chained_response.py</a></summary>
 ```python
 """
 Demonstrates how to chain responses in a ChatInterface.
@@ -139,7 +145,7 @@ chat_interface.servable()
 
 Demonstrates how to delay the display of the placeholder.
 <details>
-<summary>Source code for <a href='delayed_placeholder.py' target='_blank'>delayed_placeholder.py</a></summary>
+<summary>Source code for <a href='examples/features/delayed_placeholder.py' target='_blank'>delayed_placeholder.py</a></summary>
 ```python
 """
 Demonstrates how to delay the display of the placeholder.
@@ -185,7 +191,7 @@ chat_interface.servable()
 
 Demonstrates how to update the response of a ChatInterface widget.
 <details>
-<summary>Source code for <a href='replace_response.py' target='_blank'>replace_response.py</a></summary>
+<summary>Source code for <a href='examples/features/replace_response.py' target='_blank'>replace_response.py</a></summary>
 ```python
 """
 Demonstrates how to update the response of a ChatInterface widget.
@@ -235,7 +241,7 @@ chat_interface.servable()
 
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
 <details>
-<summary>Source code for <a href='slim_interface.py' target='_blank'>slim_interface.py</a></summary>
+<summary>Source code for <a href='examples/features/slim_interface.py' target='_blank'>slim_interface.py</a></summary>
 ```python
 """
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
@@ -279,7 +285,7 @@ pn.template.FastListTemplate(
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with LangChain.
 <details>
-<summary>Source code for <a href='chat_memory.py' target='_blank'>chat_memory.py</a></summary>
+<summary>Source code for <a href='examples/langchain/chat_memory.py' target='_blank'>chat_memory.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -320,7 +326,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
 OpenAI's API with LangChain.
 <details>
-<summary>Source code for <a href='chroma_pdf_qa.py' target='_blank'>chroma_pdf_qa.py</a></summary>
+<summary>Source code for <a href='examples/langchain/chroma_pdf_qa.py' target='_blank'>chroma_pdf_qa.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
@@ -434,7 +440,7 @@ template.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 Llama2.
 <details>
-<summary>Source code for <a href='llama_and_mistral.py' target='_blank'>llama_and_mistral.py</a></summary>
+<summary>Source code for <a href='examples/langchain/llama_and_mistral.py' target='_blank'>llama_and_mistral.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -499,7 +505,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create
 a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 <details>
-<summary>Source code for <a href='math_chain.py' target='_blank'>math_chain.py</a></summary>
+<summary>Source code for <a href='examples/langchain/math_chain.py' target='_blank'>math_chain.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create
@@ -541,9 +547,9 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
 
-[<img src="../assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">](examples/openai/authentication.py)
+[<img src="assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">](examples/openai/authentication.py)
 <details>
-<summary>Source code for <a href='authentication.py' target='_blank'>authentication.py</a></summary>
+<summary>Source code for <a href='examples/openai/authentication.py' target='_blank'>authentication.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget with authentication for
@@ -617,7 +623,7 @@ pn.template.MaterialTemplate(
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API.
 <details>
-<summary>Source code for <a href='chat.py' target='_blank'>chat.py</a></summary>
+<summary>Source code for <a href='examples/openai/chat.py' target='_blank'>chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -657,7 +663,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with async/await.
 <details>
-<summary>Source code for <a href='chat_async.py' target='_blank'>chat_async.py</a></summary>
+<summary>Source code for <a href='examples/openai/chat_async.py' target='_blank'>chat_async.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -697,7 +703,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create an image using
 OpenAI's DALL-E API.
 <details>
-<summary>Source code for <a href='image.py' target='_blank'>image.py</a></summary>
+<summary>Source code for <a href='examples/openai/image.py' target='_blank'>image.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create an image using
@@ -733,7 +739,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create two bots that
 chat with each other.
 <details>
-<summary>Source code for <a href='two_bots.py' target='_blank'>two_bots.py</a></summary>
+<summary>Source code for <a href='examples/openai/two_bots.py' target='_blank'>two_bots.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create two bots that
@@ -796,7 +802,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot
 that can generate plots using hvplot.
 <details>
-<summary>Source code for <a href='upload.py' target='_blank'>upload.py</a></summary>
+<summary>Source code for <a href='examples/openai/upload.py' target='_blank'>upload.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot
