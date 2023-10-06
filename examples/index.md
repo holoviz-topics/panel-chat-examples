@@ -1,4 +1,4 @@
-  
+
 # Panel Chat Examples Gallery
 
 ## Basics
@@ -65,29 +65,19 @@ OpenAI's API with LangChain.
 
 Source: [langchain/chroma_pdf_qa.py](langchain/chroma_pdf_qa.py)
 
+### Llama And Mistral
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Llama2.
+
+Source: [langchain/llama_and_mistral.py](langchain/llama_and_mistral.py)
+
 ### Math Chain
 
 Demonstrates how to use the ChatInterface widget to create
 a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 
 Source: [langchain/math_chain.py](langchain/math_chain.py)
-
-## Llama
-
-### Chat
-
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2.
-
-Pre-requisites:
-```bash
-pip install llama-cpp-python
-git clone https://github.com/ggerganov/llama.cpp
-cd llama.cpp && make
-curl -L https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF/resolve/main/llama-2-7b-chat.Q3_K_L.gguf" -o models/llama-2-7b-chat.Q3_K_L.gguf
-```
-
-Source: [llama/chat.py](llama/chat.py)
 
 ## Openai
 
