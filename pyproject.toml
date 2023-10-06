@@ -63,10 +63,10 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "chromadb"
-    "langchain"
-    "openai"
-    "ctransformers"
+    "chromadb",
+    "langchain",
+    "openai",
+    "ctransformers",
     "panel @ git+https://github.com/holoviz/panel.git@chat_components"
 ]
 
