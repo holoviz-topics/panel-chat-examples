@@ -53,6 +53,4 @@ watch:
     - panel_chat_examples
 
 nav:
-    - About: index.md
-    - Reference:
-        - panel_chat_examples: reference/panel_chat_examples.md
+    - Examples: index.md
