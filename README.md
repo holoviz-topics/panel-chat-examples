@@ -74,6 +74,7 @@ When you push the tag on GitHub, the workflow will automatically publish it on P
 You can serve the Mkdocs documentation with:
 
 ```bash
+python scripts/generate_gallery.py
 hatch run docs-serve
 ```
 

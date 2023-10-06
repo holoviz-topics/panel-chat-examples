@@ -1,6 +1,6 @@
 """Generates a markdown file describing the examples apps"""
 
-from textwrap import indent
+from textwrap import dedent
 from pathlib import Path
 
 DOCS_PATH = Path(__file__).parent.parent / "docs"
@@ -19,9 +19,17 @@ def run():
     module docstring.
     """
 
-    text = """
-# Panel Chat Examples Gallery
-"""
+    text = dedent(
+        """
+        To run all of these examples locally:
+        ```bash
+        git clone https://github.com/holoviz-topics/panel-chat-examples
+        cd panel-chat-examples
+        pip install hatch
+        hatch run panel serve examples/**/*.py --static-dirs thumbnails=./assets/thumbnails --autoreload
+        ```
+        """
+    )
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
         if folder.name == "examples":
             continue
@@ -54,7 +62,7 @@ def run():
                     docstring_lines.append(thumbnail_str)
                 docstring_lines.append(
                     f"<details>\n"
-                    f"<summary>Source code for <a href='{source_path.name}' target='_blank'>{source_path.name}</a></summary>\n"
+                    f"<summary>Source code for <a href='{source_path}' target='_blank'>{source_path.name}</a></summary>\n"
                     f"```python\n"
                     f"{file.read_text()}\n"
                     f"```\n"
