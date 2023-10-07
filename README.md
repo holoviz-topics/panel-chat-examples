@@ -18,6 +18,7 @@ To install and serve all examples:
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
+# Set the OPENAI_API_KEY environment variable
 hatch run panel-serve
 ```
 
@@ -40,7 +41,7 @@ CT_METAL=1 pip install ctransformers --no-binary ctransformers  # for m1
 
 ## Contributing
 
-Check out the [DEVELOPER GUIDE](DEVELOPER_GUIDE.md) for to get started.
+We would ❤️ to collaborate with you. Check out the [DEVELOPER GUIDE](DEVELOPER_GUIDE.md) for to get started.
 
 ## License
 
