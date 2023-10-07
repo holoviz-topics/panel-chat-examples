@@ -6,6 +6,7 @@ import pytest
 
 from panel_chat_examples import EnvironmentWidgetBase
 from panel_chat_examples._environment_widget import VariableNotFound
+
 os.environ["SOME_VALUE"] = "SOME_VALUE"
 
 
