@@ -49,6 +49,12 @@ docs-build = "mkdocs build"
 requires = ["hatchling", "hatch-regex-commit"]
 build-backend = "hatchling.build"
 
+[[tool.mypy.overrides]]
+module = [
+    "param.*",
+]
+ignore_missing_imports = true
+
 [project]
 name = "panel-chat-examples"
 authors = [

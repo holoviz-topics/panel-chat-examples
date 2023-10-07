@@ -1,15 +1,11 @@
 """Tests the EnvironmentWidgetBase"""
 import os
-import sys
-from pathlib import Path
 
 import param
 import pytest
 
-# pylint: disable=wrong-import-position
-sys.path.append(Path.cwd())  # I don't know a better way of enabling examples to import
-from examples.ui_components.environment_widget import EnvironmentWidgetBase
-
+from panel_chat_examples import EnvironmentWidgetBase
+from panel_chat_examples._environment_widget import VariableNotFound
 os.environ["SOME_VALUE"] = "SOME_VALUE"
 
 
@@ -52,5 +48,5 @@ def test_indexing():
     """Test the we can [] like os.environ"""
     environ = EnvironmentWidget()
     assert environ["SOME_VALUE"] == environ.SOME_VALUE
-    with pytest.raises(KeyError):
-        environ["ANOTHER_VALUE"] # pylint: disable=pointless-statement
+    with pytest.raises(VariableNotFound):
+        environ["ANOTHER_VALUE"]  # pylint: disable=pointless-statement
