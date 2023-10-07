@@ -26,6 +26,7 @@ path = "panel_chat_examples/__init__.py"
 [tool.hatch.envs.default]
 dependencies = [
     "black",
+    "isort",
     "locust",
     "mkdocs-material",
     "mkdocstrings[python]",
@@ -53,8 +54,8 @@ lint-check = [
   "ruff .",
   "mypy panel_chat_examples/",
 ]
-docs-serve = "mkdocs serve"
-docs-build = "mkdocs build"
+docs-serve = "python scripts/generate_gallery.py;mkdocs serve"
+docs-build = "python scripts/generate_gallery.py;mkdocs build"
 panel-serve = "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
 loadtest = "locust -f tests/locustfile.py -H http://localhost:5006 --users 1 --spawn-rate 1"
 
