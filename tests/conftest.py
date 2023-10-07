@@ -8,7 +8,7 @@ from panel.config import panel_extension
 from panel.io.state import state
 
 # pylint: disable=protected-access
-EXAMPLES_PATH = Path(__file__).parent.parent / "examples"
+EXAMPLES_PATH = Path(__file__).parent.parent / "docs/examples"
 
 # The fixtures in this module are heavily inspired the Panel conftest.py file.
 
@@ -35,9 +35,9 @@ def module_cleanup():
     """
     Cleanup Panel extensions after each test.
     """
-    from bokeh.core.has_props import (
+    from bokeh.core.has_props import (  # pylint: disable=import-outside-toplevel
         _default_resolver,
-    )  # pylint: disable=import-outside-toplevel
+    )
 
     to_reset = list(panel_extension._imports.values())
 

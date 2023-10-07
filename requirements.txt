@@ -1,4 +1,0 @@
-chromadb
-langchain
-openai
-panel @ git+https://github.com/holoviz/panel.git@chat_components

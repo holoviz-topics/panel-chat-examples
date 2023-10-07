@@ -1,6 +1,0 @@
--r requirements.txt
-isort
-black
-pytest
-pytest-playwright
-locust

@@ -1,0 +1,88 @@
+[tool.ruff]
+target-version = "py39"
+extend-select = ["I", "TRY"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=panel_chat_examples/ --cov-report=term-missing"
+asyncio_mode = "strict"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "ui: marks tests as ui tests (deselect with '-m \"not ui\"')",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.hatch]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+source = "regex_commit"
+commit_extra_args = ["-e"]
+path = "panel_chat_examples/__init__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+    "black",
+    "locust",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "mypy",
+    "pre-commit",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-playwright",
+    "pytest",
+    "ruff",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest"
+test-cov-xml = "pytest --cov-report=xml"
+lint = [
+  "isort .",
+  "black .",
+  "ruff --fix .",
+  "mypy panel_chat_examples/",
+]
+lint-check = [
+  "isort . --check-only",
+  "black --check .",
+  "ruff .",
+  "mypy panel_chat_examples/",
+]
+docs-serve = "mkdocs serve"
+docs-build = "mkdocs build"
+panel-serve = "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
+loadtest = "locust -f tests/locustfile.py -H http://localhost:5006 --users 1 --spawn-rate 1"
+
+[build-system]
+requires = ["hatchling", "hatch-regex-commit"]
+build-backend = "hatchling.build"
+
+[project]
+name = "panel-chat-examples"
+authors = [
+  { name = "panel-chat-examples", email = "developers@holoviz.org" }
+]
+description = "Example recipes for Panel ChatInterface."
+readme = "README.md"
+dynamic = ["version"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "chromadb",
+    "langchain",
+    "openai",
+    "numexpr",
+    "ctransformers",
+    "panel @ git+https://github.com/holoviz/panel.git@chat_components"
+]
+
+[project.urls]
+Documentation = "https://holoviz-topics.github.io/panel-chat-examples/"
+Source = "https://github.com/holoviz-topics/panel-chat-examples"
