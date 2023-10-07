@@ -1,10 +1,12 @@
 """Generates a markdown file describing the examples apps"""
 
+from textwrap import dedent, indent
 from pathlib import Path
 
-EXAMPLES_PATH = Path(__file__).parent.parent / "examples"
-INDEX_MD_PATH = EXAMPLES_PATH / "index.md"
-THUMBNAILS_PATH = Path(__file__).parent.parent / "assets" / "thumbnails"
+DOCS_PATH = Path(__file__).parent.parent / "docs"
+EXAMPLES_PATH = DOCS_PATH / "examples"
+INDEX_MD_PATH = DOCS_PATH / "index.md"
+THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
 
 
 def run():
@@ -17,18 +19,32 @@ def run():
     module docstring.
     """
 
-    text = """  
-# Panel Chat Examples Gallery
-"""
+    text = dedent(
+        """
+        # Examples
+
+        To run all of these examples locally:
+        ```bash
+        git clone https://github.com/holoviz-topics/panel-chat-examples
+        cd panel-chat-examples
+        pip install hatch
+        hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
+        ```
+
+        Note the default installation is not optimized for GPU usage. To enable GPU support for local
+        models (i.e. not OpenAI), install `ctransformers` with the proper backend and modify the
+        scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
+        """
+    )
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
-        if folder.name=="examples":
-                continue
+        if folder.name == "examples":
+            continue
         text += f"\n## {folder.name.title()}\n"
 
         # Loop through each .py file in the folder
-        for file in folder.glob("*.py"):
+        for file in sorted(folder.glob("*.py")):
             title = file.name.replace(".py", "").replace("_", " ").title()
-            source_path = file.relative_to(EXAMPLES_PATH)
+            source_path = file.relative_to(EXAMPLES_PATH.parent)
             text += f"\n### {title}\n"
 
             with open(file) as f:
@@ -44,11 +60,20 @@ def run():
 
                 thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png")
                 if thumbnail.exists():
-                    thumbnail_str = f"""\
-\n[<img src="../{thumbnail.relative_to(EXAMPLES_PATH.parent)}" alt="{title}" style="max-height: 400px; max-width: 100%;">]({source_path})"""
+                    thumbnail_str = (
+                        "\n"
+                        f'[<img src="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
+                        f'alt="{title}" style="max-height: 400px; max-width: 100%;">]({source_path})\n'
+                    )
                     docstring_lines.append(thumbnail_str)
-                
-                docstring_lines.append(f"\nSource: [{source_path}]({source_path})")
+                docstring_lines.append(
+                    f"<details>\n"
+                    f"<summary>Source code for <a href='{source_path}' target='_blank'>{source_path.name}</a></summary>\n"
+                    f"```python\n"
+                    f"{indent(file.read_text(), '' * 4).rstrip()}\n"
+                    f"```\n"
+                    "</details>\n"
+                )
 
                 docstring = "\n".join(docstring_lines)
 
