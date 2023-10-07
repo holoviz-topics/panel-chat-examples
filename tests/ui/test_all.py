@@ -56,10 +56,14 @@ def _take_screenshot(app_path, page):
 @pytest.fixture
 def server(app_path, port):
     """Returns a panel server runnning the app"""
+    bokeh_allow_ws_origin = os.environ.get("BOKEH_ALLOW_WS_ORIGIN")
+    os.environ["BOKEH_ALLOW_WS_ORIGIN"] = "localhost"
     server = serve(app_path, port=port, threaded=True, show=False)
     time.sleep(0.2)
     yield server
     server.stop()
+    if bokeh_allow_ws_origin:
+        os.environ["BOKEH_ALLOW_WS_ORIGIN"] = bokeh_allow_ws_origin
 
 
 def test_app(server, app_path, port, page):

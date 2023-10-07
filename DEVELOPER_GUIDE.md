@@ -47,6 +47,14 @@ Please ensure `pre-commit` is installed by running
 hatch run pre-commit run --all
 ```
 
+You will also need to set the below environment variables
+
+```bash
+export OPENAI_API_KEY=...
+```
+
+Please note that you will be incurring costs from OPENAI when you run the tests or serve the apps!
+
 ## Format, lint and type check the code
 
 Execute the following command to apply autoformatting, linting and check typing:
