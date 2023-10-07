@@ -1,7 +1,7 @@
 """Generates a markdown file describing the examples apps"""
 
-from textwrap import dedent, indent
 from pathlib import Path
+from textwrap import dedent, indent
 
 DOCS_PATH = Path(__file__).parent.parent / "docs"
 EXAMPLES_PATH = DOCS_PATH / "examples"
