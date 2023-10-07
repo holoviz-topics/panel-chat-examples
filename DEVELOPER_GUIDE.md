@@ -82,7 +82,7 @@ hatch run pytest -m ui --headed
 You can take screenshots via
 
 ```bash
-SCREENSHOT=true hatch run pytest -m ui --headed
+SCREENSHOT=true hatch run pytest -m ui
 ```
 
 The screenshots can be found in [tests/ui/screenshots](tests/ui/screenshots)
