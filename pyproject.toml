@@ -17,7 +17,6 @@ commit_extra_args = ["-e"]
 path = "panel_chat_examples/__init__.py"
 
 [tool.hatch.envs.default]
-python = "3.9"
 dependencies = [
     "black",
     "mypy",

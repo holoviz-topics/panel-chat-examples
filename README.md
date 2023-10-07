@@ -22,14 +22,17 @@ Note the default installation is not optimized for GPU usage. To enable GPU supp
 models (i.e. not OpenAI), install `ctransformers` with the [proper backend](https://github.com/marella/ctransformers#gpu) and modify the scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
 
 CUDA:
+
 ```bash
 pip install ctransformers[cuda]
 ```
 
 Mac M1/2:
+
 ```bash
 CT_METAL=1 pip install ctransformers --no-binary ctransformers  # for m1
 ```
+
 ---
 
 ## Development
