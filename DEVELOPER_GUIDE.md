@@ -36,10 +36,16 @@ pip install hatch
 Please ensure [Playwright](https://playwright.dev/python/) browsers are installed
 
 ```bash
-hatch run playwright install
+hatch run playwright install chromium
 ```
 
 The first time `hatch run ...` is run, it will install the required dependencies.
+
+Please ensure `pre-commit` is installed by running
+
+```bash
+hatch run pre-commit run --all
+```
 
 ## Format, lint and type check the code
 

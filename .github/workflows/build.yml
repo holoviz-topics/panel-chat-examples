@@ -26,7 +26,7 @@ jobs:
         hatch run lint-check
     - name: Install Playwright browser(s)s
       run: |
-        playwright install chromium
+        hatch run playwright install chromium
     - name: Test
       run: |
         hatch run test-cov-xml
