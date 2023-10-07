@@ -37,7 +37,7 @@ def module_cleanup():
     """
     from bokeh.core.has_props import (
         _default_resolver,
-    )  # pylint: disable=import-outside-toplevel
+    )
 
     to_reset = list(panel_extension._imports.values())
 

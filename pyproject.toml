@@ -42,8 +42,8 @@ lint-check = [
   "ruff .",
   "mypy panel_chat_examples/",
 ]
-docs-serve = "mkdocs serve"
-docs-build = "mkdocs build"
+docs-serve = "python scripts/generate_gallery.py;mkdocs serve"
+docs-build = "python scripts/generate_gallery.py;mkdocs build"
 
 [build-system]
 requires = ["hatchling", "hatch-regex-commit"]

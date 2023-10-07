@@ -4,7 +4,6 @@ Llama2.
 """
 
 import panel as pn
-
 from langchain.chains import LLMChain
 from langchain.llms import CTransformers
 from langchain.prompts import PromptTemplate
@@ -23,7 +22,8 @@ MODEL_KWARGS = {
 }
 llm_chains = {}
 
-TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the user:
+TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
+user:
 {user_input} [/INST] </s>
 """
 
