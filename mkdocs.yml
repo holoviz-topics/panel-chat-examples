@@ -1,18 +1,19 @@
 site_name: Panel Chat Examples
-site_description: Example recipes for Panel ChatInterface.
+site_description: Example recipes for Panel Chat Components
 
 repo_url: https://github.com/holoviz-topics/panel-chat-examples
 repo_name: holoviz-topics/panel-chat-examples
 
 theme:
     name: material
-    icon:
-        logo: material/library
+    logo: 'assets/images/panel-logo.png'
+    features:
+        - content.copy.code
     palette:
         # Palette toggle for light mode
         - media: "(prefers-color-scheme: light)"
           scheme: default
-          primary: grey
+          primary: white
           accent: blue
           toggle:
             icon: material/brightness-7
@@ -21,7 +22,7 @@ theme:
         # Palette toggle for dark mode
         - media: "(prefers-color-scheme: dark)"
           scheme: slate
-          primary: grey
+          primary: black
           accent: blue
           toggle:
             icon: material/brightness-4
@@ -37,6 +38,7 @@ markdown_extensions:
     - pymdownx.inlinehilite
     - pymdownx.snippets
     - pymdownx.superfences
+    - admonition
 
 plugins:
     - search
@@ -53,4 +55,4 @@ watch:
     - panel_chat_examples
 
 nav:
-    - Examples: index.md
+    - Panel Chat Examples: index.md

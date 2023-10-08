@@ -1,5 +1,5 @@
 
-# Examples
+# Panel Chat Examples
 
 To run all of these examples locally:
 
@@ -10,9 +10,11 @@ pip install hatch
 hatch run panel-serve
 ```
 
-Note the default installation is not optimized for GPU usage. To enable GPU support for local
-models (i.e. not OpenAI), install `ctransformers` with the proper backend and modify the
-scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
+!!! note
+    Note the default installation is not optimized for GPU usage. To **enable
+    GPU support** for local models (i.e. not OpenAI), install `ctransformers`
+    with the proper backend and modify the
+    scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
 
 ## Basics
 
@@ -56,9 +58,11 @@ chat_interface.servable()
 
 ### Echo Stream
 
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
+responses.
 
-The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
+The chatbot Assistant echoes back the message entered by the User in a *streaming*
+fashion.
 
 [<img src="assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
 
@@ -66,9 +70,11 @@ The chatbot Assistant echoes back the message entered by the User in a *streamin
 <summary>Source code for <a href='examples/basics/echo_stream.py' target='_blank'>echo_stream.py</a></summary>
 ```python
 """
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
+responses.
 
-The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
+The chatbot Assistant echoes back the message entered by the User in a *streaming*
+fashion.
 """
 
 
@@ -466,7 +472,8 @@ MODEL_KWARGS = {
 }
 llm_chains = {}
 
-TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the user:
+TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
+user:
 {user_input} [/INST] </s>
 """
 

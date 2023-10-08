@@ -21,7 +21,7 @@ def run():
 
     text = dedent(
         """
-        # Examples
+        # Panel Chat Examples
 
         To run all of these examples locally:
         
@@ -33,10 +33,11 @@ def run():
         hatch run panel-serve
         ```
 
-        Note the default installation is not optimized for GPU usage. To enable GPU
-        support for local models (i.e. not OpenAI), install `ctransformers` with the
-        proper backend and modify the scripts configs' accordingly, e.g.
-        `n_gpu_layers=1` for a single GPU.
+        !!! note
+            Note the default installation is not optimized for GPU usage. To **enable
+            GPU support** for local models (i.e. not OpenAI), install `ctransformers`
+            with the proper backend and modify the
+            scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
         """
     )
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
