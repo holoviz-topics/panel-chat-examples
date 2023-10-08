@@ -12,82 +12,36 @@ THIS PROJECT IS IN EARLY STAGE AND WILL CHANGE!
 
 The examples are based on the next generation of chat features being developed in [PR #5333](https://github.com/holoviz/panel/pull/5333)
 
-To run the examples:
+To install and serve all examples:
 
 ```bash
-hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
+git clone https://github.com/holoviz-topics/panel-chat-examples
+cd panel-chat-examples
+pip install hatch
+# Set the OPENAI_API_KEY environment variable
+hatch run panel-serve  # or equivalently panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```
 
 Note the default installation is not optimized for GPU usage. To enable GPU support for local
 models (i.e. not OpenAI), install `ctransformers` with the [proper backend](https://github.com/marella/ctransformers#gpu) and modify the scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
 
 CUDA:
+
 ```bash
 pip install ctransformers[cuda]
 ```
 
 Mac M1/2:
+
 ```bash
 CT_METAL=1 pip install ctransformers --no-binary ctransformers  # for m1
 ```
+
 ---
 
-## Development
+## Contributing
 
-### Clone repository
-
-`git clone https://github.com/holoviz-topics/panel-chat-examples.git`
-
-### Setup environment
-
-We use [Hatch](https://hatch.pypa.io/latest/install/) to manage the development environment and production build. Ensure it's installed on your system with `pip install hatch`
-
-### Run unit tests
-
-You can run all the tests with:
-
-```bash
-hatch run test
-```
-
-### Format the code
-
-Execute the following command to apply linting and check typing:
-
-```bash
-hatch run lint
-```
-
-### Publish a new version
-
-You can bump the version, create a commit and associated tag with one command:
-
-```bash
-hatch version patch
-```
-
-```bash
-hatch version minor
-```
-
-```bash
-hatch version major
-```
-
-Your default Git text editor will open so you can add information about the release.
-
-When you push the tag on GitHub, the workflow will automatically publish it on PyPi and a GitHub release will be created as draft.
-
-## Serve the documentation
-
-You can serve the Mkdocs documentation with:
-
-```bash
-python scripts/generate_gallery.py
-hatch run docs-serve
-```
-
-It'll automatically watch for changes in your code.
+We would ❤️ to collaborate with you. Check out the [DEVELOPER GUIDE](DEVELOPER_GUIDE.md) for to get started.
 
 ## License
 

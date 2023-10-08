@@ -6,7 +6,7 @@ To run all of these examples locally:
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
-hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
+hatch run panel-serve
 ```
 
 Note the default installation is not optimized for GPU usage. To enable GPU support for local
@@ -157,7 +157,6 @@ Demonstrates how to delay the display of the placeholder.
 """
 
 from asyncio import sleep
-from random import choice
 
 import panel as pn
 
@@ -448,7 +447,6 @@ Llama2.
 """
 
 import panel as pn
-
 from langchain.chains import LLMChain
 from langchain.llms import CTransformers
 from langchain.prompts import PromptTemplate
@@ -574,7 +572,7 @@ def add_key_to_env(key):
     os.environ["OPENAI_API_KEY"] = key
     chat_interface.send(
         "Your OpenAI key has been set. Feel free to minimize the sidebar.",
-        **SYSTEM_KWARGS
+        **SYSTEM_KWARGS,
     )
     chat_interface.disabled = False
 
@@ -882,3 +880,4 @@ chat_interface.send(
 chat_interface.servable()
 ```
 </details>
+

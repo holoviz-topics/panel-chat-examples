@@ -53,18 +53,28 @@ def _take_screenshot(app_path, page):
         )
 
 
-def test_app(app_path, page, port):
-    """Test the UI of an app via Playwright"""
-    serve(app_path, port=port, threaded=True, show=False)
-
+@pytest.fixture
+def server(app_path, port):
+    """Returns a panel server runnning the app"""
+    bokeh_allow_ws_origin = os.environ.get("BOKEH_ALLOW_WS_ORIGIN")
+    os.environ["BOKEH_ALLOW_WS_ORIGIN"] = "localhost"
+    server = serve(app_path, port=port, threaded=True, show=False)
     time.sleep(0.2)
+    yield server
+    server.stop()
+    if bokeh_allow_ws_origin:
+        os.environ["BOKEH_ALLOW_WS_ORIGIN"] = bokeh_allow_ws_origin
 
+
+def test_app(server, app_path, port, page):
+    """Test the UI of an app via Playwright"""
     msgs = []
-    page.on("console", msgs.append)
+    # Without the lambda below an AttributeError will be raised
+    page.on("console", lambda: msgs.append)
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
-    _take_screenshot(app_path, page)
 
     assert _bokeh_messages_have_been_logged(msgs)
     _expect_no_traceback(page)
     assert _page_not_empty(page), "The page is empty, No <div> element was not found"
+    _take_screenshot(app_path, page)
