@@ -19,7 +19,7 @@ git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
 # Set the OPENAI_API_KEY environment variable
-hatch run panel-serve
+hatch run panel-serve  # or equivalently panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```
 
 Note the default installation is not optimized for GPU usage. To enable GPU support for local
