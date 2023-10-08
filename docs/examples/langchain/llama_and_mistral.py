@@ -33,11 +33,9 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
     for model in MODEL_KWARGS:
         if model not in llm_chains:
-            instance.send(
-                f"Downloading {model}; depending on your internet connection, "
-                f"this may take a while.",
-                user="System",
-                respond=False,
+            instance.placeholder_text = (
+                f"Downloading {model}, this may take a few minutes,"
+                f"or longer, depending on your internet connection."
             )
             llm = CTransformers(**MODEL_KWARGS[model], config=config)
             prompt = PromptTemplate(template=TEMPLATE, input_variables=["user_input"])
