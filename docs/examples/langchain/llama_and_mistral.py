@@ -33,6 +33,12 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
     for model in MODEL_KWARGS:
         if model not in llm_chains:
+            instance.send(
+                f"Downloading {model}; pledepending on your internet connection, "
+                f"this may take a while.",
+                user="System",
+                respond=False,
+            )
             llm = CTransformers(**MODEL_KWARGS[model], config=config)
             prompt = PromptTemplate(template=TEMPLATE, input_variables=["user_input"])
             llm_chain = LLMChain(prompt=prompt, llm=llm)
@@ -44,7 +50,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         )
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
 chat_interface.send(
     "Send a message to get a reply from both Llama 2 and Mistral (7B)!",
     user="System",
