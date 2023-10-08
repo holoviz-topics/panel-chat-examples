@@ -24,7 +24,7 @@ jobs:
     - name: Lint and typecheck
       run: |
         hatch run lint-check
-    - name: Install Playwright browser(s)s
+    - name: Install Playwright browser(s)
       run: |
         hatch run playwright install chromium
     - name: Test

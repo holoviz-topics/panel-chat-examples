@@ -5,6 +5,13 @@ extend-select = ["I", "TRY"]
 [tool.pytest.ini_options]
 addopts = "--cov=panel_chat_examples/ --cov-report=term-missing"
 asyncio_mode = "strict"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "ui: marks tests as ui tests (deselect with '-m \"not ui\"')",
+]
+
+[tool.isort]
+profile = "black"
 
 [tool.hatch]
 
@@ -19,35 +26,48 @@ path = "panel_chat_examples/__init__.py"
 [tool.hatch.envs.default]
 dependencies = [
     "black",
-    "mypy",
-    "ruff",
-    "pytest",
-    "pytest-cov",
+    "isort",
+    "locust",
     "mkdocs-material",
     "mkdocstrings[python]",
+    "mypy",
+    "pre-commit",
     "pytest-asyncio",
+    "pytest-cov",
     "pytest-playwright",
+    "pytest",
+    "ruff",
 ]
 
 [tool.hatch.envs.default.scripts]
 test = "pytest"
 test-cov-xml = "pytest --cov-report=xml"
 lint = [
+  "isort .",
   "black .",
   "ruff --fix .",
   "mypy panel_chat_examples/",
 ]
 lint-check = [
+  "isort . --check-only",
   "black --check .",
   "ruff .",
   "mypy panel_chat_examples/",
 ]
 docs-serve = "python scripts/generate_gallery.py;mkdocs serve"
 docs-build = "python scripts/generate_gallery.py;mkdocs build"
+panel-serve = "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
+loadtest = "locust -f tests/locustfile.py -H http://localhost:5006 --users 1 --spawn-rate 1"
 
 [build-system]
 requires = ["hatchling", "hatch-regex-commit"]
 build-backend = "hatchling.build"
+
+[[tool.mypy.overrides]]
+module = [
+    "param.*",
+]
+ignore_missing_imports = true
 
 [project]
 name = "panel-chat-examples"
