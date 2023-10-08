@@ -22,7 +22,7 @@ def add_key_to_env(key):
     os.environ["OPENAI_API_KEY"] = key
     chat_interface.send(
         "Your OpenAI key has been set. Feel free to minimize the sidebar.",
-        **SYSTEM_KWARGS
+        **SYSTEM_KWARGS,
     )
     chat_interface.disabled = False
 

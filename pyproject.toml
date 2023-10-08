@@ -17,7 +17,6 @@ commit_extra_args = ["-e"]
 path = "panel_chat_examples/__init__.py"
 
 [tool.hatch.envs.default]
-python = "3.9"
 dependencies = [
     "black",
     "mypy",
@@ -49,6 +48,12 @@ docs-build = "mkdocs build"
 [build-system]
 requires = ["hatchling", "hatch-regex-commit"]
 build-backend = "hatchling.build"
+
+[[tool.mypy.overrides]]
+module = [
+    "param.*",
+]
+ignore_missing_imports = true
 
 [project]
 name = "panel-chat-examples"
