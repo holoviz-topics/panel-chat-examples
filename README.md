@@ -28,13 +28,13 @@ models (i.e. not OpenAI), install `ctransformers` with the [proper backend](http
 CUDA:
 
 ```bash
-hatch run pip install ctransformers[cuda]
+hatch run pip install ctransformers[cuda] --no-binary ctransformers --no-cache --no-binary ctransformers --force
 ```
 
 Mac M1/2:
 
 ```bash
-CT_METAL=1 hatch run pip install ctransformers --no-binary ctransformers  # for m1
+CT_METAL=1 hatch run pip install ctransformers --no-binary ctransformers --no-cache --no-binary ctransformers --force # for m1
 ```
 
 ---
