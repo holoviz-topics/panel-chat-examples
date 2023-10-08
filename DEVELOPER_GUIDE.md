@@ -118,6 +118,12 @@ hatch run panel-convert
 
 The apps are saved to [docs/pyodide](docs/pyodide) folder
 
+You can serve them using
+
+```bash
+python -m http.server -d docs/pyodide
+```
+
 ## Serve the documentation
 
 You can serve the Mkdocs documentation with livereload via:
