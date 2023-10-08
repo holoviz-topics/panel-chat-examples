@@ -34,7 +34,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
     for model in MODEL_KWARGS:
         if model not in llm_chains:
             instance.send(
-                f"Downloading {model}; pledepending on your internet connection, "
+                f"Downloading {model}; depending on your internet connection, "
                 f"this may take a while.",
                 user="System",
                 respond=False,
