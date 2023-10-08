@@ -110,6 +110,14 @@ You should make sure the RPS (Request per seconds) stay above 1. In the image be
 
 ![Locust](assets/images/panel-chat-examples-locust.png)
 
+## Build the pyodide apps
+
+```bash
+hatch run panel-convert
+```
+
+The apps are saved to [docs/pyodide](docs/pyodide) folder
+
 ## Serve the documentation
 
 You can serve the Mkdocs documentation with livereload via:

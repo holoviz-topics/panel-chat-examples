@@ -6,12 +6,14 @@ To run all of these examples locally:
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
+# Set the OPENAI_API_KEY environment variable
 hatch run panel-serve
 ```
 
-Note the default installation is not optimized for GPU usage. To enable GPU support for local
-models (i.e. not OpenAI), install `ctransformers` with the proper backend and modify the
-scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
+Note the default installation is not optimized for GPU usage. To enable GPU
+support for local models (i.e. not OpenAI), install `ctransformers` with the
+proper backend and modify the scripts configs' accordingly, e.g.
+`n_gpu_layers=1` for a single GPU.
 
 ## Basics
 
@@ -52,12 +54,15 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/echo.html' target='_blank'>Live App</a>
 
 ### Echo Stream
 
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
+responses.
 
-The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
+The chatbot Assistant echoes back the message entered by the User in a *streaming*
+fashion.
 
 [<img src="assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
 
@@ -65,9 +70,11 @@ The chatbot Assistant echoes back the message entered by the User in a *streamin
 <summary>Source code for <a href='examples/basics/echo_stream.py' target='_blank'>echo_stream.py</a></summary>
 ```python
 """
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
+responses.
 
-The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
+The chatbot Assistant echoes back the message entered by the User in a *streaming*
+fashion.
 """
 
 
@@ -97,6 +104,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/echo_stream.html' target='_blank'>Live App</a>
 
 ## Features
 
@@ -145,6 +153,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/chained_response.html' target='_blank'>Live App</a>
 
 ### Delayed Placeholder
 
@@ -189,6 +198,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/delayed_placeholder.html' target='_blank'>Live App</a>
 
 ### Replace Response
 
@@ -238,6 +248,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/replace_response.html' target='_blank'>Live App</a>
 
 ### Slim Interface
 
@@ -278,6 +289,7 @@ pn.template.FastListTemplate(
 ```
 </details>
 
+<a href='pyodide/slim_interface.html' target='_blank'>Live App</a>
 
 ## Langchain
 
@@ -320,6 +332,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/chat_memory.html' target='_blank'>Live App</a>
 
 ### Chroma Pdf Qa
 
@@ -433,6 +446,7 @@ template.servable()
 ```
 </details>
 
+<a href='pyodide/chroma_pdf_qa.html' target='_blank'>Live App</a>
 
 ### Llama And Mistral
 
@@ -465,7 +479,8 @@ MODEL_KWARGS = {
 }
 llm_chains = {}
 
-TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the user:
+TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
+user:
 {user_input} [/INST] </s>
 """
 
@@ -496,6 +511,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/llama_and_mistral.html' target='_blank'>Live App</a>
 
 ### Math Chain
 
@@ -535,6 +551,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/math_chain.html' target='_blank'>Live App</a>
 
 ## Openai
 
@@ -613,6 +630,7 @@ pn.template.MaterialTemplate(
 ```
 </details>
 
+<a href='pyodide/authentication.html' target='_blank'>Live App</a>
 
 ### Chat
 
@@ -652,6 +670,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/chat.html' target='_blank'>Live App</a>
 
 ### Chat Async
 
@@ -691,6 +710,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/chat_async.html' target='_blank'>Live App</a>
 
 ### Image
 
@@ -726,6 +746,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/image.html' target='_blank'>Live App</a>
 
 ### Two Bots
 
@@ -788,6 +809,7 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/two_bots.html' target='_blank'>Live App</a>
 
 ### Upload
 
@@ -881,3 +903,4 @@ chat_interface.servable()
 ```
 </details>
 
+<a href='pyodide/upload.html' target='_blank'>Live App</a>

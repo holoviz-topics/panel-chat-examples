@@ -78,6 +78,11 @@ def run():
                     f"```\n"
                     "</details>\n"
                 )
+                docstring_lines.append(
+                    f"""\
+<a href='pyodide/{file.name.replace(".py", ".html")}' target='_blank'>Live App</a>\
+"""
+                )
 
                 docstring = "\n".join(docstring_lines)
 
