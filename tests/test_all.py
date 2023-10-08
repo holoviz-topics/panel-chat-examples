@@ -3,4 +3,4 @@ import subprocess
 
 
 def test_app(app_path):
-    subprocess.call(['python', app_path])
+    subprocess.call(["python", app_path])
