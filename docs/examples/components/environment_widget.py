@@ -1,4 +1,5 @@
-"""The `EnvironmentWidgetBase` class enables you to manage variable values from a
+"""
+The `EnvironmentWidgetBase` class enables you to manage variable values from a
 combination of
 
 - custom variable values

@@ -18,7 +18,7 @@ To install and serve all examples:
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
-# Set the OPENAI_API_KEY environment variable
+# Optionally set the OPENAI_API_KEY environment variable
 hatch run panel-serve  # or equivalently panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```
 
@@ -28,13 +28,13 @@ models (i.e. not OpenAI), install `ctransformers` with the [proper backend](http
 CUDA:
 
 ```bash
-pip install ctransformers[cuda]
+hatch run pip install ctransformers[cuda]
 ```
 
 Mac M1/2:
 
 ```bash
-CT_METAL=1 pip install ctransformers --no-binary ctransformers  # for m1
+CT_METAL=1 hatch run pip install ctransformers --no-binary ctransformers  # for m1
 ```
 
 ---

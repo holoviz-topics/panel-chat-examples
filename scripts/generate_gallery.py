@@ -29,7 +29,7 @@ def run():
         git clone https://github.com/holoviz-topics/panel-chat-examples
         cd panel-chat-examples
         pip install hatch
-        # Set the OPENAI_API_KEY environment variable
+        # Optionally set the OPENAI_API_KEY environment variable
         hatch run panel-serve
         ```
 
