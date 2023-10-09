@@ -7,7 +7,7 @@ from random import choice
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -29,7 +29,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
 
 chat_interface = pn.widgets.ChatInterface(
-    widgets=[pn.widgets.RadioButtonGroup(options=["Heads!", "Tails!"])],
+    widgets=[pn.widgets.RadioButtonGroup(options=["Heads!", "Tails!"], button_type="primary", button_style="outline")],
     callback=callback,
     callback_user="Game Master",
 )

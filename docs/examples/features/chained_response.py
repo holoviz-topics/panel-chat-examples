@@ -22,7 +22,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         }
         instance.respond()
     elif user == ARM_BOT:
-        user_entry = instance.value[-3]
+        user_entry = instance.value[-2]
         user_contents = user_entry.value
         yield {
             "user": LEG_BOT,

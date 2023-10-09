@@ -7,7 +7,7 @@ import pytest
 from panel.io.server import serve
 from playwright.sync_api import expect
 
-from .user import ACTION, ZOOM
+from .user import ACTION, TIMEOUT, ZOOM
 
 pytestmark = pytest.mark.ui
 
@@ -75,6 +75,7 @@ def test_app(server, app_path, port, page):
     if run:
         run(page)
 
+    page.wait_for_timeout(TIMEOUT)
     assert _bokeh_messages_have_been_logged(msgs)
     _expect_no_traceback(page)
     assert _page_not_empty(page), "The page is empty, No <div> element was not found"
