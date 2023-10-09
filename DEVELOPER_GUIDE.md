@@ -79,13 +79,16 @@ To run the Playwright tests in *headed* mode (i.e. show the browser) you can run
 hatch run pytest -m ui --headed
 ```
 
-You can take screenshots via
+You can take screenshots or record videos the `--screenshot` and `--video` flags and slow them
+down via `--slowmo`.
 
 ```bash
-SCREENSHOT=true hatch run pytest -m ui
+hatch run pytest -m ui --screenshot on --video on --headed --slowmo 100
 ```
 
-The screenshots can be found in [tests/ui/screenshots](tests/ui/screenshots)
+The screenshots and videos can be found in the [test-results](test-results) folder.
+
+For more info on using Playwright+Panel see the [Panel UI tests](https://panel.holoviz.org/how_to/test/uitests.html) guide.
 
 ## Run Load tests
 

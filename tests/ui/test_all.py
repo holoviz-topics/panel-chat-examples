@@ -7,11 +7,9 @@ import pytest
 from panel.io.server import serve
 from playwright.sync_api import expect
 
-pytestmark = pytest.mark.ui
+from .user import ACTION, ZOOM
 
-SCREENSHOT = bool(os.environ.get("SCREENSHOT", ""))
-SCREENSHOTS_PATH = Path(__file__).parent / "screenshots"
-SCREENSHOTS_PATH.mkdir(parents=True, exist_ok=True)
+pytestmark = pytest.mark.ui
 
 EXPECTED_LOG_MESSAGES = [
     "[bokeh] setting log level to: 'info'",
@@ -19,7 +17,7 @@ EXPECTED_LOG_MESSAGES = [
     "[bokeh] document idle at",
     "Bokeh items were rendered successfully",
 ]
-
+VIEWPORT={ 'width': 1600, 'height': 900 } # Optimal for Twitter
 
 def _bokeh_messages_have_been_logged(msgs):
     return (
@@ -45,14 +43,6 @@ def _expect_no_traceback(page):
     expect(page.get_by_text("Traceback (most recent call last):")).to_have_count(0)
 
 
-def _take_screenshot(app_path, page):
-    if SCREENSHOT:
-        page.screenshot(
-            path=SCREENSHOTS_PATH / Path(app_path).name.replace(".py", ".png"),
-            full_page=True,
-        )
-
-
 @pytest.fixture
 def server(app_path, port):
     """Returns a panel server runnning the app"""
@@ -66,15 +56,25 @@ def server(app_path, port):
         os.environ["BOKEH_ALLOW_WS_ORIGIN"] = bokeh_allow_ws_origin
 
 
+
+@pytest.mark.browser_context_args(viewport=VIEWPORT)
 def test_app(server, app_path, port, page):
     """Test the UI of an app via Playwright"""
     msgs = []
+    name = Path(app_path).name
     # Without the lambda below an AttributeError will be raised
     page.on("console", lambda: msgs.append)
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
+    
+    zoom = ZOOM.get(name, None)
+    if zoom:
+        page.locator('body').evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
+    
+    run = ACTION.get(name, None)
+    if run:
+        run(page)
 
     assert _bokeh_messages_have_been_logged(msgs)
     _expect_no_traceback(page)
     assert _page_not_empty(page), "The page is empty, No <div> element was not found"
-    _take_screenshot(app_path, page)

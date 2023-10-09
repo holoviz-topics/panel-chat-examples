@@ -161,3 +161,4 @@ cython_debug/
 tests/ui/screenshots/*
 docs/pyodide/*
 script.*
+test-results/
