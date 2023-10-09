@@ -17,7 +17,8 @@ EXPECTED_LOG_MESSAGES = [
     "[bokeh] document idle at",
     "Bokeh items were rendered successfully",
 ]
-VIEWPORT={ 'width': 1600, 'height': 900 } # Optimal for Twitter
+VIEWPORT = {"width": 1600, "height": 900}  # Optimal for Twitter
+
 
 def _bokeh_messages_have_been_logged(msgs):
     return (
@@ -56,7 +57,6 @@ def server(app_path, port):
         os.environ["BOKEH_ALLOW_WS_ORIGIN"] = bokeh_allow_ws_origin
 
 
-
 @pytest.mark.browser_context_args(viewport=VIEWPORT)
 def test_app(server, app_path, port, page):
     """Test the UI of an app via Playwright"""
@@ -66,11 +66,11 @@ def test_app(server, app_path, port, page):
     page.on("console", lambda: msgs.append)
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
-    
+
     zoom = ZOOM.get(name, None)
     if zoom:
-        page.locator('body').evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
-    
+        page.locator("body").evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
+
     run = ACTION.get(name, None)
     if run:
         run(page)

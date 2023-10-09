@@ -11,7 +11,7 @@ from time import sleep
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):

@@ -6,7 +6,7 @@ The chatbot Assistant echoes back the message entered by the User.
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
