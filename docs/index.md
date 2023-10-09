@@ -1,17 +1,21 @@
 
-# Examples
+# Panel Chat Examples
 
 To run all of these examples locally:
+
 ```bash
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
 pip install hatch
-hatch run panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
+# Optionally set the OPENAI_API_KEY environment variable
+hatch run panel-serve
 ```
 
-Note the default installation is not optimized for GPU usage. To enable GPU support for local
-models (i.e. not OpenAI), install `ctransformers` with the proper backend and modify the
-scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
+!!! note
+    Note the default installation is not optimized for GPU usage. To **enable
+    GPU support** for local models (i.e. not OpenAI), install `ctransformers`
+    with the proper backend and modify the
+    scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
 
 ## Basics
 
@@ -55,9 +59,11 @@ chat_interface.servable()
 
 ### Echo Stream
 
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
+responses.
 
-The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
+The chatbot Assistant echoes back the message entered by the User in a *streaming*
+fashion.
 
 [<img src="assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
 
@@ -65,9 +71,11 @@ The chatbot Assistant echoes back the message entered by the User in a *streamin
 <summary>Source code for <a href='examples/basics/echo_stream.py' target='_blank'>echo_stream.py</a></summary>
 ```python
 """
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
+responses.
 
-The chatbot Assistant echoes back the message entered by the User in a *streaming* fashion.
+The chatbot Assistant echoes back the message entered by the User in a *streaming*
+fashion.
 """
 
 
@@ -94,6 +102,83 @@ chat_interface.send(
     respond=False,
 )
 chat_interface.servable()
+```
+</details>
+
+
+## Components
+
+### Environment Widget
+
+The `EnvironmentWidgetBase` class enables you to manage variable values from a
+combination of
+
+- custom variable values
+- environment variables
+- user input.
+
+(listed by order of precedence)
+
+You can use it as a drop in replacement for `os.environ`.
+
+For example you might not have the resources to provide an `OPENAI_API_KEY`,
+`WEAVIATE_API_KEY` or `LANGCHAIN_API_KEY`. In that case you would would like to ask the
+user for it.
+
+Inherit from this widget to create your own custom `EnvironmentWidget`.
+
+[<img src="assets/thumbnails/environment_widget.png" alt="Environment Widget" style="max-height: 400px; max-width: 100%;">](examples/components/environment_widget.py)
+
+<details>
+<summary>Source code for <a href='examples/components/environment_widget.py' target='_blank'>environment_widget.py</a></summary>
+```python
+"""
+The `EnvironmentWidgetBase` class enables you to manage variable values from a
+combination of
+
+- custom variable values
+- environment variables
+- user input.
+
+(listed by order of precedence)
+
+You can use it as a drop in replacement for `os.environ`.
+
+For example you might not have the resources to provide an `OPENAI_API_KEY`,
+`WEAVIATE_API_KEY` or `LANGCHAIN_API_KEY`. In that case you would would like to ask the
+user for it.
+
+Inherit from this widget to create your own custom `EnvironmentWidget`.
+"""
+# Longer term we should try to get this widget included in Panel
+import panel as pn
+import param
+
+from panel_chat_examples import EnvironmentWidgetBase
+
+pn.extension()
+
+
+class EnvironmentWidget(EnvironmentWidgetBase):
+    """An example Environment Widget for managing environment variables"""
+
+    OPENAI_API_KEY = param.String(doc="A key for the OpenAI api")
+    WEAVIATE_API_KEY = param.String(doc="A key for the Weaviate api")
+    LANGCHAIN_API_KEY = param.String(doc="A key for the LangChain api")
+
+
+environment = EnvironmentWidget(max_width=1000)
+pn.template.FastListTemplate(
+    title="Environment Widget",
+    sidebar=[environment],
+    main=[
+        __doc__,
+        pn.Column(
+            environment.param.variables_set,
+            environment.param.variables_not_set,
+        ),
+    ],
+).servable()
 ```
 </details>
 
@@ -157,7 +242,6 @@ Demonstrates how to delay the display of the placeholder.
 """
 
 from asyncio import sleep
-from random import choice
 
 import panel as pn
 
@@ -448,7 +532,6 @@ Llama2.
 """
 
 import panel as pn
-
 from langchain.chains import LLMChain
 from langchain.llms import CTransformers
 from langchain.prompts import PromptTemplate
@@ -467,7 +550,8 @@ MODEL_KWARGS = {
 }
 llm_chains = {}
 
-TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the user:
+TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
+user:
 {user_input} [/INST] </s>
 """
 
@@ -574,7 +658,7 @@ def add_key_to_env(key):
     os.environ["OPENAI_API_KEY"] = key
     chat_interface.send(
         "Your OpenAI key has been set. Feel free to minimize the sidebar.",
-        **SYSTEM_KWARGS
+        **SYSTEM_KWARGS,
     )
     chat_interface.disabled = False
 
@@ -882,3 +966,4 @@ chat_interface.send(
 chat_interface.servable()
 ```
 </details>
+

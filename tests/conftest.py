@@ -8,7 +8,7 @@ from panel.config import panel_extension
 from panel.io.state import state
 
 # pylint: disable=protected-access
-EXAMPLES_PATH = Path(__file__).parent.parent / "examples"
+EXAMPLES_PATH = Path(__file__).parent.parent / "docs/examples"
 
 # The fixtures in this module are heavily inspired the Panel conftest.py file.
 
@@ -21,6 +21,17 @@ def get_default_port():
 
 
 PORT = [get_default_port()]
+
+REQUIRES_OPENAI_API_KEY = [
+    "docs/examples/langchain/math_chain.py",
+    "docs/examples/langchain/chat_memory.py",
+]
+
+
+def _examples_to_skip():
+    if "OPENAI_API_KEY" not in os.environ:
+        return [Path(path).absolute() for path in REQUIRES_OPENAI_API_KEY]
+    return []
 
 
 @pytest.fixture
@@ -35,9 +46,9 @@ def module_cleanup():
     """
     Cleanup Panel extensions after each test.
     """
-    from bokeh.core.has_props import (
+    from bokeh.core.has_props import (  # pylint: disable=import-outside-toplevel
         _default_resolver,
-    )  # pylint: disable=import-outside-toplevel
+    )
 
     to_reset = list(panel_extension._imports.values())
 
@@ -66,13 +77,15 @@ def cache_cleanup():
 
 
 def _get_paths():
+    skip_paths = _examples_to_skip()
     paths = []
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
         if folder.name == "examples":
             continue
 
         for file in folder.glob("*.py"):
-            paths.append(str(file))
+            if file not in skip_paths:
+                paths.append(str(file))
 
     return paths
 

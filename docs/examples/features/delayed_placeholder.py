@@ -3,7 +3,6 @@ Demonstrates how to delay the display of the placeholder.
 """
 
 from asyncio import sleep
-from random import choice
 
 import panel as pn
 
