@@ -21,21 +21,23 @@ def run():
 
     text = dedent(
         """
-        # Examples
+        # Panel Chat Examples
 
         To run all of these examples locally:
+        
         ```bash
         git clone https://github.com/holoviz-topics/panel-chat-examples
         cd panel-chat-examples
         pip install hatch
-        # Set the OPENAI_API_KEY environment variable
+        # Optionally set the OPENAI_API_KEY environment variable
         hatch run panel-serve
         ```
 
-        Note the default installation is not optimized for GPU usage. To enable GPU
-        support for local models (i.e. not OpenAI), install `ctransformers` with the
-        proper backend and modify the scripts configs' accordingly, e.g.
-        `n_gpu_layers=1` for a single GPU.
+        !!! note
+            Note the default installation is not optimized for GPU usage. To **enable
+            GPU support** for local models (i.e. not OpenAI), install `ctransformers`
+            with the proper backend and modify the
+            scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
         """
     )
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):

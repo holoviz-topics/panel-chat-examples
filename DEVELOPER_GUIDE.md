@@ -108,7 +108,7 @@ Finally you can open [http://localhost:8089/](http://localhost:8089/) and click 
 
 You should make sure the RPS (Request per seconds) stay above 1. In the image below its 2.3.
 
-![Locust](assets/images/panel-chat-examples-locust.png)
+![Locust](docs/assets/images/panel-chat-examples-locust.png)
 
 ## Build the pyodide apps
 

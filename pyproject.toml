@@ -64,6 +64,12 @@ loadtest = "locust -f tests/locustfile.py -H http://localhost:5006 --users 1 --s
 requires = ["hatchling", "hatch-regex-commit"]
 build-backend = "hatchling.build"
 
+[[tool.mypy.overrides]]
+module = [
+    "param.*",
+]
+ignore_missing_imports = true
+
 [project]
 name = "panel-chat-examples"
 authors = [
