@@ -24,7 +24,7 @@ def run():
         # Panel Chat Examples
 
         To run all of these examples locally:
-        
+
         ```bash
         git clone https://github.com/holoviz-topics/panel-chat-examples
         cd panel-chat-examples

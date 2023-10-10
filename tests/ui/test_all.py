@@ -18,6 +18,7 @@ EXPECTED_LOG_MESSAGES = [
     "Bokeh items were rendered successfully",
 ]
 VIEWPORT = {"width": 1600, "height": 900}  # Optimal for Twitter
+RECORD_VIDEO_SIZE = VIEWPORT
 
 
 def _bokeh_messages_have_been_logged(msgs):
@@ -57,7 +58,9 @@ def server(app_path, port):
         os.environ["BOKEH_ALLOW_WS_ORIGIN"] = bokeh_allow_ws_origin
 
 
-@pytest.mark.browser_context_args(viewport=VIEWPORT)
+@pytest.mark.browser_context_args(
+    viewport=VIEWPORT, record_video_size=RECORD_VIDEO_SIZE
+)
 def test_app(server, app_path, port, page):
     """Test the UI of an app via Playwright"""
     msgs = []

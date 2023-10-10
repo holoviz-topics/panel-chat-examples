@@ -5,6 +5,7 @@ OpenAI's API with LangChain.
 
 import os
 import tempfile
+from pathlib import Path
 
 import panel as pn
 from langchain.chains import RetrievalQA
@@ -14,7 +15,10 @@ from langchain.llms import OpenAI
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-pn.extension()
+pn.extension(design="material")
+
+# Conversion to str can be removed when https://github.com/holoviz/panel/pull/5607 is released
+EXAMPLE_PDF = str(Path(__file__).parent / "example.pdf")
 
 
 def initialize_chain():
@@ -81,12 +85,21 @@ pdf_input = pn.widgets.FileInput(accept=".pdf", value="", height=50)
 key_input = pn.widgets.PasswordInput(
     name="OpenAI Key",
     placeholder="sk-...",
+    sizing_mode="stretch_width",
 )
 k_slider = pn.widgets.IntSlider(
-    name="Number of Relevant Chunks", start=1, end=5, step=1, value=2
+    name="Number of Relevant Chunks",
+    start=1,
+    end=5,
+    step=1,
+    value=2,
+    sizing_mode="stretch_width",
 )
 chain_select = pn.widgets.RadioButtonGroup(
-    name="Chain Type", options=["stuff", "map_reduce", "refine", "map_rerank"]
+    name="Chain Type",
+    options=["stuff", "map_reduce", "refine", "map_rerank"],
+    orientation="vertical",
+    sizing_mode="stretch_width",
 )
 chat_input = pn.widgets.TextInput(placeholder="First, upload a PDF!")
 chat_interface = pn.widgets.ChatInterface(
@@ -96,7 +109,20 @@ chat_interface.send(
     {"user": "System", "value": "Please first upload a PDF and click send!"},
     respond=False,
 )
+download_example_pdf = pn.widgets.FileDownload(
+    file=EXAMPLE_PDF, sizing_mode="stretch_width"
+)
+upload_example_pdf = pn.widgets.Button(
+    name="Upload example.pdf", sizing_mode="stretch_width"
+)
 template = pn.template.BootstrapTemplate(
-    sidebar=[key_input, k_slider, chain_select], main=[chat_interface]
+    sidebar=[
+        key_input,
+        k_slider,
+        chain_select,
+        upload_example_pdf,
+        download_example_pdf,
+    ],
+    main=[chat_interface],
 )
 template.servable()

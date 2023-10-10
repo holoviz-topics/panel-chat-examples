@@ -35,14 +35,14 @@ def echo_stream(page: Page):
 
 
 def environment_widget(page: Page):
-    langchain = page.get_by_role("textbox")
-    langchain.first.click()
+    langchain = page.get_by_role("textbox").nth(0)
     langchain.fill("some-secret")
     langchain.press("Enter")
-    langchain.press("Tab")
+    page.wait_for_timeout(4 * TIMEOUT)
     weviate = page.get_by_role("textbox").nth(1)
     weviate.fill("another-secret")
     weviate.press("Enter")
+    page.wait_for_timeout(4 * TIMEOUT)
 
 
 def chained_response(page: Page):
@@ -74,6 +74,18 @@ def slim_interface(page: Page):
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
+def chat_memory(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Tell me what HoloViz Panel is in one sentence")
+    page.wait_for_timeout(4 * TIMEOUT)
+    chat.send("Tell me more")
+    page.wait_for_timeout(6 * TIMEOUT)
+
+
+def chrome_pdf_qa(page: Page):
+    chat = ChatInterface(page)
+
+
 ACTION = {
     "echo.py": echo,
     "echo_stream.py": echo_stream,
@@ -82,6 +94,7 @@ ACTION = {
     "delayed_placeholder.py": delayed_placeholder,
     "replace_response.py": replace_response,
     "slim_interface.py": slim_interface,
+    "chat_memory.py": chat_memory,
 }
 ZOOM = {
     "echo.py": 2,
@@ -91,4 +104,5 @@ ZOOM = {
     "delayed_placeholder.py": 2,
     "replace_response.py": 2,
     "slim_interface.py": 1.25,
+    "chat_memory.py": 1.25,
 }
