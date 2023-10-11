@@ -87,7 +87,7 @@ dependencies = [
     "openai",
     "numexpr",
     "ctransformers",
-    "panel @ git+https://github.com/holoviz/panel.git@chat_components"
+    "panel @ git+https://github.com/holoviz/panel.git@main"
 ]
 
 [project.urls]
