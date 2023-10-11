@@ -8,16 +8,21 @@ from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
 pn.extension()
 
-SYSTEM_INSTRUCTIONS = "Reply to the user in a friendly manner."
+SYSTEM_INSTRUCTIONS = "Do what the user requests."
 
 
-def apply_template(contents, history):
-    if not history:
-        text_row = f"""<s>[INST]{SYSTEM_INSTRUCTIONS} {contents}[/INST]"""
-    else:
-        prior_input_output = "\n".join(history)
-        text_row = f"""{prior_input_output}[INST]{contents}[/INST]"""
-    return text_row
+def apply_template(history):
+    history = [entry for entry in history if entry.user != "System"]
+    prompt = ""
+    for i, entry in enumerate(history):
+        if i == 0:
+            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {entry.value}[/INST]"
+        else:
+            if entry.user == "Mistral":
+                prompt += f"{entry.value}</s>"
+            else:
+                prompt += f"""[INST]{entry.value}[/INST]"""
+    return prompt
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -35,21 +40,19 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         )
 
     llm = llms["mistral"]
-    prompt = apply_template(contents, history)
+    history = [entry for entry in instance.value]
+    prompt = apply_template(history)
     response = llm(prompt, stream=True)
     message = ""
     for token in response:
         message += token
         yield message
-    history.append(prompt + message + "</s>")
 
 
 llms = {}
-history = []
 chat_interface = pn.widgets.ChatInterface(
     callback=callback,
     callback_user="Mistral",
-    reset_on_send=True,
 )
 chat_interface.send(
     "Send a message to get a reply from Mistral!", user="System", respond=False
