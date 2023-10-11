@@ -43,7 +43,6 @@ chat_interface = pn.widgets.ChatInterface(
     callback=callback,
     callback_user="Mistral",
     reset_on_send=True,
-    widgets=[pn.widgets.TextAreaInput(auto_grow=True, rows=1, max_rows=3)],
 )
 chat_interface.send(
     "Send a message to get a reply from Mistral!", user="System", respond=False
