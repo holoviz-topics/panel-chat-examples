@@ -1,6 +1,6 @@
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral thru CTransformers.
+Mistral thru CTransformers that includes a memory of the conversation history.
 """
 
 import panel as pn
