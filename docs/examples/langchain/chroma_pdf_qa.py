@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 
 import panel as pn
+import param
 from langchain.chains import RetrievalQA
 from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings import OpenAIEmbeddings
@@ -15,113 +16,141 @@ from langchain.llms import OpenAI
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-pn.extension(design="material")
+from panel_chat_examples import EnvironmentWidgetBase
 
 # Conversion to str can be removed when https://github.com/holoviz/panel/pull/5607 is released
 EXAMPLE_PDF = str(Path(__file__).parent / "example.pdf")
+TTL = 1800  # 30 minutes
+
+pn.extension(design="material")
 
 
-def initialize_chain():
-    if key_input.value:
-        os.environ["OPENAI_API_KEY"] = key_input.value
+class EnvironmentWidget(EnvironmentWidgetBase):
+    OPENAI_API_KEY: str = param.String()
 
-    selections = (pdf_input.value, k_slider.value, chain_select.value)
-    if selections in pn.state.cache:
-        return pn.state.cache[selections]
 
-    chat_input.placeholder = "Ask questions here!"
+class State(param.Parameterized):
+    pdf: bytes = param.Bytes()
+    number_of_chunks: int = param.Integer(default=2, bounds=(1, 5), step=1)
+    chain_type: str = param.Selector(
+        objects=["stuff", "map_reduce", "refine", "map_rerank"]
+    )
 
-    # load document
+
+@pn.cache(ttl=TTL)
+def _get_texts(pdf):
+    # load documents
     with tempfile.NamedTemporaryFile("wb", delete=False) as f:
-        f.write(pdf_input.value)
+        f.write(pdf)
     file_name = f.name
     loader = PyPDFLoader(file_name)
     documents = loader.load()
+
     # split the documents into chunks
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    texts = text_splitter.split_documents(documents)
+    return text_splitter.split_documents(documents)
+
+
+@pn.cache(ttl=TTL)
+def _get_vector_db(pdf, openai_api_key):
+    texts = _get_texts(pdf)
     # select which embeddings we want to use
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     # create the vectorestore to use as the index
-    db = Chroma.from_documents(texts, embeddings)
-    # expose this index in a retriever interface
-    retriever = db.as_retriever(
-        search_type="similarity", search_kwargs={"k": k_slider.value}
+    return Chroma.from_documents(texts, embeddings)
+
+
+@pn.cache(ttl=TTL)
+def _get_retriever(pdf, openai_api_key: str, number_of_chunks: int):
+    db = _get_vector_db(pdf, openai_api_key)
+    return db.as_retriever(
+        search_type="similarity", search_kwargs={"k": number_of_chunks}
     )
-    # create a chain to answer questions
-    qa = RetrievalQA.from_chain_type(
-        llm=OpenAI(),
-        chain_type=chain_select.value,
+
+
+@pn.cache(ttl=3600)
+def _get_retrival_qa(
+    pdf: bytes, number_of_chunks: int, chain_type: str, openai_api_key: str
+):
+    retriever = _get_retriever(pdf, openai_api_key, number_of_chunks)
+    return RetrievalQA.from_chain_type(
+        llm=OpenAI(openai_api_key=openai_api_key),
+        chain_type=chain_type,
         retriever=retriever,
         return_source_documents=True,
         verbose=True,
     )
-    return qa
+
+
+environ = EnvironmentWidget()
+state = State()
+
+
+def _get_validation_message():
+    pdf = state.pdf
+    openai_api_key = environ.OPENAI_API_KEY
+    if not pdf and not openai_api_key:
+        return "Please first enter an OpenAI Api key and upload a PDF!"
+    if not pdf:
+        return "Please first upload a PDF!"
+    if not openai_api_key:
+        return "Please first enter an OpenAI Api key!"
+    return ""
+
+
+def _send_not_ready_message() -> bool:
+    message = _get_validation_message()
+
+    if message:
+        chat_interface.send({"user": "System", "value": message}, respond=False)
+    return bool(message)
 
 
 async def respond(contents, user, chat_interface):
-    if not pdf_input.value:
-        chat_interface.send(
-            {"user": "System", "value": "Please first upload a PDF!"}, respond=False
-        )
+    if _send_not_ready_message():
         return
-    elif chat_interface.active == 0:
+    if chat_interface.active == 0:
         chat_interface.active = 1
         chat_interface.active_widget.placeholder = "Ask questions here!"
         yield {"user": "OpenAI", "value": "Let's chat about the PDF!"}
         return
-
-    qa = initialize_chain()
+    text_input.placeholder = "Ask questions here!"
+    qa = _get_retrival_qa(
+        state.pdf, state.number_of_chunks, state.chain_type, environ.OPENAI_API_KEY
+    )
     response = qa({"query": contents})
-    answers = pn.Column(response["result"])
-    answers.append(pn.layout.Divider())
+    pages = pn.Accordion()
+    pages = []
+
     for doc in response["source_documents"][::-1]:
-        answers.append(f"**Page {doc.metadata['page']}**:")
-        answers.append(f"```\n{doc.page_content}\n```")
+        name = f"Chunk {doc.metadata['page']}"
+        content = doc.page_content
+        pages.append((name, content))
+
+    pages_layout = pn.Accordion(*pages)
+    answers = pn.Column(response["result"], pages_layout)
+
     yield {"user": "OpenAI", "value": answers}
 
 
-pdf_input = pn.widgets.FileInput(accept=".pdf", value="", height=50)
-key_input = pn.widgets.PasswordInput(
-    name="OpenAI Key",
-    placeholder="sk-...",
-    sizing_mode="stretch_width",
+pdf_input = pn.widgets.FileInput.from_param(state.param.pdf, accept=".pdf", height=50)
+text_input = pn.widgets.TextInput(placeholder="First, upload a PDF!")
+chat_interface = pn.widgets.ChatInterface(
+    callback=respond, sizing_mode="stretch_width", widgets=[pdf_input, text_input]
 )
-k_slider = pn.widgets.IntSlider(
-    name="Number of Relevant Chunks",
-    start=1,
-    end=5,
-    step=1,
-    value=2,
-    sizing_mode="stretch_width",
-)
-chain_select = pn.widgets.RadioButtonGroup(
-    name="Chain Type",
-    options=["stuff", "map_reduce", "refine", "map_rerank"],
+
+_send_not_ready_message()
+
+chain_type = pn.widgets.RadioButtonGroup.from_param(
+    state.param.chain_type,
     orientation="vertical",
     sizing_mode="stretch_width",
 )
-chat_input = pn.widgets.TextInput(placeholder="First, upload a PDF!")
-chat_interface = pn.widgets.ChatInterface(
-    callback=respond, sizing_mode="stretch_width", widgets=[pdf_input, chat_input]
-)
-chat_interface.send(
-    {"user": "System", "value": "Please first upload a PDF and click send!"},
-    respond=False,
-)
-download_example_pdf = pn.widgets.FileDownload(
-    file=EXAMPLE_PDF, sizing_mode="stretch_width"
-)
-upload_example_pdf = pn.widgets.Button(
-    name="Upload example.pdf", sizing_mode="stretch_width"
-)
 template = pn.template.BootstrapTemplate(
     sidebar=[
-        key_input,
-        k_slider,
-        chain_select,
-        upload_example_pdf,
-        download_example_pdf,
+        environ,
+        state.param.number_of_chunks,
+        chain_type,
     ],
     main=[chat_interface],
 )
