@@ -94,7 +94,7 @@ ACTION = {
     "delayed_placeholder.py": delayed_placeholder,
     "replace_response.py": replace_response,
     "slim_interface.py": slim_interface,
-    "chat_memory.py": chat_memory,
+    "chat_with_memory.py": chat_memory,
 }
 ZOOM = {
     "echo.py": 2,
@@ -104,5 +104,5 @@ ZOOM = {
     "delayed_placeholder.py": 2,
     "replace_response.py": 2,
     "slim_interface.py": 1.25,
-    "chat_memory.py": 1.25,
+    "chat_with_memory.py": 1.25,
 }
