@@ -1,6 +1,6 @@
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral through CTransformers.
+Mistral thru CTransformers that includes a memory of the conversation history.
 """
 
 import panel as pn
@@ -8,14 +8,21 @@ from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
 pn.extension(design="material")
 
-llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
-
-INSTRUCTIONS = "You are a friendly chat bot willing to help out the user."
+SYSTEM_INSTRUCTIONS = "Do what the user requests."
 
 
-def apply_template(instructions, contents):
-    text_row = f"""<s>[INST]{instructions} {contents}[/INST]"""
-    return text_row
+def apply_template(history):
+    history = [entry for entry in history if entry.user != "System"]
+    prompt = ""
+    for i, entry in enumerate(history):
+        if i == 0:
+            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {entry.value}[/INST]"
+        else:
+            if entry.user == "Mistral":
+                prompt += f"{entry.value}</s>"
+            else:
+                prompt += f"""[INST]{entry.value}[/INST]"""
+    return prompt
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -33,17 +40,19 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         )
 
     llm = llms["mistral"]
-    response = llm(apply_template(INSTRUCTIONS, contents), stream=True)
+    history = [entry for entry in instance.value]
+    prompt = apply_template(history)
+    response = llm(prompt, stream=True)
     message = ""
     for token in response:
         message += token
         yield message
 
 
+llms = {}
 chat_interface = pn.widgets.ChatInterface(
     callback=callback,
     callback_user="Mistral",
-    reset_on_send=True,
 )
 chat_interface.send(
     "Send a message to get a reply from Mistral!", user="System", respond=False

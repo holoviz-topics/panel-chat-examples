@@ -130,6 +130,14 @@ def mistral_chat(page: Page):
     page.wait_for_timeout(4000)
 
 
+def mistral_with_memory(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Tell me what HoloViz Panel is in one sentence")
+    page.wait_for_timeout(3000)
+    chat.send("Tell me more")
+    page.wait_for_timeout(3000)
+
+
 def openai_async_chat(page: Page):
     chat = ChatInterface(page)
     chat.send("What is HoloViz Panel in one sentence")
@@ -196,6 +204,7 @@ ACTION = {
     "langchain_pdf_assistant.py": langchain_pdf_assistant,
     "langchain_with_memory.py": langchain_with_memory,
     "mistral_chat.py": mistral_chat,
+    "mistral_with_memory.py": mistral_with_memory,
     "openai_async_chat.py": openai_async_chat,
     "openai_authentication.py": openai_authentication,
     "openai_chat.py": openai_chat,
@@ -217,6 +226,7 @@ ZOOM = {
     "langchain_pdf_assistant.py": 1,
     "langchain_with_memory.py": 1.25,
     "mistral_chat.py": 2,
+    "mistral_with_memory.py": 1,
     "openai_async_chat.py": 1.75,
     "openai_authentication.py": 1,
     "openai_chat.py": 1.5,
