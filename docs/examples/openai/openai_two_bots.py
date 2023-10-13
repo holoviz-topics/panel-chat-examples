@@ -6,7 +6,7 @@ chat with each other.
 import openai
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(

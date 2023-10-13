@@ -25,6 +25,7 @@ pn.extension()
 # Define the Retrival Question/ Answer Chain
 # We use caching to speed things up
 
+
 @pn.cache(ttl=TTL)
 def _get_texts(pdf):
     # load documents
@@ -69,6 +70,7 @@ def _get_retrival_qa(
         verbose=True,
     )
 
+
 def _get_response(contents):
     qa = _get_retrival_qa(
         state.pdf, state.number_of_chunks, state.chain_type, environ.OPENAI_API_KEY
@@ -81,6 +83,7 @@ def _get_response(contents):
         content = chunk.page_content
         chunks.insert(0, (name, content))
     return response, chunks
+
 
 # Define the Application State
 class EnvironmentWidget(EnvironmentWidgetBase):
@@ -111,6 +114,7 @@ chain_type_input = pn.widgets.RadioButtonGroup.from_param(
 
 # Define and configure the ChatInterface
 
+
 def _get_validation_message():
     pdf = state.pdf
     openai_api_key = environ.OPENAI_API_KEY
@@ -122,12 +126,14 @@ def _get_validation_message():
         return "Please first enter an OpenAI Api key!"
     return ""
 
+
 def _send_not_ready_message(chat_interface) -> bool:
     message = _get_validation_message()
 
     if message:
         chat_interface.send({"user": "System", "value": message}, respond=False)
     return bool(message)
+
 
 async def respond(contents, user, chat_interface):
     if _send_not_ready_message(chat_interface):
@@ -137,23 +143,29 @@ async def respond(contents, user, chat_interface):
         chat_interface.active_widget.placeholder = "Ask questions here!"
         yield {"user": "OpenAI", "value": "Let's chat about the PDF!"}
         return
-    
+
     response, documents = _get_response(contents)
     pages_layout = pn.Accordion(*documents, sizing_mode="stretch_width", max_width=800)
     answers = pn.Column(response["result"], pages_layout)
 
     yield {"user": "OpenAI", "value": answers}
 
+
 chat_interface = pn.widgets.ChatInterface(
-    callback=respond, sizing_mode="stretch_width", widgets=[pdf_input, text_input], disabled=True
+    callback=respond,
+    sizing_mode="stretch_width",
+    widgets=[pdf_input, text_input],
+    disabled=True,
 )
+
 
 @pn.depends(state.param.pdf, environ.param.OPENAI_API_KEY, watch=True)
 def _enable_chat_interface(pdf, openai_api_key):
     if pdf and openai_api_key:
-        chat_interface.disabled=False
+        chat_interface.disabled = False
     else:
-        chat_interface.disabled=True
+        chat_interface.disabled = True
+
 
 _send_not_ready_message(chat_interface)
 

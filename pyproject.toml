@@ -84,6 +84,7 @@ requires-python = ">=3.9"
 dependencies = [
     "chromadb",
     "ctransformers",
+    "hvplot",
     "langchain",
     "numexpr",
     "openai",

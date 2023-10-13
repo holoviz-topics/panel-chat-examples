@@ -7,6 +7,7 @@ DOCS_PATH = Path(__file__).parent.parent / "docs"
 EXAMPLES_PATH = DOCS_PATH / "examples"
 INDEX_MD_PATH = DOCS_PATH / "index.md"
 THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
+PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
 
 
 def run():
@@ -41,13 +42,21 @@ def run():
         """
     )
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
-        if folder.name == "examples":
+        if folder.name in ["examples", "__pycache__"]:
             continue
         text += f"\n## {folder.name.title()}\n"
 
         # Loop through each .py file in the folder
         for file in sorted(folder.glob("*.py")):
-            title = file.name.replace(".py", "").replace("_", " ").title()
+            prefix = PREFIX.get(folder.name, folder.name)
+
+            title = (
+                file.name.replace(".py", "")
+                .replace("_", " ")
+                .replace(prefix, "")
+                .strip()
+                .title()
+            )
             source_path = file.relative_to(EXAMPLES_PATH.parent)
             text += f"\n### {title}\n"
 

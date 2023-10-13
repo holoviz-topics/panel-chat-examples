@@ -1,22 +1,22 @@
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API.
+OpenAI's GPT-3 API with async/await.
 """
 
 import openai
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    response = openai.ChatCompletion.create(
+    response = await openai.ChatCompletion.acreate(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,
     )
     message = ""
-    for chunk in response:
+    async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
         yield message
 

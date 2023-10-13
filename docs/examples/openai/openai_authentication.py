@@ -13,18 +13,23 @@ SYSTEM_KWARGS = dict(
     respond=False,
 )
 
+pn.extension()
+
 
 def add_key_to_env(key):
     if not key.startswith("sk-"):
         chat_interface.send("Please enter a valid OpenAI key!", **SYSTEM_KWARGS)
         return
 
-    os.environ["OPENAI_API_KEY"] = key
     chat_interface.send(
         "Your OpenAI key has been set. Feel free to minimize the sidebar.",
         **SYSTEM_KWARGS,
     )
     chat_interface.disabled = False
+
+
+key_input = pn.widgets.PasswordInput(placeholder="sk-...", name="OpenAI Key")
+pn.bind(add_key_to_env, key=key_input, watch=True)
 
 
 async def callback(
@@ -40,15 +45,13 @@ async def callback(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,
+        api_key=key_input.value,
     )
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
         yield message
 
-
-key_input = pn.widgets.PasswordInput(placeholder="sk-...", name="OpenAI Key")
-pn.bind(add_key_to_env, key=key_input, watch=True)
 
 chat_interface = pn.widgets.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(

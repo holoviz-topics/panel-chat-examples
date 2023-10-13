@@ -6,7 +6,7 @@ OpenAI's DALL-E API.
 import openai
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
