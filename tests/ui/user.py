@@ -22,19 +22,19 @@ class ChatInterface:
         self.page.wait_for_timeout(TIMEOUT)
 
 
-def echo(page: Page):
+def basic_chat(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
-def echo_stream(page: Page):
+def basic_streaming_chat(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
-def environment_widget(page: Page):
+def component_environment_widget(page: Page):
     langchain = page.get_by_role("textbox").nth(0)
     langchain.fill("some-secret")
     langchain.press("Enter")
@@ -45,19 +45,19 @@ def environment_widget(page: Page):
     page.wait_for_timeout(4 * TIMEOUT)
 
 
-def chained_response(page: Page):
+def feature_chained_response(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text('Yeah! They said "Hello World".').inner_text()
 
 
-def delayed_placeholder(page: Page):
+def feature_delayed_placeholder(page: Page):
     chat = ChatInterface(page)
     chat.send("4")
     page.get_by_text("Slept 4 seconds!").inner_text()
 
 
-def replace_response(page: Page):
+def feature_replace_response(page: Page):
     chat = ChatInterface(page)
 
     chat.button_click(name="Tails!")
@@ -68,13 +68,13 @@ def replace_response(page: Page):
     page.wait_for_timeout(4 * TIMEOUT)
 
 
-def slim_interface(page: Page):
+def feature_slim_interface(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
-def chat_memory(page: Page):
+def langchain_with_memory(page: Page):
     chat = ChatInterface(page)
     chat.send("Tell me what HoloViz Panel is in one sentence")
     page.wait_for_timeout(4 * TIMEOUT)
@@ -82,27 +82,27 @@ def chat_memory(page: Page):
     page.wait_for_timeout(6 * TIMEOUT)
 
 
-def chrome_pdf_qa(page: Page):
+def langchain_pdf_assistant(page: Page):
     ChatInterface(page)
 
 
 ACTION = {
-    "echo.py": echo,
-    "echo_stream.py": echo_stream,
-    "environment_widget.py": environment_widget,
-    "chained_response.py": chained_response,
-    "delayed_placeholder.py": delayed_placeholder,
-    "replace_response.py": replace_response,
-    "slim_interface.py": slim_interface,
-    "chat_with_memory.py": chat_memory,
+    "basic_chat.py": basic_chat,
+    "basic_streaming_chat.py": basic_streaming_chat,
+    "component_environment_widget.py": component_environment_widget,
+    "feature_chained_response.py": feature_chained_response,
+    "feature_delayed_placeholder.py": feature_delayed_placeholder,
+    "feature_replace_response.py": feature_replace_response,
+    "feature_slim_interface.py": feature_slim_interface,
+    "langchain_with_memory.py": langchain_with_memory,
 }
 ZOOM = {
-    "echo.py": 2,
-    "echo_stream.py": 2,
-    "environment_widget.py": 1.25,
-    "chained_response.py": 2,
-    "delayed_placeholder.py": 2,
-    "replace_response.py": 2,
-    "slim_interface.py": 1.25,
-    "chat_with_memory.py": 1.25,
+    "basic_chat.py": 2,
+    "basic_streaming_chat.py": 2,
+    "component_environment_widget.py": 1.25,
+    "feature_chained_response.py": 2,
+    "feature_delayed_placeholder.py": 2,
+    "feature_replace_response.py": 2,
+    "feature_slim_interface.py": 1.25,
+    "langchain_with_memory.py": 1.25,
 }

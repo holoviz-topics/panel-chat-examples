@@ -1,6 +1,6 @@
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2.
+Llama2 and Mistral.
 """
 
 import panel as pn
