@@ -1,5 +1,6 @@
 """Test the UI of all apps via Playwright"""
 import os
+import sys
 import time
 from pathlib import Path
 
@@ -7,7 +8,7 @@ import pytest
 from panel.io.server import serve
 from playwright.sync_api import expect
 
-from .user import ACTION, ZOOM
+from .user import ACTION, TIMEOUT, ZOOM
 
 pytestmark = pytest.mark.ui
 
@@ -17,7 +18,11 @@ EXPECTED_LOG_MESSAGES = [
     "[bokeh] document idle at",
     "Bokeh items were rendered successfully",
 ]
-VIEWPORT={ 'width': 1600, 'height': 900 } # Optimal for Twitter
+RECORD_VIDEO_SIZE = {"width": 1600, "height": 900}  # Optimal for Twitter
+THUMBNAILS_PATH = Path.cwd() / "docs/assets/thumbnails"
+VIDEOS_PATH = Path.cwd() / "docs/assets/videos"
+VIEWPORT = {"width": 1600, "height": 900}  # Optimal for Twitter
+
 
 def _bokeh_messages_have_been_logged(msgs):
     return (
@@ -43,6 +48,16 @@ def _expect_no_traceback(page):
     expect(page.get_by_text("Traceback (most recent call last):")).to_have_count(0)
 
 
+def test_has_thumbnail(app_path):
+    name = Path(app_path).name
+    assert (THUMBNAILS_PATH / name.replace(".py", ".png")).exists()
+
+
+def test_has_video(app_path):
+    name = Path(app_path).name
+    assert (VIDEOS_PATH / name.replace(".py", ".webm")).exists()
+
+
 @pytest.fixture
 def server(app_path, port):
     """Returns a panel server runnning the app"""
@@ -56,8 +71,9 @@ def server(app_path, port):
         os.environ["BOKEH_ALLOW_WS_ORIGIN"] = bokeh_allow_ws_origin
 
 
-
-@pytest.mark.browser_context_args(viewport=VIEWPORT)
+@pytest.mark.browser_context_args(
+    viewport=VIEWPORT, record_video_size=RECORD_VIDEO_SIZE
+)
 def test_app(server, app_path, port, page):
     """Test the UI of an app via Playwright"""
     msgs = []
@@ -66,15 +82,19 @@ def test_app(server, app_path, port, page):
     page.on("console", lambda: msgs.append)
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
-    
-    zoom = ZOOM.get(name, None)
-    if zoom:
-        page.locator('body').evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
-    
-    run = ACTION.get(name, None)
-    if run:
+
+    # zoom and run should be defined for all examples
+    # even if we don't run the video
+    run = ACTION[name]
+    zoom = ZOOM[name]
+
+    # We cannot run these tests in pipelines etc. as they require models downloaded,
+    # api keys etc.
+    if "on" in sys.argv and ("--screenshot" in sys.argv or "--video" in sys.argv):
+        page.locator("body").evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
         run(page)
 
+    page.wait_for_timeout(TIMEOUT)
     assert _bokeh_messages_have_been_logged(msgs)
     _expect_no_traceback(page)
     assert _page_not_empty(page), "The page is empty, No <div> element was not found"

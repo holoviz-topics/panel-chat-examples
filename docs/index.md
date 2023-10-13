@@ -19,16 +19,19 @@ hatch run panel-serve
 
 ## Basics
 
-### Echo
+### Chat
 
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
 
 The chatbot Assistant echoes back the message entered by the User.
 
-[<img src="assets/thumbnails/echo.png" alt="Echo" style="max-height: 400px; max-width: 100%;">](examples/basics/echo.py)
-
+<video controls poster="assets/thumbnails/basic_chat.png" >  
+  <source src="assets/videos/basic_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/basics/echo.py' target='_blank'>echo.py</a></summary>
+<summary>Source code for <a href='examples/basics/basic_chat.py' target='_blank'>basic_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
@@ -38,7 +41,7 @@ The chatbot Assistant echoes back the message entered by the User.
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -57,7 +60,59 @@ chat_interface.servable()
 </details>
 
 
-### Echo Stream
+### Echo Stream Async
+
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
+
+<video controls poster="assets/thumbnails/basic_echo_stream_async.png" >  
+  <source src="assets/videos/basic_echo_stream_async.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples/basics/basic_echo_stream_async.py' target='_blank'>basic_echo_stream_async.py</a></summary>
+```python
+"""
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
+"""
+
+
+from asyncio import sleep
+
+import panel as pn
+
+pn.extension()
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    await sleep(1)
+    message = ""
+    for char in "Echoing User: " + contents:
+        await sleep(0.05)
+        message += char
+        yield message
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface.send(
+    "Enter a message in the TextInput below and receive an echo!",
+    user="System",
+    respond=False,
+)
+chat_interface.servable()
+```
+</details>
+
+
+### Streaming Chat
 
 Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
 responses.
@@ -65,10 +120,13 @@ responses.
 The chatbot Assistant echoes back the message entered by the User in a *streaming*
 fashion.
 
-[<img src="assets/thumbnails/echo_stream.png" alt="Echo Stream" style="max-height: 400px; max-width: 100%;">](examples/basics/echo_stream.py)
-
+<video controls poster="assets/thumbnails/basic_streaming_chat.png" >  
+  <source src="assets/videos/basic_streaming_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/basics/echo_stream.py' target='_blank'>echo_stream.py</a></summary>
+<summary>Source code for <a href='examples/basics/basic_streaming_chat.py' target='_blank'>basic_streaming_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
@@ -83,13 +141,13 @@ from time import sleep
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
     sleep(1)
     message = ""
-    for char in contents:
+    for char in f"Echoing {user}: {contents}":
         sleep(0.05)
         message += char
         yield message
@@ -127,10 +185,13 @@ user for it.
 
 Inherit from this widget to create your own custom `EnvironmentWidget`.
 
-[<img src="assets/thumbnails/environment_widget.png" alt="Environment Widget" style="max-height: 400px; max-width: 100%;">](examples/components/environment_widget.py)
-
+<video controls poster="assets/thumbnails/component_environment_widget.png" >  
+  <source src="assets/videos/component_environment_widget.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/components/environment_widget.py' target='_blank'>environment_widget.py</a></summary>
+<summary>Source code for <a href='examples/components/component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
 ```python
 """
 The `EnvironmentWidgetBase` class enables you to manage variable values from a
@@ -156,7 +217,7 @@ import param
 
 from panel_chat_examples import EnvironmentWidgetBase
 
-pn.extension()
+pn.extension(design="material")
 
 
 class EnvironmentWidget(EnvironmentWidgetBase):
@@ -188,8 +249,14 @@ pn.template.FastListTemplate(
 ### Chained Response
 
 Demonstrates how to chain responses in a ChatInterface.
+
+<video controls poster="assets/thumbnails/feature_chained_response.png" >  
+  <source src="assets/videos/feature_chained_response.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/features/chained_response.py' target='_blank'>chained_response.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
 ```python
 """
 Demonstrates how to chain responses in a ChatInterface.
@@ -199,7 +266,7 @@ from time import sleep
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 ARM_BOT = "Arm Bot"
 LEG_BOT = "Leg Bot"
@@ -215,7 +282,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         }
         instance.respond()
     elif user == ARM_BOT:
-        user_entry = instance.value[-3]
+        user_entry = instance.value[-2]
         user_contents = user_entry.value
         yield {
             "user": LEG_BOT,
@@ -234,8 +301,14 @@ chat_interface.servable()
 ### Delayed Placeholder
 
 Demonstrates how to delay the display of the placeholder.
+
+<video controls poster="assets/thumbnails/feature_delayed_placeholder.png" >  
+  <source src="assets/videos/feature_delayed_placeholder.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/features/delayed_placeholder.py' target='_blank'>delayed_placeholder.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
 ```python
 """
 Demonstrates how to delay the display of the placeholder.
@@ -245,7 +318,7 @@ from asyncio import sleep
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -278,8 +351,14 @@ chat_interface.servable()
 ### Replace Response
 
 Demonstrates how to update the response of a ChatInterface widget.
+
+<video controls poster="assets/thumbnails/feature_replace_response.png" >  
+  <source src="assets/videos/feature_replace_response.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/features/replace_response.py' target='_blank'>replace_response.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
 ```python
 """
 Demonstrates how to update the response of a ChatInterface widget.
@@ -290,7 +369,7 @@ from random import choice
 
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -312,7 +391,11 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
 
 chat_interface = pn.widgets.ChatInterface(
-    widgets=[pn.widgets.RadioButtonGroup(options=["Heads!", "Tails!"])],
+    widgets=[
+        pn.widgets.RadioButtonGroup(
+            options=["Heads!", "Tails!"], button_type="primary", button_style="outline"
+        )
+    ],
     callback=callback,
     callback_user="Game Master",
 )
@@ -327,15 +410,21 @@ chat_interface.servable()
 ### Slim Interface
 
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+
+<video controls poster="assets/thumbnails/feature_slim_interface.png" >  
+  <source src="assets/videos/feature_slim_interface.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/features/slim_interface.py' target='_blank'>slim_interface.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
 ```python
 """
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
 """
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -350,13 +439,17 @@ chat_interface = pn.widgets.ChatInterface(
     show_undo=False,
     show_clear=False,
     show_button_name=False,
-    height=875,
+    sizing_mode="stretch_both",
+    min_height=200,
     width=475,
 )
 chat_interface.send("Send a message and hear an echo!", user="System", respond=False)
 
 pn.template.FastListTemplate(
-    main=["# Insert the main content here to chat about it; maybe a PDF?"],
+    main=[
+        """We've put a *slim* `ChatInterface` in the sidebar. In the main area you \
+could add the object you are chatting about"""
+    ],
     sidebar=[chat_interface],
     sidebar_width=500,
 ).servable()
@@ -366,12 +459,353 @@ pn.template.FastListTemplate(
 
 ## Langchain
 
-### Chat Memory
+### Llama And Mistral
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Llama2 and Mistral.
+
+<video controls poster="assets/thumbnails/langchain_llama_and_mistral.png" >  
+  <source src="assets/videos/langchain_llama_and_mistral.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples/langchain/langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Llama2 and Mistral.
+"""
+
+import panel as pn
+from langchain.chains import LLMChain
+from langchain.llms import CTransformers
+from langchain.prompts import PromptTemplate
+
+pn.extension()
+
+MODEL_KWARGS = {
+    "llama": {
+        "model": "TheBloke/Llama-2-7b-Chat-GGUF",
+        "model_file": "llama-2-7b-chat.Q5_K_M.gguf",
+    },
+    "mistral": {
+        "model": "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+        "model_file": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+    },
+}
+
+# We cache the chains and responses to speed up things
+llm_chains = pn.state.cache["llm_chains"] = pn.state.cache.get("llm_chains", {})
+responses = pn.state.cache["responses"] = pn.state.cache.get("responses", {})
+
+TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
+user:
+{user_input} [/INST] </s>
+"""
+
+CONFIG = {"max_new_tokens": 256, "temperature": 0.5}
+
+
+def _get_llm_chain(model, template=TEMPLATE, config=CONFIG):
+    llm = CTransformers(**MODEL_KWARGS[model], config=config)
+    prompt = PromptTemplate(template=template, input_variables=["user_input"])
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    return llm_chain
+
+
+# Cannot use pn.cache due to https://github.com/holoviz/panel/issues/4236
+async def _get_response(contents: str, model: str) -> str:
+    key = (contents, model)
+    if key in responses:
+        return responses[key]
+
+    llm_chain = llm_chains[model]
+    response = responses[key] = await llm_chain.apredict(user_input=contents)
+    return response
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    for model in MODEL_KWARGS:
+        if model not in llm_chains:
+            instance.placeholder_text = (
+                f"Downloading {model}, this may take a few minutes,"
+                f"or longer, depending on your internet connection."
+            )
+            llm_chains[model] = _get_llm_chain(model)
+
+        response = await _get_response(contents, model)
+        instance.send(response, user=model.title(), respond=False)
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
+chat_interface.send(
+    "Send a message to get a reply from both Llama 2 and Mistral (7B)!",
+    user="System",
+    respond=False,
+)
+chat_interface.servable()
+```
+</details>
+
+
+### Math Assistant
+
+Demonstrates how to use the ChatInterface widget to create
+a math chatbot using OpenAI's text-davinci-003 model with LangChain.
+
+<video controls poster="assets/thumbnails/langchain_math_assistant.png" >  
+  <source src="assets/videos/langchain_math_assistant.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples/langchain/langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create
+a math chatbot using OpenAI's text-davinci-003 model with LangChain.
+"""
+
+import panel as pn
+from langchain.chains import LLMMathChain
+from langchain.llms import OpenAI
+
+pn.extension(design="material")
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    final_answer = await llm_math.arun(question=contents)
+    instance.stream(final_answer, entry=instance.value[-1])
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Langchain")
+chat_interface.send(
+    "Send a math question to get an answer from MathGPT!", user="System", respond=False
+)
+
+callback_handler = pn.widgets.langchain.PanelCallbackHandler(
+    chat_interface=chat_interface
+)
+llm = OpenAI(streaming=True, callbacks=[callback_handler])
+llm_math = LLMMathChain.from_llm(llm, verbose=True)
+chat_interface.servable()
+```
+</details>
+
+
+### Pdf Assistant
+
+Demonstrates how to use the ChatInterface widget to chat about a PDF using
+OpenAI, LangChain and Chroma.
+
+<video controls poster="assets/thumbnails/langchain_pdf_assistant.png" >  
+  <source src="assets/videos/langchain_pdf_assistant.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples/langchain/langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to chat about a PDF using
+OpenAI, LangChain and Chroma.
+"""
+
+import tempfile
+from pathlib import Path
+
+import panel as pn
+import param
+from langchain.chains import RetrievalQA
+from langchain.document_loaders import PyPDFLoader
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.llms import OpenAI
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
+
+from panel_chat_examples import EnvironmentWidgetBase
+
+EXAMPLE_PDF = Path(__file__).parent / "example.pdf"
+TTL = 1800  # 30 minutes
+
+pn.extension()
+
+# Define the Retrival Question/ Answer Chain
+# We use caching to speed things up
+
+
+@pn.cache(ttl=TTL)
+def _get_texts(pdf):
+    # load documents
+    with tempfile.NamedTemporaryFile("wb", delete=False) as f:
+        f.write(pdf)
+    file_name = f.name
+    loader = PyPDFLoader(file_name)
+    documents = loader.load()
+
+    # split the documents into chunks
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    return text_splitter.split_documents(documents)
+
+
+@pn.cache(ttl=TTL)
+def _get_vector_db(pdf, openai_api_key):
+    texts = _get_texts(pdf)
+    # select which embeddings we want to use
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    # create the vectorestore to use as the index
+    return Chroma.from_documents(texts, embeddings)
+
+
+@pn.cache(ttl=TTL)
+def _get_retriever(pdf, openai_api_key: str, number_of_chunks: int):
+    db = _get_vector_db(pdf, openai_api_key)
+    return db.as_retriever(
+        search_type="similarity", search_kwargs={"k": number_of_chunks}
+    )
+
+
+@pn.cache(ttl=TTL)
+def _get_retrival_qa(
+    pdf: bytes, number_of_chunks: int, chain_type: str, openai_api_key: str
+):
+    retriever = _get_retriever(pdf, openai_api_key, number_of_chunks)
+    return RetrievalQA.from_chain_type(
+        llm=OpenAI(openai_api_key=openai_api_key),
+        chain_type=chain_type,
+        retriever=retriever,
+        return_source_documents=True,
+        verbose=True,
+    )
+
+
+def _get_response(contents):
+    qa = _get_retrival_qa(
+        state.pdf, state.number_of_chunks, state.chain_type, environ.OPENAI_API_KEY
+    )
+    response = qa({"query": contents})
+    chunks = []
+
+    for chunk in response["source_documents"][::-1]:
+        name = f"Chunk {chunk.metadata['page']}"
+        content = chunk.page_content
+        chunks.insert(0, (name, content))
+    return response, chunks
+
+
+# Define the Application State
+class EnvironmentWidget(EnvironmentWidgetBase):
+    OPENAI_API_KEY: str = param.String()
+
+
+class State(param.Parameterized):
+    pdf: bytes = param.Bytes()
+    number_of_chunks: int = param.Integer(default=2, bounds=(1, 5), step=1)
+    chain_type: str = param.Selector(
+        objects=["stuff", "map_reduce", "refine", "map_rerank"]
+    )
+
+
+environ = EnvironmentWidget()
+state = State()
+
+# Define the widgets
+pdf_input = pn.widgets.FileInput.from_param(state.param.pdf, accept=".pdf", height=50)
+text_input = pn.widgets.TextInput(placeholder="First, upload a PDF!")
+chain_type_input = pn.widgets.RadioButtonGroup.from_param(
+    state.param.chain_type,
+    orientation="vertical",
+    sizing_mode="stretch_width",
+    button_type="primary",
+    button_style="outline",
+)
+
+# Define and configure the ChatInterface
+
+
+def _get_validation_message():
+    pdf = state.pdf
+    openai_api_key = environ.OPENAI_API_KEY
+    if not pdf and not openai_api_key:
+        return "Please first enter an OpenAI Api key and upload a PDF!"
+    if not pdf:
+        return "Please first upload a PDF!"
+    if not openai_api_key:
+        return "Please first enter an OpenAI Api key!"
+    return ""
+
+
+def _send_not_ready_message(chat_interface) -> bool:
+    message = _get_validation_message()
+
+    if message:
+        chat_interface.send({"user": "System", "value": message}, respond=False)
+    return bool(message)
+
+
+async def respond(contents, user, chat_interface):
+    if _send_not_ready_message(chat_interface):
+        return
+    if chat_interface.active == 0:
+        chat_interface.active = 1
+        chat_interface.active_widget.placeholder = "Ask questions here!"
+        yield {"user": "OpenAI", "value": "Let's chat about the PDF!"}
+        return
+
+    response, documents = _get_response(contents)
+    pages_layout = pn.Accordion(*documents, sizing_mode="stretch_width", max_width=800)
+    answers = pn.Column(response["result"], pages_layout)
+
+    yield {"user": "OpenAI", "value": answers}
+
+
+chat_interface = pn.widgets.ChatInterface(
+    callback=respond,
+    sizing_mode="stretch_width",
+    widgets=[pdf_input, text_input],
+    disabled=True,
+)
+
+
+@pn.depends(state.param.pdf, environ.param.OPENAI_API_KEY, watch=True)
+def _enable_chat_interface(pdf, openai_api_key):
+    if pdf and openai_api_key:
+        chat_interface.disabled = False
+    else:
+        chat_interface.disabled = True
+
+
+_send_not_ready_message(chat_interface)
+
+## Wrap the app in a nice template
+
+template = pn.template.BootstrapTemplate(
+    sidebar=[
+        environ,
+        state.param.number_of_chunks,
+        "Chain Type:",
+        chain_type_input,
+    ],
+    main=[chat_interface],
+)
+template.servable()
+```
+</details>
+
+
+### With Memory
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with LangChain.
+
+<video controls poster="assets/thumbnails/langchain_with_memory.png" >  
+  <source src="assets/videos/langchain_with_memory.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/langchain/chat_memory.py' target='_blank'>chat_memory.py</a></summary>
+<summary>Source code for <a href='examples/langchain/langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -383,7 +817,7 @@ from langchain.chains import ConversationChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -406,217 +840,148 @@ chat_interface.servable()
 </details>
 
 
-### Chroma Pdf Qa
+## Mistral
 
-Demonstrates how to use the ChatInterface widget to chat about a PDF using
-OpenAI's API with LangChain.
-<details>
-<summary>Source code for <a href='examples/langchain/chroma_pdf_qa.py' target='_blank'>chroma_pdf_qa.py</a></summary>
-```python
-"""
-Demonstrates how to use the ChatInterface widget to chat about a PDF using
-OpenAI's API with LangChain.
-"""
-
-import os
-import tempfile
-
-import panel as pn
-from langchain.chains import RetrievalQA
-from langchain.document_loaders import PyPDFLoader
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.llms import OpenAI
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
-
-pn.extension()
-
-
-def initialize_chain():
-    if key_input.value:
-        os.environ["OPENAI_API_KEY"] = key_input.value
-
-    selections = (pdf_input.value, k_slider.value, chain_select.value)
-    if selections in pn.state.cache:
-        return pn.state.cache[selections]
-
-    chat_input.placeholder = "Ask questions here!"
-
-    # load document
-    with tempfile.NamedTemporaryFile("wb", delete=False) as f:
-        f.write(pdf_input.value)
-    file_name = f.name
-    loader = PyPDFLoader(file_name)
-    documents = loader.load()
-    # split the documents into chunks
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    texts = text_splitter.split_documents(documents)
-    # select which embeddings we want to use
-    embeddings = OpenAIEmbeddings()
-    # create the vectorestore to use as the index
-    db = Chroma.from_documents(texts, embeddings)
-    # expose this index in a retriever interface
-    retriever = db.as_retriever(
-        search_type="similarity", search_kwargs={"k": k_slider.value}
-    )
-    # create a chain to answer questions
-    qa = RetrievalQA.from_chain_type(
-        llm=OpenAI(),
-        chain_type=chain_select.value,
-        retriever=retriever,
-        return_source_documents=True,
-        verbose=True,
-    )
-    return qa
-
-
-async def respond(contents, user, chat_interface):
-    if not pdf_input.value:
-        chat_interface.send(
-            {"user": "System", "value": "Please first upload a PDF!"}, respond=False
-        )
-        return
-    elif chat_interface.active == 0:
-        chat_interface.active = 1
-        chat_interface.active_widget.placeholder = "Ask questions here!"
-        yield {"user": "OpenAI", "value": "Let's chat about the PDF!"}
-        return
-
-    qa = initialize_chain()
-    response = qa({"query": contents})
-    answers = pn.Column(response["result"])
-    answers.append(pn.layout.Divider())
-    for doc in response["source_documents"][::-1]:
-        answers.append(f"**Page {doc.metadata['page']}**:")
-        answers.append(f"```\n{doc.page_content}\n```")
-    yield {"user": "OpenAI", "value": answers}
-
-
-pdf_input = pn.widgets.FileInput(accept=".pdf", value="", height=50)
-key_input = pn.widgets.PasswordInput(
-    name="OpenAI Key",
-    placeholder="sk-...",
-)
-k_slider = pn.widgets.IntSlider(
-    name="Number of Relevant Chunks", start=1, end=5, step=1, value=2
-)
-chain_select = pn.widgets.RadioButtonGroup(
-    name="Chain Type", options=["stuff", "map_reduce", "refine", "map_rerank"]
-)
-chat_input = pn.widgets.TextInput(placeholder="First, upload a PDF!")
-chat_interface = pn.widgets.ChatInterface(
-    callback=respond, sizing_mode="stretch_width", widgets=[pdf_input, chat_input]
-)
-chat_interface.send(
-    {"user": "System", "value": "Please first upload a PDF and click send!"},
-    respond=False,
-)
-template = pn.template.BootstrapTemplate(
-    sidebar=[key_input, k_slider, chain_select], main=[chat_interface]
-)
-template.servable()
-```
-</details>
-
-
-### Llama And Mistral
+### Chat
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2.
+Mistral through CTransformers.
+
+<video controls poster="assets/thumbnails/mistral_chat.png" >  
+  <source src="assets/videos/mistral_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/langchain/llama_and_mistral.py' target='_blank'>llama_and_mistral.py</a></summary>
+<summary>Source code for <a href='examples/mistral/mistral_chat.py' target='_blank'>mistral_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2.
+Mistral through CTransformers.
 """
 
 import panel as pn
-from langchain.chains import LLMChain
-from langchain.llms import CTransformers
-from langchain.prompts import PromptTemplate
+from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
-pn.extension()
+pn.extension(design="material")
 
-MODEL_KWARGS = {
-    "llama": {
-        "model": "TheBloke/Llama-2-7b-Chat-GGUF",
-        "model_file": "llama-2-7b-chat.Q5_K_M.gguf",
-    },
-    "mistral": {
-        "model": "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
-        "model_file": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
-    },
-}
-llm_chains = {}
+llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
 
-TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
-user:
-{user_input} [/INST] </s>
-"""
+INSTRUCTIONS = "You are a friendly chat bot willing to help out the user."
+
+
+def apply_template(instructions, contents):
+    text_row = f"""<s>[INST]{instructions} {contents}[/INST]"""
+    return text_row
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    config = {"max_new_tokens": 256, "temperature": 0.5}
-
-    for model in MODEL_KWARGS:
-        if model not in llm_chains:
-            llm = CTransformers(**MODEL_KWARGS[model], config=config)
-            prompt = PromptTemplate(template=TEMPLATE, input_variables=["user_input"])
-            llm_chain = LLMChain(prompt=prompt, llm=llm)
-            llm_chains[model] = llm_chain
-        instance.send(
-            await llm_chains[model].apredict(user_input=contents),
-            user=model.title(),
-            respond=False,
+    if "mistral" not in llms:
+        instance.placeholder_text = "Downloading model; please wait..."
+        config = AutoConfig(
+            config=Config(
+                temperature=0.5, max_new_tokens=2048, context_length=2048, gpu_layers=1
+            ),
+        )
+        llms["mistral"] = AutoModelForCausalLM.from_pretrained(
+            "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+            model_file="mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+            config=config,
         )
 
+    llm = llms["mistral"]
+    response = llm(apply_template(INSTRUCTIONS, contents), stream=True)
+    message = ""
+    for token in response:
+        message += token
+        yield message
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+
+chat_interface = pn.widgets.ChatInterface(
+    callback=callback,
+    callback_user="Mistral",
+    reset_on_send=True,
+)
 chat_interface.send(
-    "Send a message to get a reply from both Llama 2 and Mistral (7B)!",
-    user="System",
-    respond=False,
+    "Send a message to get a reply from Mistral!", user="System", respond=False
 )
 chat_interface.servable()
 ```
 </details>
 
 
-### Math Chain
+### With Memory
 
-Demonstrates how to use the ChatInterface widget to create
-a math chatbot using OpenAI's text-davinci-003 model with LangChain.
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Mistral thru CTransformers that includes a memory of the conversation history.
+
+<video controls poster="assets/thumbnails/mistral_with_memory.png" >  
+  <source src="assets/videos/mistral_with_memory.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/langchain/math_chain.py' target='_blank'>math_chain.py</a></summary>
+<summary>Source code for <a href='examples/mistral/mistral_with_memory.py' target='_blank'>mistral_with_memory.py</a></summary>
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create
-a math chatbot using OpenAI's text-davinci-003 model with LangChain.
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Mistral thru CTransformers that includes a memory of the conversation history.
 """
 
 import panel as pn
-from langchain.chains import LLMMathChain
-from langchain.llms import OpenAI
+from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
-pn.extension()
+pn.extension(design="material")
+
+SYSTEM_INSTRUCTIONS = "Do what the user requests."
+
+
+def apply_template(history):
+    history = [entry for entry in history if entry.user != "System"]
+    prompt = ""
+    for i, entry in enumerate(history):
+        if i == 0:
+            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {entry.value}[/INST]"
+        else:
+            if entry.user == "Mistral":
+                prompt += f"{entry.value}</s>"
+            else:
+                prompt += f"""[INST]{entry.value}[/INST]"""
+    return prompt
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    final_answer = await llm_math.arun(question=contents)
-    instance.stream(final_answer, entry=instance.value[-1])
+    if "mistral" not in llms:
+        instance.placeholder_text = "Downloading model; please wait..."
+        config = AutoConfig(
+            config=Config(
+                temperature=0.5, max_new_tokens=2048, context_length=2048, gpu_layers=1
+            ),
+        )
+        llms["mistral"] = AutoModelForCausalLM.from_pretrained(
+            "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+            model_file="mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+            config=config,
+        )
+
+    llm = llms["mistral"]
+    history = [entry for entry in instance.value]
+    prompt = apply_template(history)
+    response = llm(prompt, stream=True)
+    message = ""
+    for token in response:
+        message += token
+        yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Langchain")
+llms = {}
+chat_interface = pn.widgets.ChatInterface(
+    callback=callback,
+    callback_user="Mistral",
+)
 chat_interface.send(
-    "Send a message to get a reply from ChatGPT!", user="System", respond=False
+    "Send a message to get a reply from Mistral!", user="System", respond=False
 )
-
-callback_handler = pn.widgets.langchain.PanelCallbackHandler(
-    chat_interface=chat_interface
-)
-llm = OpenAI(streaming=True, callbacks=[callback_handler])
-llm_math = LLMMathChain.from_llm(llm, verbose=True)
 chat_interface.servable()
 ```
 </details>
@@ -624,15 +989,63 @@ chat_interface.servable()
 
 ## Openai
 
+### Async Chat
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+OpenAI's GPT-3 API with async/await.
+
+<video controls poster="assets/thumbnails/openai_async_chat.png" >  
+  <source src="assets/videos/openai_async_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples/openai/openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+OpenAI's GPT-3 API with async/await.
+"""
+
+import openai
+import panel as pn
+
+pn.extension(design="material")
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    response = await openai.ChatCompletion.acreate(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": contents}],
+        stream=True,
+    )
+    message = ""
+    async for chunk in response:
+        message += chunk["choices"][0]["delta"].get("content", "")
+        yield message
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+chat_interface.send(
+    "Send a message to get a reply from ChatGPT!", user="System", respond=False
+)
+chat_interface.servable()
+```
+</details>
+
+
 ### Authentication
 
 Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
 
-[<img src="assets/thumbnails/authentication.png" alt="Authentication" style="max-height: 400px; max-width: 100%;">](examples/openai/authentication.py)
-
+<video controls poster="assets/thumbnails/openai_authentication.png" >  
+  <source src="assets/videos/openai_authentication.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/authentication.py' target='_blank'>authentication.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_authentication.py' target='_blank'>openai_authentication.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget with authentication for
@@ -649,18 +1062,23 @@ SYSTEM_KWARGS = dict(
     respond=False,
 )
 
+pn.extension()
+
 
 def add_key_to_env(key):
     if not key.startswith("sk-"):
         chat_interface.send("Please enter a valid OpenAI key!", **SYSTEM_KWARGS)
         return
 
-    os.environ["OPENAI_API_KEY"] = key
     chat_interface.send(
         "Your OpenAI key has been set. Feel free to minimize the sidebar.",
         **SYSTEM_KWARGS,
     )
     chat_interface.disabled = False
+
+
+key_input = pn.widgets.PasswordInput(placeholder="sk-...", name="OpenAI Key")
+pn.bind(add_key_to_env, key=key_input, watch=True)
 
 
 async def callback(
@@ -676,6 +1094,7 @@ async def callback(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,
+        api_key=key_input.value,
     )
     message = ""
     async for chunk in response:
@@ -683,16 +1102,13 @@ async def callback(
         yield message
 
 
-key_input = pn.widgets.PasswordInput(placeholder="sk-...", name="OpenAI Key")
-pn.bind(add_key_to_env, key=key_input, watch=True)
-
 chat_interface = pn.widgets.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(
     "First enter your OpenAI key in the sidebar, then send a message!", **SYSTEM_KWARGS
 )
 
 pn.template.MaterialTemplate(
-    title="OpenAI ChatInterface",
+    title="OpenAI ChatInterface with authentication",
     sidebar=[key_input],
     main=[chat_interface],
 ).servable()
@@ -704,8 +1120,14 @@ pn.template.MaterialTemplate(
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API.
+
+<video controls poster="assets/thumbnails/openai_chat.png" >  
+  <source src="assets/videos/openai_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/chat.py' target='_blank'>chat.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_chat.py' target='_blank'>openai_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -715,7 +1137,7 @@ OpenAI's GPT-3 API.
 import openai
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -739,51 +1161,130 @@ chat_interface.servable()
 </details>
 
 
-### Chat Async
+### Hvplot
 
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API with async/await.
+Demonstrates how to use the ChatInterface widget to create a chatbot
+that can generate plots using hvplot.
+
+<video controls poster="assets/thumbnails/openai_hvplot.png" >  
+  <source src="assets/videos/openai_hvplot.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/chat_async.py' target='_blank'>chat_async.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API with async/await.
+Demonstrates how to use the ChatInterface widget to create a chatbot
+that can generate plots using hvplot.
 """
 
+import re
+from typing import Union
+
 import openai
+import pandas as pd
 import panel as pn
+from panel.io.mime_render import exec_with_return
 
-pn.extension()
+DATAFRAME_PROMPT = """
+    Here are the columns in your DataFrame: {columns}.
+    Create a plot with hvplot that highlights an interesting
+    relationship between the columns with hvplot groupby kwarg.
+"""
+
+CODE_REGEX = re.compile(r"```\s?python(.*?)```", re.DOTALL)
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+def _clean(df: pd.DataFrame):
+    df.columns = [column.strip() for column in df.columns]
+    df = df.head(100)
+    return df
+
+
+async def respond_with_openai(contents: Union[pd.DataFrame, str]):
+    # extract the DataFrame
+    if isinstance(contents, pd.DataFrame):
+        global df
+        df = _clean(contents)
+        columns = contents.columns
+        message = DATAFRAME_PROMPT.format(columns=columns)
+    else:
+        message = contents
+
     response = await openai.ChatCompletion.acreate(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": contents}],
+        messages=[{"role": "user", "content": message}],
+        temperature=0,
+        max_tokens=500,
         stream=True,
     )
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield message
+        yield {"user": "ChatGPT", "value": message}
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+async def respond_with_executor(code: str):
+    code_block = f"```python\n{code}\n```"
+    global df
+    context = {"df": df}
+    plot = exec_with_return(code=code, global_context=context)
+    return {
+        "user": "Executor",
+        "value": pn.Tabs(
+            ("Plot", plot),
+            ("Code", code_block),
+        ),
+    }
+
+
+async def callback(
+    contents: Union[str, pd.DataFrame],
+    name: str,
+    instance: pn.widgets.ChatInterface,
+):
+    if not isinstance(contents, (str, pd.DataFrame)):
+        return
+
+    if name == "User":
+        async for chunk in respond_with_openai(contents):
+            yield chunk
+        instance.respond()
+    elif CODE_REGEX.search(contents):
+        yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
+
+
+chat_interface = pn.widgets.ChatInterface(
+    widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
+    callback=callback,
+)
+# ruff: noqa: E501
 chat_interface.send(
-    "Send a message to get a reply from ChatGPT!", user="System", respond=False
+    """Send a message to ChatGPT or upload a small CSV file to get started!
+
+<a href="data:text/csv;base64,ZGF0ZSxjYXRlZ29yeSxxdWFudGl0eSxwcmljZQoyMDIxLTAxLTAxLGVsZWN0cm9uaWNzLDIsNTAwICAKMjAyMS0wMS0wMixjbG90aGluZywxLDUwCjIwMjEtMDEtMDMsaG9tZSBnb29kcyw0LDIwMAoyMDIxLTAxLTA0LGVsZWN0cm9uaWNzLDEsMTAwMAoyMDIxLTAxLTA1LGdyb2NlcmllcywzLDc1CjIwMjEtMDEtMDYsY2xvdGhpbmcsMiwxMDAKMjAyMS0wMS0wNyxob21lIGdvb2RzLDMsMTUwCjIwMjEtMDEtMDgsZWxlY3Ryb25pY3MsNCwyMDAwCjIwMjEtMDEtMDksZ3JvY2VyaWVzLDIsNTAKMjAyMS0wMS0xMCxlbGVjdHJvbmljcywzLDE1MDA=" download="example.csv">example.csv</a>
+""",
+    user="System",
+    respond=False,
 )
 chat_interface.servable()
 ```
 </details>
 
 
-### Image
+### Image Generation
 
 Demonstrates how to use the ChatInterface widget to create an image using
 OpenAI's DALL-E API.
+
+<video controls poster="assets/thumbnails/openai_image_generation.png" >  
+  <source src="assets/videos/openai_image_generation.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/image.py' target='_blank'>image.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create an image using
@@ -793,7 +1294,7 @@ OpenAI's DALL-E API.
 import openai
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -817,8 +1318,14 @@ chat_interface.servable()
 
 Demonstrates how to use the ChatInterface widget to create two bots that
 chat with each other.
+
+<video controls poster="assets/thumbnails/openai_two_bots.png" >  
+  <source src="assets/videos/openai_two_bots.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/two_bots.py' target='_blank'>two_bots.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create two bots that
@@ -828,7 +1335,7 @@ chat with each other.
 import openai
 import panel as pn
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(
@@ -867,99 +1374,6 @@ async def callback(
 chat_interface = pn.widgets.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a topic for the bots to discuss! Beware the token usage!",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-```
-</details>
-
-
-### Upload
-
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
-<details>
-<summary>Source code for <a href='examples/openai/upload.py' target='_blank'>upload.py</a></summary>
-```python
-"""
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
-"""
-
-import re
-from typing import Union
-
-import openai
-import pandas as pd
-import panel as pn
-from panel.io.mime_render import exec_with_return
-
-DATAFRAME_PROMPT = """
-    Here are the columns in your DataFrame: {columns}.
-    Create a plot with hvplot that highlights an interesting
-    relationship between the columns with hvplot groupby kwarg.
-"""
-
-CODE_REGEX = re.compile(r"```python(.*?)```", re.DOTALL)
-
-
-async def respond_with_openai(contents: Union[pd.DataFrame, str]):
-    # extract the DataFrame
-    if isinstance(contents, pd.DataFrame):
-        global df
-        df = contents
-        columns = contents.columns
-        message = DATAFRAME_PROMPT.format(columns=columns)
-    else:
-        message = contents
-
-    response = await openai.ChatCompletion.acreate(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": message}],
-        temperature=0,
-        max_tokens=500,
-        stream=True,
-    )
-    message = ""
-    async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "value": message}
-
-
-async def respond_with_executor(code: str):
-    code_block = f"```python\n{code}\n```"
-    return {
-        "user": "Executor",
-        "value": pn.Tabs(
-            ("Plot", exec_with_return(code=code, global_context=globals())),
-            ("Code", code_block),
-        ),
-    }
-
-
-async def callback(
-    contents: Union[str, pd.DataFrame],
-    name: str,
-    instance: pn.widgets.ChatInterface,
-):
-    if not isinstance(contents, (str, pd.DataFrame)):
-        return
-
-    if name == "User":
-        async for chunk in respond_with_openai(contents):
-            yield chunk
-        instance.respond()
-    elif CODE_REGEX.search(contents):
-        yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
-
-
-chat_interface = pn.widgets.ChatInterface(
-    widgets=[pn.widgets.TextInput(), pn.widgets.FileInput()],
-    callback=callback,
-)
-chat_interface.send(
-    "Send a message to ChatGPT or upload a CSV file to get started!",
     user="System",
     respond=False,
 )

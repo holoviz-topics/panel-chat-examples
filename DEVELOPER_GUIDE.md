@@ -79,11 +79,10 @@ To run the Playwright tests in *headed* mode (i.e. show the browser) you can run
 hatch run pytest -m ui --headed
 ```
 
-You can take screenshots or record videos the `--screenshot` and `--video` flags and slow them
-down via `--slowmo`.
+You can take screenshots or record videos the `--screenshot` and `--video` flags.
 
 ```bash
-hatch run pytest -m ui --screenshot on --video on --headed --slowmo 100
+hatch run pytest -m ui --screenshot on --video on --headed
 ```
 
 The screenshots and videos can be found in the [test-results](test-results) folder.
@@ -122,6 +121,18 @@ hatch run docs-serve
 ```
 
 It'll automatically watch for changes in your code.
+
+## Check list
+
+Before publishing a new version please make sure
+
+- [ ] The file name follows the naming convention, is unique and makes sense when used as header
+in the documentation and app gallery.
+- [ ] You have added a thumbnail and video
+
+Please also consider
+
+- [ ] Adding a custom UI test to [user.py](tests/ui/user.py).
 
 ## Publish a new version
 

@@ -83,11 +83,14 @@ classifiers = [
 requires-python = ">=3.9"
 dependencies = [
     "chromadb",
-    "langchain",
-    "openai",
-    "numexpr",
     "ctransformers",
-    "panel @ git+https://github.com/holoviz/panel.git@main"
+    "hvplot",
+    "langchain",
+    "numexpr",
+    "openai",
+    "panel @ git+https://github.com/holoviz/panel.git@main",
+    "pypdf",
+    "tiktoken",
 ]
 
 [project.urls]
