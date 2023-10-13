@@ -25,13 +25,13 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to respond
 
 The chatbot Assistant echoes back the message entered by the User.
 
-<video controls poster="assets\thumbnails\basic_chat.png" >  
-  <source src="assets\videos\basic_chat.webm" type="video/webm"
+<video controls poster="assets/thumbnails/basic_chat.png" >  
+  <source src="assets/videos/basic_chat.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\basics\basic_chat.py' target='_blank'>basic_chat.py</a></summary>
+<summary>Source code for <a href='examples/basics/basic_chat.py' target='_blank'>basic_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
@@ -68,13 +68,13 @@ stream back responses.
 The chatbot Assistant echoes back the message entered by the User in an
 *async streaming* fashion.
 
-<video controls poster="assets\thumbnails\basic_echo_stream_async.png" >  
-  <source src="assets\videos\basic_echo_stream_async.webm" type="video/webm"
+<video controls poster="assets/thumbnails/basic_echo_stream_async.png" >  
+  <source src="assets/videos/basic_echo_stream_async.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\basics\basic_echo_stream_async.py' target='_blank'>basic_echo_stream_async.py</a></summary>
+<summary>Source code for <a href='examples/basics/basic_echo_stream_async.py' target='_blank'>basic_echo_stream_async.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to
@@ -120,13 +120,13 @@ responses.
 The chatbot Assistant echoes back the message entered by the User in a *streaming*
 fashion.
 
-<video controls poster="assets\thumbnails\basic_streaming_chat.png" >  
-  <source src="assets\videos\basic_streaming_chat.webm" type="video/webm"
+<video controls poster="assets/thumbnails/basic_streaming_chat.png" >  
+  <source src="assets/videos/basic_streaming_chat.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\basics\basic_streaming_chat.py' target='_blank'>basic_streaming_chat.py</a></summary>
+<summary>Source code for <a href='examples/basics/basic_streaming_chat.py' target='_blank'>basic_streaming_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
@@ -185,13 +185,13 @@ user for it.
 
 Inherit from this widget to create your own custom `EnvironmentWidget`.
 
-<video controls poster="assets\thumbnails\component_environment_widget.png" >  
-  <source src="assets\videos\component_environment_widget.webm" type="video/webm"
+<video controls poster="assets/thumbnails/component_environment_widget.png" >  
+  <source src="assets/videos/component_environment_widget.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\components\component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
+<summary>Source code for <a href='examples/components/component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
 ```python
 """
 The `EnvironmentWidgetBase` class enables you to manage variable values from a
@@ -250,13 +250,13 @@ pn.template.FastListTemplate(
 
 Demonstrates how to chain responses in a ChatInterface.
 
-<video controls poster="assets\thumbnails\feature_chained_response.png" >  
-  <source src="assets\videos\feature_chained_response.webm" type="video/webm"
+<video controls poster="assets/thumbnails/feature_chained_response.png" >  
+  <source src="assets/videos/feature_chained_response.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\features\feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
 ```python
 """
 Demonstrates how to chain responses in a ChatInterface.
@@ -302,13 +302,13 @@ chat_interface.servable()
 
 Demonstrates how to delay the display of the placeholder.
 
-<video controls poster="assets\thumbnails\feature_delayed_placeholder.png" >  
-  <source src="assets\videos\feature_delayed_placeholder.webm" type="video/webm"
+<video controls poster="assets/thumbnails/feature_delayed_placeholder.png" >  
+  <source src="assets/videos/feature_delayed_placeholder.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\features\feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
 ```python
 """
 Demonstrates how to delay the display of the placeholder.
@@ -352,13 +352,13 @@ chat_interface.servable()
 
 Demonstrates how to update the response of a ChatInterface widget.
 
-<video controls poster="assets\thumbnails\feature_replace_response.png" >  
-  <source src="assets\videos\feature_replace_response.webm" type="video/webm"
+<video controls poster="assets/thumbnails/feature_replace_response.png" >  
+  <source src="assets/videos/feature_replace_response.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\features\feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
 ```python
 """
 Demonstrates how to update the response of a ChatInterface widget.
@@ -411,13 +411,13 @@ chat_interface.servable()
 
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
 
-<video controls poster="assets\thumbnails\feature_slim_interface.png" >  
-  <source src="assets\videos\feature_slim_interface.webm" type="video/webm"
+<video controls poster="assets/thumbnails/feature_slim_interface.png" >  
+  <source src="assets/videos/feature_slim_interface.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\features\feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
+<summary>Source code for <a href='examples/features/feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
 ```python
 """
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
@@ -463,8 +463,14 @@ could add the object you are chatting about"""
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 Llama2 and Mistral.
+
+<video controls poster="assets/thumbnails/langchain_llama_and_mistral.png" >  
+  <source src="assets/videos/langchain_llama_and_mistral.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples\langchain\langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
+<summary>Source code for <a href='examples/langchain/langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -548,13 +554,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create
 a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 
-<video controls poster="assets\thumbnails\langchain_math_assistant.png" >  
-  <source src="assets\videos\langchain_math_assistant.webm" type="video/webm"
+<video controls poster="assets/thumbnails/langchain_math_assistant.png" >  
+  <source src="assets/videos/langchain_math_assistant.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\langchain\langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
+<summary>Source code for <a href='examples/langchain/langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create
@@ -593,13 +599,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
 OpenAI, LangChain and Chroma.
 
-<video controls poster="assets\thumbnails\langchain_pdf_assistant.png" >  
-  <source src="assets\videos\langchain_pdf_assistant.webm" type="video/webm"
+<video controls poster="assets/thumbnails/langchain_pdf_assistant.png" >  
+  <source src="assets/videos/langchain_pdf_assistant.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\langchain\langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
+<summary>Source code for <a href='examples/langchain/langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
@@ -793,13 +799,13 @@ template.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with LangChain.
 
-<video controls poster="assets\thumbnails\langchain_with_memory.png" >  
-  <source src="assets\videos\langchain_with_memory.webm" type="video/webm"
+<video controls poster="assets/thumbnails/langchain_with_memory.png" >  
+  <source src="assets/videos/langchain_with_memory.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\langchain\langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
+<summary>Source code for <a href='examples/langchain/langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -840,8 +846,14 @@ chat_interface.servable()
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 Mistral through CTransformers.
+
+<video controls poster="assets/thumbnails/mistral_chat.png" >  
+  <source src="assets/videos/mistral_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples\mistral\mistral_chat.py' target='_blank'>mistral_chat.py</a></summary>
+<summary>Source code for <a href='examples/mistral/mistral_chat.py' target='_blank'>mistral_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -902,8 +914,14 @@ chat_interface.servable()
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 Mistral thru CTransformers that includes a memory of the conversation history.
+
+<video controls poster="assets/thumbnails/mistral_with_memory.png" >  
+  <source src="assets/videos/mistral_with_memory.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples\mistral\mistral_with_memory.py' target='_blank'>mistral_with_memory.py</a></summary>
+<summary>Source code for <a href='examples/mistral/mistral_with_memory.py' target='_blank'>mistral_with_memory.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -976,13 +994,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with async/await.
 
-<video controls poster="assets\thumbnails\openai_async_chat.png" >  
-  <source src="assets\videos\openai_async_chat.webm" type="video/webm"
+<video controls poster="assets/thumbnails/openai_async_chat.png" >  
+  <source src="assets/videos/openai_async_chat.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\openai\openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -1021,13 +1039,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
 
-<video controls poster="assets\thumbnails\openai_authentication.png" >  
-  <source src="assets\videos\openai_authentication.webm" type="video/webm"
+<video controls poster="assets/thumbnails/openai_authentication.png" >  
+  <source src="assets/videos/openai_authentication.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\openai\openai_authentication.py' target='_blank'>openai_authentication.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_authentication.py' target='_blank'>openai_authentication.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget with authentication for
@@ -1103,13 +1121,13 @@ pn.template.MaterialTemplate(
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API.
 
-<video controls poster="assets\thumbnails\openai_chat.png" >  
-  <source src="assets\videos\openai_chat.webm" type="video/webm"
+<video controls poster="assets/thumbnails/openai_chat.png" >  
+  <source src="assets/videos/openai_chat.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\openai\openai_chat.py' target='_blank'>openai_chat.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_chat.py' target='_blank'>openai_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -1148,13 +1166,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot
 that can generate plots using hvplot.
 
-<video controls poster="assets\thumbnails\openai_hvplot.png" >  
-  <source src="assets\videos\openai_hvplot.webm" type="video/webm"
+<video controls poster="assets/thumbnails/openai_hvplot.png" >  
+  <source src="assets/videos/openai_hvplot.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\openai\openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot
@@ -1260,13 +1278,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create an image using
 OpenAI's DALL-E API.
 
-<video controls poster="assets\thumbnails\openai_image_generation.png" >  
-  <source src="assets\videos\openai_image_generation.webm" type="video/webm"
+<video controls poster="assets/thumbnails/openai_image_generation.png" >  
+  <source src="assets/videos/openai_image_generation.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\openai\openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create an image using
@@ -1301,13 +1319,13 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create two bots that
 chat with each other.
 
-<video controls poster="assets\thumbnails\openai_two_bots.png" >  
-  <source src="assets\videos\openai_two_bots.webm" type="video/webm"
+<video controls poster="assets/thumbnails/openai_two_bots.png" >  
+  <source src="assets/videos/openai_two_bots.webm" type="video/webm"
   style="max-height: 400px; max-width: 100%;">  
   Your browser does not support the video tag.  
 </video> 
 <details>
-<summary>Source code for <a href='examples\openai\openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
+<summary>Source code for <a href='examples/openai/openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create two bots that
