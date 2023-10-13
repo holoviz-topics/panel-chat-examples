@@ -24,6 +24,12 @@ hatch run panel-serve
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
 
 The chatbot Assistant echoes back the message entered by the User.
+
+<video controls poster="assets\thumbnails\basic_chat.png" >  
+  <source src="assets\videos\basic_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\basics\basic_chat.py' target='_blank'>basic_chat.py</a></summary>
 ```python
@@ -54,6 +60,58 @@ chat_interface.servable()
 </details>
 
 
+### Echo Stream Async
+
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
+
+<video controls poster="assets\thumbnails\basic_echo_stream_async.png" >  
+  <source src="assets\videos\basic_echo_stream_async.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples\basics\basic_echo_stream_async.py' target='_blank'>basic_echo_stream_async.py</a></summary>
+```python
+"""
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
+"""
+
+
+from asyncio import sleep
+
+import panel as pn
+
+pn.extension()
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    await sleep(1)
+    message = ""
+    for char in "Echoing User: " + contents:
+        await sleep(0.05)
+        message += char
+        yield message
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface.send(
+    "Enter a message in the TextInput below and receive an echo!",
+    user="System",
+    respond=False,
+)
+chat_interface.servable()
+```
+</details>
+
+
 ### Streaming Chat
 
 Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
@@ -61,6 +119,12 @@ responses.
 
 The chatbot Assistant echoes back the message entered by the User in a *streaming*
 fashion.
+
+<video controls poster="assets\thumbnails\basic_streaming_chat.png" >  
+  <source src="assets\videos\basic_streaming_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\basics\basic_streaming_chat.py' target='_blank'>basic_streaming_chat.py</a></summary>
 ```python
@@ -100,52 +164,6 @@ chat_interface.servable()
 </details>
 
 
-### Echo Stream Async
-
-Demonstrates how to use the `ChatInterface` and a `callback` function to
-stream back responses.
-
-The chatbot Assistant echoes back the message entered by the User in an
-*async streaming* fashion.
-<details>
-<summary>Source code for <a href='examples\basics\echo_stream_async.py' target='_blank'>echo_stream_async.py</a></summary>
-```python
-"""
-Demonstrates how to use the `ChatInterface` and a `callback` function to
-stream back responses.
-
-The chatbot Assistant echoes back the message entered by the User in an
-*async streaming* fashion.
-"""
-
-
-from asyncio import sleep
-
-import panel as pn
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    await sleep(1)
-    message = ""
-    for char in contents:
-        await sleep(0.05)
-        message += char
-        yield message
-
-
-chat_interface = pn.widgets.ChatInterface(callback=callback)
-chat_interface.send(
-    "Enter a message in the TextInput below and receive an echo!",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-```
-</details>
-
-
 ## Components
 
 ### Environment Widget
@@ -166,6 +184,12 @@ For example you might not have the resources to provide an `OPENAI_API_KEY`,
 user for it.
 
 Inherit from this widget to create your own custom `EnvironmentWidget`.
+
+<video controls poster="assets\thumbnails\component_environment_widget.png" >  
+  <source src="assets\videos\component_environment_widget.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\components\component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
 ```python
@@ -225,6 +249,12 @@ pn.template.FastListTemplate(
 ### Chained Response
 
 Demonstrates how to chain responses in a ChatInterface.
+
+<video controls poster="assets\thumbnails\feature_chained_response.png" >  
+  <source src="assets\videos\feature_chained_response.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\features\feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
 ```python
@@ -271,6 +301,12 @@ chat_interface.servable()
 ### Delayed Placeholder
 
 Demonstrates how to delay the display of the placeholder.
+
+<video controls poster="assets\thumbnails\feature_delayed_placeholder.png" >  
+  <source src="assets\videos\feature_delayed_placeholder.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\features\feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
 ```python
@@ -315,6 +351,12 @@ chat_interface.servable()
 ### Replace Response
 
 Demonstrates how to update the response of a ChatInterface widget.
+
+<video controls poster="assets\thumbnails\feature_replace_response.png" >  
+  <source src="assets\videos\feature_replace_response.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\features\feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
 ```python
@@ -368,6 +410,12 @@ chat_interface.servable()
 ### Slim Interface
 
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+
+<video controls poster="assets\thumbnails\feature_slim_interface.png" >  
+  <source src="assets\videos\feature_slim_interface.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\features\feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
 ```python
@@ -499,6 +547,12 @@ chat_interface.servable()
 
 Demonstrates how to use the ChatInterface widget to create
 a math chatbot using OpenAI's text-davinci-003 model with LangChain.
+
+<video controls poster="assets\thumbnails\langchain_math_assistant.png" >  
+  <source src="assets\videos\langchain_math_assistant.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\langchain\langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
 ```python
@@ -538,6 +592,12 @@ chat_interface.servable()
 
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
 OpenAI, LangChain and Chroma.
+
+<video controls poster="assets\thumbnails\langchain_pdf_assistant.png" >  
+  <source src="assets\videos\langchain_pdf_assistant.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\langchain\langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
 ```python
@@ -732,6 +792,12 @@ template.servable()
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with LangChain.
+
+<video controls poster="assets\thumbnails\langchain_with_memory.png" >  
+  <source src="assets\videos\langchain_with_memory.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
 <summary>Source code for <a href='examples\langchain\langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
 ```python
@@ -783,30 +849,118 @@ Mistral through CTransformers.
 """
 
 import panel as pn
-from ctransformers import AutoModelForCausalLM
+from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
-pn.extension()
+pn.extension(design="material")
+
+llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
+
+INSTRUCTIONS = "You are a friendly chat bot willing to help out the user."
+
+
+def apply_template(instructions, contents):
+    text_row = f"""<s>[INST]{instructions} {contents}[/INST]"""
+    return text_row
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
     if "mistral" not in llms:
         instance.placeholder_text = "Downloading model; please wait..."
+        config = AutoConfig(
+            config=Config(
+                temperature=0.5, max_new_tokens=2048, context_length=2048, gpu_layers=1
+            ),
+        )
         llms["mistral"] = AutoModelForCausalLM.from_pretrained(
             "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
             model_file="mistral-7b-instruct-v0.1.Q4_K_M.gguf",
-            gpu_layers=1,
+            config=config,
         )
 
     llm = llms["mistral"]
-    response = llm(contents, stream=True, max_new_tokens=1000)
+    response = llm(apply_template(INSTRUCTIONS, contents), stream=True)
     message = ""
     for token in response:
         message += token
         yield message
 
 
-llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Mistral")
+chat_interface = pn.widgets.ChatInterface(
+    callback=callback,
+    callback_user="Mistral",
+    reset_on_send=True,
+)
+chat_interface.send(
+    "Send a message to get a reply from Mistral!", user="System", respond=False
+)
+chat_interface.servable()
+```
+</details>
+
+
+### With Memory
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Mistral thru CTransformers that includes a memory of the conversation history.
+<details>
+<summary>Source code for <a href='examples\mistral\mistral_with_memory.py' target='_blank'>mistral_with_memory.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Mistral thru CTransformers that includes a memory of the conversation history.
+"""
+
+import panel as pn
+from ctransformers import AutoConfig, AutoModelForCausalLM, Config
+
+pn.extension(design="material")
+
+SYSTEM_INSTRUCTIONS = "Do what the user requests."
+
+
+def apply_template(history):
+    history = [entry for entry in history if entry.user != "System"]
+    prompt = ""
+    for i, entry in enumerate(history):
+        if i == 0:
+            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {entry.value}[/INST]"
+        else:
+            if entry.user == "Mistral":
+                prompt += f"{entry.value}</s>"
+            else:
+                prompt += f"""[INST]{entry.value}[/INST]"""
+    return prompt
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    if "mistral" not in llms:
+        instance.placeholder_text = "Downloading model; please wait..."
+        config = AutoConfig(
+            config=Config(
+                temperature=0.5, max_new_tokens=2048, context_length=2048, gpu_layers=1
+            ),
+        )
+        llms["mistral"] = AutoModelForCausalLM.from_pretrained(
+            "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+            model_file="mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+            config=config,
+        )
+
+    llm = llms["mistral"]
+    history = [entry for entry in instance.value]
+    prompt = apply_template(history)
+    response = llm(prompt, stream=True)
+    message = ""
+    for token in response:
+        message += token
+        yield message
+
+
+llms = {}
+chat_interface = pn.widgets.ChatInterface(
+    callback=callback,
+    callback_user="Mistral",
+)
 chat_interface.send(
     "Send a message to get a reply from Mistral!", user="System", respond=False
 )
