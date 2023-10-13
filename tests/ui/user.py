@@ -91,6 +91,8 @@ def feature_slim_interface(page: Page):
 
 
 def langchain_llama_and_mistral(page: Page):
+    # Needs some finetuning
+    # Could not get this working as it always starts by downloading models
     chat = ChatInterface(page)
     chat.send("Please explain what kind of model you are in one sentence")
     page.wait_for_timeout(8000)
