@@ -59,7 +59,7 @@ chat_interface.send(
 )
 
 pn.template.MaterialTemplate(
-    title="OpenAI ChatInterface",
+    title="OpenAI ChatInterface with authentication",
     sidebar=[key_input],
     main=[chat_interface],
 ).servable()

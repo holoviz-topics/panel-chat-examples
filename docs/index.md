@@ -25,7 +25,7 @@ Demonstrates how to use the `ChatInterface` and a `callback` function to respond
 
 The chatbot Assistant echoes back the message entered by the User.
 <details>
-<summary>Source code for <a href='examples/basics/basic_chat.py' target='_blank'>basic_chat.py</a></summary>
+<summary>Source code for <a href='examples\basics\basic_chat.py' target='_blank'>basic_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to respond.
@@ -62,7 +62,7 @@ responses.
 The chatbot Assistant echoes back the message entered by the User in a *streaming*
 fashion.
 <details>
-<summary>Source code for <a href='examples/basics/basic_streaming_chat.py' target='_blank'>basic_streaming_chat.py</a></summary>
+<summary>Source code for <a href='examples\basics\basic_streaming_chat.py' target='_blank'>basic_streaming_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
@@ -100,6 +100,52 @@ chat_interface.servable()
 </details>
 
 
+### Echo Stream Async
+
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
+<details>
+<summary>Source code for <a href='examples\basics\echo_stream_async.py' target='_blank'>echo_stream_async.py</a></summary>
+```python
+"""
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
+
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
+"""
+
+
+from asyncio import sleep
+
+import panel as pn
+
+pn.extension()
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    await sleep(1)
+    message = ""
+    for char in contents:
+        await sleep(0.05)
+        message += char
+        yield message
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface.send(
+    "Enter a message in the TextInput below and receive an echo!",
+    user="System",
+    respond=False,
+)
+chat_interface.servable()
+```
+</details>
+
+
 ## Components
 
 ### Environment Widget
@@ -121,7 +167,7 @@ user for it.
 
 Inherit from this widget to create your own custom `EnvironmentWidget`.
 <details>
-<summary>Source code for <a href='examples/components/component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
+<summary>Source code for <a href='examples\components\component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
 ```python
 """
 The `EnvironmentWidgetBase` class enables you to manage variable values from a
@@ -180,7 +226,7 @@ pn.template.FastListTemplate(
 
 Demonstrates how to chain responses in a ChatInterface.
 <details>
-<summary>Source code for <a href='examples/features/feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
+<summary>Source code for <a href='examples\features\feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
 ```python
 """
 Demonstrates how to chain responses in a ChatInterface.
@@ -226,7 +272,7 @@ chat_interface.servable()
 
 Demonstrates how to delay the display of the placeholder.
 <details>
-<summary>Source code for <a href='examples/features/feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
+<summary>Source code for <a href='examples\features\feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
 ```python
 """
 Demonstrates how to delay the display of the placeholder.
@@ -270,7 +316,7 @@ chat_interface.servable()
 
 Demonstrates how to update the response of a ChatInterface widget.
 <details>
-<summary>Source code for <a href='examples/features/feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
+<summary>Source code for <a href='examples\features\feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
 ```python
 """
 Demonstrates how to update the response of a ChatInterface widget.
@@ -323,7 +369,7 @@ chat_interface.servable()
 
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
 <details>
-<summary>Source code for <a href='examples/features/feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
+<summary>Source code for <a href='examples\features\feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
 ```python
 """
 Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
@@ -368,13 +414,13 @@ could add the object you are chatting about"""
 ### Llama And Mistral
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2.
+Llama2 and Mistral.
 <details>
-<summary>Source code for <a href='examples/langchain/langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
+<summary>Source code for <a href='examples\langchain\langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2.
+Llama2 and Mistral.
 """
 
 import panel as pn
@@ -454,7 +500,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create
 a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 <details>
-<summary>Source code for <a href='examples/langchain/langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
+<summary>Source code for <a href='examples\langchain\langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create
@@ -493,7 +539,7 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
 OpenAI, LangChain and Chroma.
 <details>
-<summary>Source code for <a href='examples/langchain/langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
+<summary>Source code for <a href='examples\langchain\langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
@@ -687,7 +733,7 @@ template.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with LangChain.
 <details>
-<summary>Source code for <a href='examples/langchain/langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
+<summary>Source code for <a href='examples\langchain\langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -722,14 +768,67 @@ chat_interface.servable()
 </details>
 
 
+## Mistral
+
+### Chat
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Mistral through CTransformers.
+<details>
+<summary>Source code for <a href='examples\mistral\mistral_chat.py' target='_blank'>mistral_chat.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+Mistral through CTransformers.
+"""
+
+import panel as pn
+from ctransformers import AutoModelForCausalLM
+
+pn.extension()
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    if "mistral" not in llms:
+        instance.placeholder_text = "Downloading model; please wait..."
+        llms["mistral"] = AutoModelForCausalLM.from_pretrained(
+            "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+            model_file="mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+            gpu_layers=1,
+        )
+
+    llm = llms["mistral"]
+    response = llm(contents, stream=True, max_new_tokens=1000)
+    message = ""
+    for token in response:
+        message += token
+        yield message
+
+
+llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
+chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Mistral")
+chat_interface.send(
+    "Send a message to get a reply from Mistral!", user="System", respond=False
+)
+chat_interface.servable()
+```
+</details>
+
+
 ## Openai
 
 ### Async Chat
 
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with async/await.
+
+<video controls poster="assets\thumbnails\openai_async_chat.png" >  
+  <source src="assets\videos\openai_async_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
+<summary>Source code for <a href='examples\openai\openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
@@ -763,248 +862,18 @@ chat_interface.servable()
 </details>
 
 
-### Chat
-
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API.
-<details>
-<summary>Source code for <a href='examples/openai/openai_chat.py' target='_blank'>openai_chat.py</a></summary>
-```python
-"""
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API.
-"""
-
-import openai
-import panel as pn
-
-pn.extension(design="material")
-
-
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": contents}],
-        stream=True,
-    )
-    message = ""
-    for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield message
-
-
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
-chat_interface.send(
-    "Send a message to get a reply from ChatGPT!", user="System", respond=False
-)
-chat_interface.servable()
-```
-</details>
-
-
-### Hvplot
-
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
-<details>
-<summary>Source code for <a href='examples/openai/openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
-```python
-"""
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
-"""
-
-import re
-from typing import Union
-
-import openai
-import pandas as pd
-import panel as pn
-from panel.io.mime_render import exec_with_return
-
-DATAFRAME_PROMPT = """
-    Here are the columns in your DataFrame: {columns}.
-    Create a plot with hvplot that highlights an interesting
-    relationship between the columns with hvplot groupby kwarg.
-"""
-
-CODE_REGEX = re.compile(r"```\s?python(.*?)```", re.DOTALL)
-
-
-async def respond_with_openai(contents: Union[pd.DataFrame, str]):
-    # extract the DataFrame
-    if isinstance(contents, pd.DataFrame):
-        global df
-        df = contents
-        columns = contents.columns
-        message = DATAFRAME_PROMPT.format(columns=columns)
-    else:
-        message = contents
-
-    response = await openai.ChatCompletion.acreate(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": message}],
-        temperature=0,
-        max_tokens=500,
-        stream=True,
-    )
-    message = ""
-    async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "value": message}
-
-
-async def respond_with_executor(code: str):
-    code_block = f"```python\n{code}\n```"
-    global df
-    context = {"df": df}
-    plot = exec_with_return(code=code, global_context=context)
-    return {
-        "user": "Executor",
-        "value": pn.Tabs(
-            ("Plot", plot),
-            ("Code", code_block),
-        ),
-    }
-
-
-async def callback(
-    contents: Union[str, pd.DataFrame],
-    name: str,
-    instance: pn.widgets.ChatInterface,
-):
-    if not isinstance(contents, (str, pd.DataFrame)):
-        return
-
-    if name == "User":
-        async for chunk in respond_with_openai(contents):
-            yield chunk
-        instance.respond()
-    elif CODE_REGEX.search(contents):
-        yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
-
-
-chat_interface = pn.widgets.ChatInterface(
-    widgets=[pn.widgets.TextInput(name="Message"), pn.widgets.FileInput(name="Upload")],
-    callback=callback,
-)
-# ruff: noqa: E501
-chat_interface.send(
-    """Send a message to ChatGPT or upload a small CSV file to get started!
-
-<a href="data:text/csv;base64,ZGF0ZSxjYXRlZ29yeSxxdWFudGl0eSxwcmljZQoyMDIxLTAxLTAxLGVsZWN0cm9uaWNzLDIsNTAwICAKMjAyMS0wMS0wMixjbG90aGluZywxLDUwCjIwMjEtMDEtMDMsaG9tZSBnb29kcyw0LDIwMAoyMDIxLTAxLTA0LGVsZWN0cm9uaWNzLDEsMTAwMAoyMDIxLTAxLTA1LGdyb2NlcmllcywzLDc1CjIwMjEtMDEtMDYsY2xvdGhpbmcsMiwxMDAKMjAyMS0wMS0wNyxob21lIGdvb2RzLDMsMTUwCjIwMjEtMDEtMDgsZWxlY3Ryb25pY3MsNCwyMDAwCjIwMjEtMDEtMDksZ3JvY2VyaWVzLDIsNTAKMjAyMS0wMS0xMCxlbGVjdHJvbmljcywzLDE1MDA=" download="example.csv">example.csv</a>
-""",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-```
-</details>
-
-
-### Image Generation
-
-Demonstrates how to use the ChatInterface widget to create an image using
-OpenAI's DALL-E API.
-<details>
-<summary>Source code for <a href='examples/openai/openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
-```python
-"""
-Demonstrates how to use the ChatInterface widget to create an image using
-OpenAI's DALL-E API.
-"""
-
-import openai
-import panel as pn
-
-pn.extension(design="material")
-
-
-def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    response = openai.Image.create(prompt=contents, n=1, size="256x256")
-    image_url = response["data"][0]["url"]
-    return pn.pane.Image(image_url, width=256, height=256)
-
-
-chat_interface = pn.widgets.ChatInterface(
-    callback=callback, callback_user="DALL-E", placeholder_text="Generating..."
-)
-chat_interface.send(
-    "Create an image by providing a prompt!", user="System", respond=False
-)
-chat_interface.servable()
-```
-</details>
-
-
-### Two Bots
-
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
-<details>
-<summary>Source code for <a href='examples/openai/openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
-```python
-"""
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
-"""
-
-import openai
-import panel as pn
-
-pn.extension(design="material")
-
-
-async def callback(
-    contents: str,
-    user: str,
-    instance: pn.widgets.ChatInterface,
-):
-    if user in ["User", "Happy Bot"]:
-        callback_user = "Nerd Bot"
-        callback_avatar = "🤓"
-    elif user == "Nerd Bot":
-        callback_user = "Happy Bot"
-        callback_avatar = "😃"
-
-    prompt = f"Think profoundly about {contents}, then ask a question."
-    response = await openai.ChatCompletion.acreate(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}],
-        stream=True,
-        max_tokens=250,
-        temperature=0.1,
-    )
-    message = ""
-    async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": callback_user, "avatar": callback_avatar, "value": message}
-
-    if len(instance.value) % 6 == 0:  # stop at every 6 messages
-        instance.send(
-            "That's it for now! Thanks for chatting!", user="System", respond=False
-        )
-        return
-    instance.respond()
-
-
-chat_interface = pn.widgets.ChatInterface(callback=callback)
-chat_interface.send(
-    "Enter a topic for the bots to discuss! Beware the token usage!",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-```
-</details>
-
-
-### With Authentication
+### Authentication
 
 Demonstrates how to use the ChatInterface widget with authentication for
 OpenAI's API.
+
+<video controls poster="assets\thumbnails\openai_authentication.png" >  
+  <source src="assets\videos\openai_authentication.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
 <details>
-<summary>Source code for <a href='examples/openai/openai_with_authentication.py' target='_blank'>openai_with_authentication.py</a></summary>
+<summary>Source code for <a href='examples\openai\openai_authentication.py' target='_blank'>openai_authentication.py</a></summary>
 ```python
 """
 Demonstrates how to use the ChatInterface widget with authentication for
@@ -1067,10 +936,276 @@ chat_interface.send(
 )
 
 pn.template.MaterialTemplate(
-    title="OpenAI ChatInterface",
+    title="OpenAI ChatInterface with authentication",
     sidebar=[key_input],
     main=[chat_interface],
 ).servable()
+```
+</details>
+
+
+### Chat
+
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+OpenAI's GPT-3 API.
+
+<video controls poster="assets\thumbnails\openai_chat.png" >  
+  <source src="assets\videos\openai_chat.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples\openai\openai_chat.py' target='_blank'>openai_chat.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create a chatbot using
+OpenAI's GPT-3 API.
+"""
+
+import openai
+import panel as pn
+
+pn.extension(design="material")
+
+
+async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": contents}],
+        stream=True,
+    )
+    message = ""
+    for chunk in response:
+        message += chunk["choices"][0]["delta"].get("content", "")
+        yield message
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+chat_interface.send(
+    "Send a message to get a reply from ChatGPT!", user="System", respond=False
+)
+chat_interface.servable()
+```
+</details>
+
+
+### Hvplot
+
+Demonstrates how to use the ChatInterface widget to create a chatbot
+that can generate plots using hvplot.
+
+<video controls poster="assets\thumbnails\openai_hvplot.png" >  
+  <source src="assets\videos\openai_hvplot.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples\openai\openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create a chatbot
+that can generate plots using hvplot.
+"""
+
+import re
+from typing import Union
+
+import openai
+import pandas as pd
+import panel as pn
+from panel.io.mime_render import exec_with_return
+
+DATAFRAME_PROMPT = """
+    Here are the columns in your DataFrame: {columns}.
+    Create a plot with hvplot that highlights an interesting
+    relationship between the columns with hvplot groupby kwarg.
+"""
+
+CODE_REGEX = re.compile(r"```\s?python(.*?)```", re.DOTALL)
+
+
+def _clean(df: pd.DataFrame):
+    df.columns = [column.strip() for column in df.columns]
+    df = df.head(100)
+    return df
+
+
+async def respond_with_openai(contents: Union[pd.DataFrame, str]):
+    # extract the DataFrame
+    if isinstance(contents, pd.DataFrame):
+        global df
+        df = _clean(contents)
+        columns = contents.columns
+        message = DATAFRAME_PROMPT.format(columns=columns)
+    else:
+        message = contents
+
+    response = await openai.ChatCompletion.acreate(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": message}],
+        temperature=0,
+        max_tokens=500,
+        stream=True,
+    )
+    message = ""
+    async for chunk in response:
+        message += chunk["choices"][0]["delta"].get("content", "")
+        yield {"user": "ChatGPT", "value": message}
+
+
+async def respond_with_executor(code: str):
+    code_block = f"```python\n{code}\n```"
+    global df
+    context = {"df": df}
+    plot = exec_with_return(code=code, global_context=context)
+    return {
+        "user": "Executor",
+        "value": pn.Tabs(
+            ("Plot", plot),
+            ("Code", code_block),
+        ),
+    }
+
+
+async def callback(
+    contents: Union[str, pd.DataFrame],
+    name: str,
+    instance: pn.widgets.ChatInterface,
+):
+    if not isinstance(contents, (str, pd.DataFrame)):
+        return
+
+    if name == "User":
+        async for chunk in respond_with_openai(contents):
+            yield chunk
+        instance.respond()
+    elif CODE_REGEX.search(contents):
+        yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
+
+
+chat_interface = pn.widgets.ChatInterface(
+    widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
+    callback=callback,
+)
+# ruff: noqa: E501
+chat_interface.send(
+    """Send a message to ChatGPT or upload a small CSV file to get started!
+
+<a href="data:text/csv;base64,ZGF0ZSxjYXRlZ29yeSxxdWFudGl0eSxwcmljZQoyMDIxLTAxLTAxLGVsZWN0cm9uaWNzLDIsNTAwICAKMjAyMS0wMS0wMixjbG90aGluZywxLDUwCjIwMjEtMDEtMDMsaG9tZSBnb29kcyw0LDIwMAoyMDIxLTAxLTA0LGVsZWN0cm9uaWNzLDEsMTAwMAoyMDIxLTAxLTA1LGdyb2NlcmllcywzLDc1CjIwMjEtMDEtMDYsY2xvdGhpbmcsMiwxMDAKMjAyMS0wMS0wNyxob21lIGdvb2RzLDMsMTUwCjIwMjEtMDEtMDgsZWxlY3Ryb25pY3MsNCwyMDAwCjIwMjEtMDEtMDksZ3JvY2VyaWVzLDIsNTAKMjAyMS0wMS0xMCxlbGVjdHJvbmljcywzLDE1MDA=" download="example.csv">example.csv</a>
+""",
+    user="System",
+    respond=False,
+)
+chat_interface.servable()
+```
+</details>
+
+
+### Image Generation
+
+Demonstrates how to use the ChatInterface widget to create an image using
+OpenAI's DALL-E API.
+
+<video controls poster="assets\thumbnails\openai_image_generation.png" >  
+  <source src="assets\videos\openai_image_generation.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples\openai\openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create an image using
+OpenAI's DALL-E API.
+"""
+
+import openai
+import panel as pn
+
+pn.extension(design="material")
+
+
+def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+    response = openai.Image.create(prompt=contents, n=1, size="256x256")
+    image_url = response["data"][0]["url"]
+    return pn.pane.Image(image_url, width=256, height=256)
+
+
+chat_interface = pn.widgets.ChatInterface(
+    callback=callback, callback_user="DALL-E", placeholder_text="Generating..."
+)
+chat_interface.send(
+    "Create an image by providing a prompt!", user="System", respond=False
+)
+chat_interface.servable()
+```
+</details>
+
+
+### Two Bots
+
+Demonstrates how to use the ChatInterface widget to create two bots that
+chat with each other.
+
+<video controls poster="assets\thumbnails\openai_two_bots.png" >  
+  <source src="assets\videos\openai_two_bots.webm" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> 
+<details>
+<summary>Source code for <a href='examples\openai\openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
+```python
+"""
+Demonstrates how to use the ChatInterface widget to create two bots that
+chat with each other.
+"""
+
+import openai
+import panel as pn
+
+pn.extension(design="material")
+
+
+async def callback(
+    contents: str,
+    user: str,
+    instance: pn.widgets.ChatInterface,
+):
+    if user in ["User", "Happy Bot"]:
+        callback_user = "Nerd Bot"
+        callback_avatar = "🤓"
+    elif user == "Nerd Bot":
+        callback_user = "Happy Bot"
+        callback_avatar = "😃"
+
+    prompt = f"Think profoundly about {contents}, then ask a question."
+    response = await openai.ChatCompletion.acreate(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}],
+        stream=True,
+        max_tokens=250,
+        temperature=0.1,
+    )
+    message = ""
+    async for chunk in response:
+        message += chunk["choices"][0]["delta"].get("content", "")
+        yield {"user": callback_user, "avatar": callback_avatar, "value": message}
+
+    if len(instance.value) % 6 == 0:  # stop at every 6 messages
+        instance.send(
+            "That's it for now! Thanks for chatting!", user="System", respond=False
+        )
+        return
+    instance.respond()
+
+
+chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface.send(
+    "Enter a topic for the bots to discuss! Beware the token usage!",
+    user="System",
+    respond=False,
+)
+chat_interface.servable()
 ```
 </details>
 

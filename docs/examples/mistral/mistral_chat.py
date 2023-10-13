@@ -1,6 +1,6 @@
 """
 Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral thru CTransformers.
+Mistral through CTransformers.
 """
 
 import panel as pn
@@ -26,7 +26,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield message
 
 
-llms = {}
+llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
 chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Mistral")
 chat_interface.send(
     "Send a message to get a reply from Mistral!", user="System", respond=False

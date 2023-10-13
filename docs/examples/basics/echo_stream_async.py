@@ -1,9 +1,9 @@
 """
-Demonstrates how to use the `ChatInterface` and a `callback` function to stream back
-responses.
+Demonstrates how to use the `ChatInterface` and a `callback` function to
+stream back responses.
 
-The chatbot Assistant echoes back the message entered by the User in an *async streaming*
-fashion.
+The chatbot Assistant echoes back the message entered by the User in an
+*async streaming* fashion.
 """
 
 

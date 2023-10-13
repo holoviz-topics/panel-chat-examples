@@ -1,9 +1,16 @@
+import os
+import re
+from pathlib import Path
+
 from playwright.sync_api import Page
 
 # Please note Playwright .click() does not work with Panel buttons
 # Luckily .dispatch_event("click") does
 
 TIMEOUT = 350
+
+EXAMPLE_PDF = str((Path.cwd() / "docs/examples/langchain/example.pdf").absolute())
+EXAMPLE_CSV = str((Path.cwd() / "tests/ui/example.csv").absolute())
 
 
 class ChatInterface:
@@ -20,6 +27,9 @@ class ChatInterface:
     def button_click(self, name):
         self.page.get_by_role("button", name=name).dispatch_event("click")
         self.page.wait_for_timeout(TIMEOUT)
+
+    def send_click(self):
+        self.button_click(" Send")
 
 
 def basic_chat(page: Page):
@@ -61,10 +71,10 @@ def feature_replace_response(page: Page):
     chat = ChatInterface(page)
 
     chat.button_click(name="Tails!")
-    chat.button_click(name=" Send")
+    chat.send_click()
     page.wait_for_timeout(4 * TIMEOUT)
     chat.button_click(name="Heads!")
-    chat.button_click(name=" Send")
+    chat.send_click()
     page.wait_for_timeout(4 * TIMEOUT)
 
 
@@ -86,6 +96,58 @@ def langchain_pdf_assistant(page: Page):
     ChatInterface(page)
 
 
+def openai_async_chat(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What is HoloViz Panel in one sentence")
+    page.wait_for_timeout(4000)
+
+
+def openai_authentication(page: Page):
+    chat = ChatInterface(page)
+    page.get_by_placeholder("sk-...").fill(os.environ["OPENAI_API_KEY"])
+    page.get_by_placeholder("sk-...").press("Enter")
+    page.get_by_text(
+        "Your OpenAI key has been set. Feel free to minimize the sidebar."
+    ).wait_for()
+    page.wait_for_timeout(1000)
+    chat.send("Explain who you are in one sentence")
+    page.wait_for_timeout(3000)
+
+
+def openai_chat(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What is HoloViz Panel")
+    page.locator("div").filter(has_text=re.compile(r"^ChatGPT$")).first.dispatch_event(
+        "click"
+    )
+    page.wait_for_timeout(2000)
+
+    # ---------------------
+
+
+def openai_hvplot(page: Page):
+    chat = ChatInterface(page)
+    page.get_by_role("textbox").set_input_files(EXAMPLE_CSV)
+    page.wait_for_timeout(1000)
+    chat.button_click(" Send")
+    page.get_by_role("combobox").select_option("clothing")
+    page.wait_for_timeout(1000)
+
+
+def openai_image_generation(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Two people on a beach in the style of Carl Barks")
+    page.get_by_text("DALL-E").wait_for()
+    page.locator("img").nth(1).wait_for()
+    page.wait_for_timeout(1000)
+
+
+def openai_two_bots(page: Page):
+    chat = ChatInterface(page)
+    chat.send("HoloViz Panel")
+    page.wait_for_timeout(10000)
+
+
 ACTION = {
     "basic_chat.py": basic_chat,
     "basic_streaming_chat.py": basic_streaming_chat,
@@ -95,6 +157,12 @@ ACTION = {
     "feature_replace_response.py": feature_replace_response,
     "feature_slim_interface.py": feature_slim_interface,
     "langchain_with_memory.py": langchain_with_memory,
+    "openai_async_chat.py": openai_async_chat,
+    "openai_authentication.py": openai_authentication,
+    "openai_chat.py": openai_chat,
+    "openai_hvplot.py": openai_hvplot,
+    "openai_image_generation.py": openai_image_generation,
+    "openai_two_bots.py": openai_two_bots,
 }
 ZOOM = {
     "basic_chat.py": 2,
@@ -105,4 +173,10 @@ ZOOM = {
     "feature_replace_response.py": 2,
     "feature_slim_interface.py": 1.25,
     "langchain_with_memory.py": 1.25,
+    "openai_async_chat.py": 1.75,
+    "openai_authentication.py": 1,
+    "openai_chat.py": 1.5,
+    "openai_hvplot.py": 1,
+    "openai_image_generation.py": 1.5,
+    "openai_two_bots.py": 1,
 }

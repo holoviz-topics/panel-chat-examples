@@ -20,11 +20,17 @@ DATAFRAME_PROMPT = """
 CODE_REGEX = re.compile(r"```\s?python(.*?)```", re.DOTALL)
 
 
+def _clean(df: pd.DataFrame):
+    df.columns = [column.strip() for column in df.columns]
+    df = df.head(100)
+    return df
+
+
 async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     # extract the DataFrame
     if isinstance(contents, pd.DataFrame):
         global df
-        df = contents
+        df = _clean(contents)
         columns = contents.columns
         message = DATAFRAME_PROMPT.format(columns=columns)
     else:
@@ -74,7 +80,7 @@ async def callback(
 
 
 chat_interface = pn.widgets.ChatInterface(
-    widgets=[pn.widgets.TextInput(name="Message"), pn.widgets.FileInput(name="Upload")],
+    widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
     callback=callback,
 )
 # ruff: noqa: E501

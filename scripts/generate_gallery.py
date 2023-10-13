@@ -7,6 +7,7 @@ DOCS_PATH = Path(__file__).parent.parent / "docs"
 EXAMPLES_PATH = DOCS_PATH / "examples"
 INDEX_MD_PATH = DOCS_PATH / "index.md"
 THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
+VIDEOS_PATH = DOCS_PATH / "assets" / "videos"
 PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
 
 
@@ -72,7 +73,17 @@ def run():
                         in_docstring = True
 
                 thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png")
-                if thumbnail.exists():
+                video = VIDEOS_PATH / file.name.replace(".py", ".webm")
+
+                if video.exists() and thumbnail.exists():
+                    video_str = f"""
+<video controls poster="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" >  
+  <source src="{video.relative_to(EXAMPLES_PATH.parent)}" type="video/webm"
+  style="max-height: 400px; max-width: 100%;">  
+  Your browser does not support the video tag.  
+</video> """
+                    docstring_lines.append(video_str)
+                elif thumbnail.exists():
                     thumbnail_str = (
                         "\n"
                         f'[<img src="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
