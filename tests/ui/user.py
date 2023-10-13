@@ -83,7 +83,7 @@ def chat_memory(page: Page):
 
 
 def chrome_pdf_qa(page: Page):
-    chat = ChatInterface(page)
+    ChatInterface(page)
 
 
 ACTION = {

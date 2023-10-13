@@ -7,7 +7,7 @@ import panel as pn
 from langchain.chains import LLMMathChain
 from langchain.llms import OpenAI
 
-pn.extension()
+pn.extension(design="material")
 
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
@@ -17,7 +17,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
 chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Langchain")
 chat_interface.send(
-    "Send a message to get a reply from ChatGPT!", user="System", respond=False
+    "Send a math question to get an answer from MathGPT!", user="System", respond=False
 )
 
 callback_handler = pn.widgets.langchain.PanelCallbackHandler(

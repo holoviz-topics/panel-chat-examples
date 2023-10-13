@@ -163,3 +163,4 @@ tests/ui/videos/
 docs/pyodide/*
 script.*
 test-results/
+cache/

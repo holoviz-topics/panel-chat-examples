@@ -20,32 +20,48 @@ MODEL_KWARGS = {
         "model_file": "mistral-7b-instruct-v0.1.Q4_K_M.gguf",
     },
 }
-llm_chains = {}
+
+# We cache the chains and responses to speed up things
+llm_chains = pn.state.cache["llm_chains"] = pn.state.cache.get("llm_chains", {})
+responses = pn.state.cache["responses"] = pn.state.cache.get("responses", {})
 
 TEMPLATE = """<s>[INST] You are a friendly chat bot who's willing to help answer the
 user:
 {user_input} [/INST] </s>
 """
 
+CONFIG = {"max_new_tokens": 256, "temperature": 0.5}
+
+
+def _get_llm_chain(model, template=TEMPLATE, config=CONFIG):
+    llm = CTransformers(**MODEL_KWARGS[model], config=config)
+    prompt = PromptTemplate(template=template, input_variables=["user_input"])
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    return llm_chain
+
+
+# Cannot use pn.cache due to https://github.com/holoviz/panel/issues/4236
+async def _get_response(contents: str, model: str) -> str:
+    key = (contents, model)
+    if key in responses:
+        return responses[key]
+
+    llm_chain = llm_chains[model]
+    response = responses[key] = await llm_chain.apredict(user_input=contents)
+    return response
+
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
-    config = {"max_new_tokens": 256, "temperature": 0.5}
-
     for model in MODEL_KWARGS:
         if model not in llm_chains:
             instance.placeholder_text = (
                 f"Downloading {model}, this may take a few minutes,"
                 f"or longer, depending on your internet connection."
             )
-            llm = CTransformers(**MODEL_KWARGS[model], config=config)
-            prompt = PromptTemplate(template=TEMPLATE, input_variables=["user_input"])
-            llm_chain = LLMChain(prompt=prompt, llm=llm)
-            llm_chains[model] = llm_chain
-        instance.send(
-            await llm_chains[model].apredict(user_input=contents),
-            user=model.title(),
-            respond=False,
-        )
+            llm_chains[model] = _get_llm_chain(model)
+
+        response = await _get_response(contents, model)
+        instance.send(response, user=model.title(), respond=False)
 
 
 chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
