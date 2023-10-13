@@ -122,6 +122,18 @@ hatch run docs-serve
 
 It'll automatically watch for changes in your code.
 
+## Check list
+
+Before publishing a new version please make sure
+
+- [ ] The file name follows the naming convention, is unique and makes sense when used as header
+in the documentation and app gallery.
+- [ ] You have added a thumbnail and video
+
+Please also consider
+
+- [ ] Adding a custom UI test to [user.py](tests/ui/user.py).
+
 ## Publish a new version
 
 You can bump the version, create a commit and associated tag with one command:

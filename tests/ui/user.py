@@ -95,6 +95,10 @@ def langchain_with_memory(page: Page):
 def langchain_pdf_assistant(page: Page):
     ChatInterface(page)
 
+def mistral_chat(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What is HoloViz Panel in one sentence")
+    page.wait_for_timeout(4000)
 
 def openai_async_chat(page: Page):
     chat = ChatInterface(page)

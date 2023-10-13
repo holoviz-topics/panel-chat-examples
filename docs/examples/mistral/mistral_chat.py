@@ -6,8 +6,9 @@ Mistral through CTransformers.
 import panel as pn
 from ctransformers import AutoModelForCausalLM
 
-pn.extension()
+pn.extension(design="material")
 
+llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
     if "mistral" not in llms:
@@ -26,7 +27,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield message
 
 
-llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
+
 chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Mistral")
 chat_interface.send(
     "Send a message to get a reply from Mistral!", user="System", respond=False
