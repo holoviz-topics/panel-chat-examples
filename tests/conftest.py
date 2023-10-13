@@ -23,8 +23,8 @@ def get_default_port():
 PORT = [get_default_port()]
 
 REQUIRES_OPENAI_API_KEY = [
-    "docs/examples/langchain/math_chain.py",
-    "docs/examples/langchain/chat_memory.py",
+    "docs/examples/langchain/langchain_math_assistant.py",
+    "docs/examples/langchain/langchain_with_memory.py",
 ]
 
 

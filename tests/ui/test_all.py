@@ -1,5 +1,6 @@
 """Test the UI of all apps via Playwright"""
 import os
+import sys
 import time
 from pathlib import Path
 
@@ -17,8 +18,10 @@ EXPECTED_LOG_MESSAGES = [
     "[bokeh] document idle at",
     "Bokeh items were rendered successfully",
 ]
+RECORD_VIDEO_SIZE = {"width": 1600, "height": 900}  # Optimal for Twitter
+THUMBNAILS_PATH = Path.cwd() / "docs/assets/thumbnails"
+VIDEOS_PATH = Path.cwd() / "docs/assets/videos"
 VIEWPORT = {"width": 1600, "height": 900}  # Optimal for Twitter
-RECORD_VIDEO_SIZE = VIEWPORT
 
 
 def _bokeh_messages_have_been_logged(msgs):
@@ -43,6 +46,16 @@ def _page_not_empty(page):
 
 def _expect_no_traceback(page):
     expect(page.get_by_text("Traceback (most recent call last):")).to_have_count(0)
+
+
+def test_has_thumbnail(app_path):
+    name = Path(app_path).name
+    assert (THUMBNAILS_PATH / name.replace(".py", ".png")).exists()
+
+
+def test_has_video(app_path):
+    name = Path(app_path).name
+    assert (VIDEOS_PATH / name.replace(".py", ".webm")).exists()
 
 
 @pytest.fixture
@@ -70,12 +83,15 @@ def test_app(server, app_path, port, page):
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
 
-    zoom = ZOOM.get(name, None)
-    if zoom:
-        page.locator("body").evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
+    # zoom and run should be defined for all examples
+    # even if we don't run the video
+    run = ACTION[name]
+    zoom = ZOOM[name]
 
-    run = ACTION.get(name, None)
-    if run:
+    # We cannot run these tests in pipelines etc. as they require models downloaded,
+    # api keys etc.
+    if "on" in sys.argv and ("--screenshot" in sys.argv or "--video" in sys.argv):
+        page.locator("body").evaluate(f"(sel)=>{{sel.style.zoom = {zoom}}}")
         run(page)
 
     page.wait_for_timeout(TIMEOUT)

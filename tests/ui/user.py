@@ -44,6 +44,12 @@ def basic_streaming_chat(page: Page):
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
+def basic_echo_stream_async(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Hello World")
+    page.get_by_text("Echoing User: Hello World").inner_text()
+
+
 def component_environment_widget(page: Page):
     langchain = page.get_by_role("textbox").nth(0)
     langchain.fill("some-secret")
@@ -84,6 +90,12 @@ def feature_slim_interface(page: Page):
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
+def langchain_llama_and_mistral(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Please explain what kind of model you are in one sentence")
+    page.wait_for_timeout(8000)
+
+
 def langchain_with_memory(page: Page):
     chat = ChatInterface(page)
     chat.send("Tell me what HoloViz Panel is in one sentence")
@@ -92,13 +104,31 @@ def langchain_with_memory(page: Page):
     page.wait_for_timeout(6 * TIMEOUT)
 
 
+def langchain_math_assistant(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What is the square root of 9?")
+    page.get_by_text("Answer:").wait_for()
+    page.wait_for_timeout(3000)
+
+
 def langchain_pdf_assistant(page: Page):
-    ChatInterface(page)
+    chat = ChatInterface(page)
+    page.get_by_role("textbox").set_input_files(EXAMPLE_PDF)
+    page.wait_for_timeout(1000)
+    chat.send_click()
+    page.get_by_text("Let's chat about the PDF!").wait_for()
+    page.wait_for_timeout(500)
+    # chat.send("What assets does the PSF own?")
+    page.get_by_placeholder("Ask questions here!").fill("What assets does the PSF own?")
+    page.get_by_placeholder("Ask questions here!").press("Enter")
+    page.wait_for_timeout(10000)
+
 
 def mistral_chat(page: Page):
     chat = ChatInterface(page)
     chat.send("What is HoloViz Panel in one sentence")
     page.wait_for_timeout(4000)
+
 
 def openai_async_chat(page: Page):
     chat = ChatInterface(page)
@@ -154,13 +184,18 @@ def openai_two_bots(page: Page):
 
 ACTION = {
     "basic_chat.py": basic_chat,
+    "basic_echo_stream_async.py": basic_echo_stream_async,
     "basic_streaming_chat.py": basic_streaming_chat,
     "component_environment_widget.py": component_environment_widget,
     "feature_chained_response.py": feature_chained_response,
     "feature_delayed_placeholder.py": feature_delayed_placeholder,
     "feature_replace_response.py": feature_replace_response,
     "feature_slim_interface.py": feature_slim_interface,
+    "langchain_llama_and_mistral.py": langchain_llama_and_mistral,
+    "langchain_math_assistant.py": langchain_math_assistant,
+    "langchain_pdf_assistant.py": langchain_pdf_assistant,
     "langchain_with_memory.py": langchain_with_memory,
+    "mistral_chat.py": mistral_chat,
     "openai_async_chat.py": openai_async_chat,
     "openai_authentication.py": openai_authentication,
     "openai_chat.py": openai_chat,
@@ -170,13 +205,18 @@ ACTION = {
 }
 ZOOM = {
     "basic_chat.py": 2,
+    "basic_echo_stream_async.py": 2,
     "basic_streaming_chat.py": 2,
     "component_environment_widget.py": 1.25,
     "feature_chained_response.py": 2,
     "feature_delayed_placeholder.py": 2,
     "feature_replace_response.py": 2,
     "feature_slim_interface.py": 1.25,
+    "langchain_llama_and_mistral.py": 1.25,
+    "langchain_math_assistant.py": 1.5,
+    "langchain_pdf_assistant.py": 1,
     "langchain_with_memory.py": 1.25,
+    "mistral_chat.py": 2,
     "openai_async_chat.py": 1.75,
     "openai_authentication.py": 1,
     "openai_chat.py": 1.5,

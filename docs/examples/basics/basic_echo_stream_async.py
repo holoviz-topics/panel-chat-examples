@@ -17,7 +17,7 @@ pn.extension()
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
     await sleep(1)
     message = ""
-    for char in contents:
+    for char in "Echoing User: " + contents:
         await sleep(0.05)
         message += char
         yield message
