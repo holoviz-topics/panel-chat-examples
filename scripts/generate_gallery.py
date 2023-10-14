@@ -71,8 +71,8 @@ def run():
                 elif thumbnail.exists():
                     thumbnail_str = (
                         "\n"
-                        f'[<img src="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
-                        f'alt="{title}" style="max-height: 400px; max-width: 600px%;">]'
+                        f'[<img src="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" '  # noqa: E501
+                        f'alt="{title}" style="max-height: 400px; max-width: 600px%;">]'  # noqa: E501
                         f"({source_path})\n"
                     )
                     docstring_lines.append(thumbnail_str)
