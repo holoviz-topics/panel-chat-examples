@@ -16,14 +16,14 @@ CODE_REGEX = re.compile(r"```\s?python(.*?)```", re.DOTALL)
 sitemap = [
     "https://panel.holoviz.org/how_to/streamlit_migration/index.html",
     "https://panel.holoviz.org/how_to/streamlit_migration/panes.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/layouts.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/widgets.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/templates.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/activity.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/interactivity.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/caching.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/session_state.html",
-    # "https://panel.holoviz.org/how_to/streamlit_migration/multipage_apps.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/layouts.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/widgets.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/templates.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/activity.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/interactivity.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/caching.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/session_state.html",
+    "https://panel.holoviz.org/how_to/streamlit_migration/multipage_apps.html",
 ]
 SCRIPT = Path.cwd() / "script.py"
 PROMPT_TEMPLATE = """You are an experienced Python developer specializing in converting
@@ -46,10 +46,13 @@ in the code generated.
 You may not use
 
 - `.show` method on Panel components
+- `.servable` method on functions and methods
 - Panel widgets as arguments to matplotlib, plotly or altair plots
 - widgets with `pn.bind` or `@pn.depends` that have not been declared yet
 - `pn.state.cache` as a function. Its a dictionary.
 - `@pn.depends` annotations on functions with no arguments
+
+
 
 in the code generated
 
@@ -125,6 +128,7 @@ def _convert(code: str, retrieval_qa) -> str:
 
     answer = retrieval_qa(code)
     result = answer["result"]
+    print("raw", result)
     if CODE_REGEX.search(result):
         result = CODE_REGEX.search(result).group(1)
     return result
@@ -138,15 +142,21 @@ async def respond(contents, user, chat_interface):
     SCRIPT.write_text(code, newline="\n")
     response = pn.Column(
         "Here is the code as a Panel data app",
-        pn.widgets.Ace(value=code, height=500, width=500),
+        pn.widgets.CodeEditor(value=code, height=500, sizing_mode="stretch_width", max_width=800),
     )
 
-    yield {"user": "OpenAI", "value": response}
+    yield {"user": "Assistant", "value": response}
 
 
 if __name__.startswith("bokeh"):
+    pn.extension("codeeditor")
+
     chat_interface = pn.widgets.ChatInterface(
         callback=respond,
         sizing_mode="stretch_width",
-        widgets=[pn.widgets.Ace()],
+        widgets=[pn.widgets.CodeEditor()],
+        max_height=1000,
     ).servable()
+
+    chat_interface.send("I'm an expert Python developer that can help you convert Streamlit apps to Panel apps", user="System", respond=False)
+    chat_interface.send("import streamlit as st\nst.write('Hello')")
