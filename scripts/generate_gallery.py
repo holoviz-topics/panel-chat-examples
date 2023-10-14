@@ -58,7 +58,7 @@ def run():
                 video = VIDEOS_PATH / file.name.replace(".py", ".webm")
 
                 if video.exists() and thumbnail.exists():
-                    video_str = dedent(
+                    video_str = dedent(  # noqa: E501
                         f"""
                         <video controls poster="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" >
                             <source src="{parent_path / video.relative_to(EXAMPLES_PATH.parent)}" type="video/webm"
