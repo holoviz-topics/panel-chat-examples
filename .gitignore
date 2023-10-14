@@ -164,3 +164,5 @@ docs/pyodide/*
 script.*
 test-results/
 cache/
+
+.DS_STORE

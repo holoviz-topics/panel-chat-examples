@@ -22,7 +22,7 @@ TTL = 1800  # 30 minutes
 
 pn.extension()
 
-# Define the Retrival Question/ Answer Chain
+# Define the Retrieval Question/ Answer Chain
 # We use caching to speed things up
 
 
@@ -58,7 +58,7 @@ def _get_retriever(pdf, openai_api_key: str, number_of_chunks: int):
 
 
 @pn.cache(ttl=TTL)
-def _get_retrival_qa(
+def _get_retrieval_qa(
     pdf: bytes, number_of_chunks: int, chain_type: str, openai_api_key: str
 ):
     retriever = _get_retriever(pdf, openai_api_key, number_of_chunks)
@@ -72,7 +72,7 @@ def _get_retrival_qa(
 
 
 def _get_response(contents):
-    qa = _get_retrival_qa(
+    qa = _get_retrieval_qa(
         state.pdf, state.number_of_chunks, state.chain_type, environ.OPENAI_API_KEY
     )
     response = qa({"query": contents})

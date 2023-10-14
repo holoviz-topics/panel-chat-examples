@@ -21,33 +21,14 @@ def run():
     content of the module docstring.
     """
 
-    text = dedent(
-        """
-        # Panel Chat Examples
-
-        To run all of these examples locally:
-
-        ```bash
-        git clone https://github.com/holoviz-topics/panel-chat-examples
-        cd panel-chat-examples
-        pip install hatch
-        # Optionally set the OPENAI_API_KEY environment variable
-        hatch run panel-serve
-        ```
-
-        !!! note
-            Note the default installation is not optimized for GPU usage. To **enable
-            GPU support** for local models (i.e. not OpenAI), install `ctransformers`
-            with the proper backend and modify the
-            scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
-        """
-    )
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
         if folder.name in ["examples", "__pycache__"]:
             continue
-        text += f"\n## {folder.name.title()}\n"
 
         # Loop through each .py file in the folder
+        docs_file_path = DOCS_PATH / folder.with_suffix(".md").name
+        text = f"\n# {folder.name.title()}\n"
+
         for file in sorted(folder.glob("*.py")):
             prefix = PREFIX.get(folder.name, folder.name)
 
@@ -58,8 +39,9 @@ def run():
                 .strip()
                 .title()
             )
-            source_path = file.relative_to(EXAMPLES_PATH.parent)
-            text += f"\n### {title}\n"
+            parent_path = Path("..")
+            source_path = parent_path / file.relative_to(EXAMPLES_PATH.parent)
+            text += f"\n## {title}\n"
 
             with open(file) as f:
                 docstring_lines = []
@@ -76,38 +58,37 @@ def run():
                 video = VIDEOS_PATH / file.name.replace(".py", ".webm")
 
                 if video.exists() and thumbnail.exists():
-                    video_str = f"""
-<video controls poster="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" >  
-  <source src="{video.relative_to(EXAMPLES_PATH.parent)}" type="video/webm"
-  style="max-height: 400px; max-width: 100%;">  
-  Your browser does not support the video tag.  
-</video> """
+                    video_str = dedent(
+                        f"""
+                        <video controls poster="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" >
+                            <source src="{parent_path / video.relative_to(EXAMPLES_PATH.parent)}" type="video/webm"
+                            style="max-height: 400px; max-width: 600px;">
+                            Your browser does not support the video tag.
+                        </video>\n
+                        """  # noqa: E501
+                    )
                     docstring_lines.append(video_str)
                 elif thumbnail.exists():
                     thumbnail_str = (
                         "\n"
-                        f'[<img src="{thumbnail.relative_to(EXAMPLES_PATH.parent)}" '
-                        f'alt="{title}" style="max-height: 400px; max-width: 100%;">]'
+                        f'[<img src="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" '  # noqa: E501
+                        f'alt="{title}" style="max-height: 400px; max-width: 600px%;">]'  # noqa: E501
                         f"({source_path})\n"
                     )
                     docstring_lines.append(thumbnail_str)
                 docstring_lines.append(
-                    f"<details>\n"
+                    f"\n<details>\n\n"
                     f"<summary>Source code for <a href='{source_path}' "
-                    f"target='_blank'>{source_path.name}</a></summary>\n"
+                    f"target='_blank'>{source_path.name}</a></summary>\n\n"
                     f"```python\n"
                     f"{indent(file.read_text(), '' * 4).rstrip()}\n"
                     f"```\n"
                     "</details>\n"
                 )
-
                 docstring = "\n".join(docstring_lines)
-
                 text += f"\n{docstring}\n"
 
-    # Write the text to the index.md file
-    with open(INDEX_MD_PATH, "w") as f:
-        f.write(text)
+        docs_file_path.write_text(text.strip())
 
 
 if __name__.startswith("__main__"):
