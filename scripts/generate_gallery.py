@@ -58,14 +58,14 @@ def run():
                 video = VIDEOS_PATH / file.name.replace(".py", ".webm")
 
                 if video.exists() and thumbnail.exists():
-                    video_str = dedent(  # noqa: E501
+                    video_str = dedent(
                         f"""
                         <video controls poster="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" >
                             <source src="{parent_path / video.relative_to(EXAMPLES_PATH.parent)}" type="video/webm"
                             style="max-height: 400px; max-width: 600px;">
                             Your browser does not support the video tag.
                         </video>\n
-                        """
+                        """  # noqa: E501
                     )
                     docstring_lines.append(video_str)
                 elif thumbnail.exists():
