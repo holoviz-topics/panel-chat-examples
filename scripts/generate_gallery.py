@@ -55,13 +55,13 @@ def run():
                         in_docstring = True
 
                 thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png")
-                video = VIDEOS_PATH / file.name.replace(".py", ".webm")
+                video = VIDEOS_PATH / file.name.replace(".py", ".mp4")
 
                 if video.exists() and thumbnail.exists():
                     video_str = dedent(
                         f"""
                         <video controls poster="{parent_path / thumbnail.relative_to(EXAMPLES_PATH.parent)}" >
-                            <source src="{parent_path / video.relative_to(EXAMPLES_PATH.parent)}" type="video/webm"
+                            <source src="{parent_path / video.relative_to(EXAMPLES_PATH.parent)}" type="video/mp4"
                             style="max-height: 400px; max-width: 600px;">
                             Your browser does not support the video tag.
                         </video>\n

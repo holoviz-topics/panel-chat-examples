@@ -19,8 +19,8 @@ user for it.
 
 Inherit from this widget to create your own custom `EnvironmentWidget`.
 
-<video controls poster="../assets/thumbnails/component_environment_widget.png" >
-    <source src="../assets/videos/component_environment_widget.webm" type="video/webm"
+<video controls poster="..\assets\thumbnails\component_environment_widget.png" >
+    <source src="..\assets\videos\component_environment_widget.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -29,7 +29,7 @@ Inherit from this widget to create your own custom `EnvironmentWidget`.
 
 <details>
 
-<summary>Source code for <a href='../examples/components/component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
+<summary>Source code for <a href='..\examples\components\component_environment_widget.py' target='_blank'>component_environment_widget.py</a></summary>
 
 ```python
 """
