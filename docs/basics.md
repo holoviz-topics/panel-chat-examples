@@ -46,7 +46,7 @@ chat_interface.servable()
 </details>
 
 
-## Echo Stream Async
+## Streaming Async Chat
 
 Demonstrates how to use the `ChatInterface` and a `callback` function to
 stream back responses.
@@ -54,8 +54,8 @@ stream back responses.
 The chatbot Assistant echoes back the message entered by the User in an
 *async streaming* fashion.
 
-<video controls poster="../assets/thumbnails/basic_echo_stream_async.png" >
-    <source src="../assets/videos/basic_echo_stream_async.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/basic_streaming_async_chat.png" >
+    <source src="../assets/videos/basic_streaming_async_chat.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -64,7 +64,7 @@ The chatbot Assistant echoes back the message entered by the User in an
 
 <details>
 
-<summary>Source code for <a href='../examples/basics/basic_echo_stream_async.py' target='_blank'>basic_echo_stream_async.py</a></summary>
+<summary>Source code for <a href='../examples/basics/basic_streaming_async_chat.py' target='_blank'>basic_streaming_async_chat.py</a></summary>
 
 ```python
 """

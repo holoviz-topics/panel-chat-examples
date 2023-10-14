@@ -44,7 +44,7 @@ def basic_streaming_chat(page: Page):
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
-def basic_echo_stream_async(page: Page):
+def basic_streaming_async_chat(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()
@@ -194,7 +194,7 @@ def openai_two_bots(page: Page):
 
 ACTION = {
     "basic_chat.py": basic_chat,
-    "basic_echo_stream_async.py": basic_echo_stream_async,
+    "basic_streaming_async_chat.py": basic_streaming_async_chat,
     "basic_streaming_chat.py": basic_streaming_chat,
     "component_environment_widget.py": component_environment_widget,
     "feature_chained_response.py": feature_chained_response,
@@ -216,7 +216,7 @@ ACTION = {
 }
 ZOOM = {
     "basic_chat.py": 2,
-    "basic_echo_stream_async.py": 2,
+    "basic_streaming_async_chat.py": 2,
     "basic_streaming_chat.py": 2,
     "component_environment_widget.py": 1.25,
     "feature_chained_response.py": 2,
