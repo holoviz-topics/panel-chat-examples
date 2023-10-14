@@ -34,7 +34,7 @@ CONFIG = {"max_new_tokens": 256, "temperature": 0.5}
 
 
 def _get_llm_chain(model, template=TEMPLATE, config=CONFIG):
-    llm = CTransformers(**MODEL_KWARGS[model], config=config)
+    llm = CTransformers(**MODEL_KWARGS[model], config=config, streaming=True)
     prompt = PromptTemplate(template=template, input_variables=["user_input"])
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     return llm_chain
@@ -55,13 +55,15 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
     for model in MODEL_KWARGS:
         if model not in llm_chains:
             instance.placeholder_text = (
-                f"Downloading {model}, this may take a few minutes,"
+                f"Downloading {model}, this may take a few minutes, "
                 f"or longer, depending on your internet connection."
             )
             llm_chains[model] = _get_llm_chain(model)
 
+        entry = None
         response = await _get_response(contents, model)
-        instance.send(response, user=model.title(), respond=False)
+        for chunk in response:
+            entry = instance.stream(chunk, user=model.title(), entry=entry)
 
 
 chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)

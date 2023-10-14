@@ -55,4 +55,10 @@ watch:
     - panel_chat_examples
 
 nav:
-    - Panel Chat Examples: index.md
+    - Home: index.md
+    - Basics: basics.md
+    - OpenAI: openai.md
+    - Langchain: langchain.md
+    - Mistral: mistral.md
+    - Features: features.md
+    - Components: components.md
