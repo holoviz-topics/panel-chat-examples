@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
+Demonstrates how to use the `ChatInterface` to create two bots that chat with each
+other.
 """
 
 import openai

@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API with LangChain.
+Demonstrates how to use the `ChatInterface` to create a chatbot with memory using
+OpenAI and [LangChain](https://python.langchain.com/docs/get_started/introduction).
 """
 
 import panel as pn

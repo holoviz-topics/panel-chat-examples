@@ -1,6 +1,7 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral through CTransformers.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers).
 """
 
 import panel as pn

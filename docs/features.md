@@ -2,10 +2,10 @@
 
 ## Chained Response
 
-Demonstrates how to chain responses in a ChatInterface.
+Demonstrates how to chain responses in a `ChatInterface`.
 
-<video controls poster="..\assets\thumbnails\feature_chained_response.png" >
-    <source src="..\assets\videos\feature_chained_response.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/feature_chained_response.png" >
+    <source src="../assets/videos/feature_chained_response.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -14,11 +14,11 @@ Demonstrates how to chain responses in a ChatInterface.
 
 <details>
 
-<summary>Source code for <a href='..\examples\features\feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
+<summary>Source code for <a href='../examples/features/feature_chained_response.py' target='_blank'>feature_chained_response.py</a></summary>
 
 ```python
 """
-Demonstrates how to chain responses in a ChatInterface.
+Demonstrates how to chain responses in a `ChatInterface`.
 """
 
 from time import sleep
@@ -61,8 +61,8 @@ chat_interface.servable()
 
 Demonstrates how to delay the display of the placeholder.
 
-<video controls poster="..\assets\thumbnails\feature_delayed_placeholder.png" >
-    <source src="..\assets\videos\feature_delayed_placeholder.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/feature_delayed_placeholder.png" >
+    <source src="../assets/videos/feature_delayed_placeholder.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -71,7 +71,7 @@ Demonstrates how to delay the display of the placeholder.
 
 <details>
 
-<summary>Source code for <a href='..\examples\features\feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
+<summary>Source code for <a href='../examples/features/feature_delayed_placeholder.py' target='_blank'>feature_delayed_placeholder.py</a></summary>
 
 ```python
 """
@@ -114,10 +114,10 @@ chat_interface.servable()
 
 ## Replace Response
 
-Demonstrates how to update the response of a ChatInterface widget.
+Demonstrates how to update the response of the `ChatInterface`.
 
-<video controls poster="..\assets\thumbnails\feature_replace_response.png" >
-    <source src="..\assets\videos\feature_replace_response.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/feature_replace_response.png" >
+    <source src="../assets/videos/feature_replace_response.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -126,11 +126,11 @@ Demonstrates how to update the response of a ChatInterface widget.
 
 <details>
 
-<summary>Source code for <a href='..\examples\features\feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
+<summary>Source code for <a href='../examples/features/feature_replace_response.py' target='_blank'>feature_replace_response.py</a></summary>
 
 ```python
 """
-Demonstrates how to update the response of a ChatInterface widget.
+Demonstrates how to update the response of the `ChatInterface`.
 """
 
 from asyncio import sleep
@@ -178,10 +178,10 @@ chat_interface.servable()
 
 ## Slim Interface
 
-Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+Demonstrates how to create a slim `ChatInterface` that fits in the sidebar.
 
-<video controls poster="..\assets\thumbnails\feature_slim_interface.png" >
-    <source src="..\assets\videos\feature_slim_interface.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/feature_slim_interface.png" >
+    <source src="../assets/videos/feature_slim_interface.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -190,11 +190,11 @@ Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
 
 <details>
 
-<summary>Source code for <a href='..\examples\features\feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
+<summary>Source code for <a href='../examples/features/feature_slim_interface.py' target='_blank'>feature_slim_interface.py</a></summary>
 
 ```python
 """
-Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+Demonstrates how to create a slim `ChatInterface` that fits in the sidebar.
 """
 import panel as pn
 

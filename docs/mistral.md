@@ -2,11 +2,12 @@
 
 ## Chat
 
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral through CTransformers.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers).
 
-<video controls poster="..\assets\thumbnails\mistral_chat.png" >
-    <source src="..\assets\videos\mistral_chat.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/mistral_chat.png" >
+    <source src="../assets/videos/mistral_chat.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -15,12 +16,13 @@ Mistral through CTransformers.
 
 <details>
 
-<summary>Source code for <a href='..\examples\mistral\mistral_chat.py' target='_blank'>mistral_chat.py</a></summary>
+<summary>Source code for <a href='../examples/mistral/mistral_chat.py' target='_blank'>mistral_chat.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral through CTransformers.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers).
 """
 
 import panel as pn
@@ -75,11 +77,13 @@ chat_interface.servable()
 
 ## With Memory
 
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral thru CTransformers that includes a memory of the conversation history.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers). The chatbot includes a
+memory of the conversation history.
 
-<video controls poster="..\assets\thumbnails\mistral_with_memory.png" >
-    <source src="..\assets\videos\mistral_with_memory.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/mistral_with_memory.png" >
+    <source src="../assets/videos/mistral_with_memory.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -88,12 +92,14 @@ Mistral thru CTransformers that includes a memory of the conversation history.
 
 <details>
 
-<summary>Source code for <a href='..\examples\mistral\mistral_with_memory.py' target='_blank'>mistral_with_memory.py</a></summary>
+<summary>Source code for <a href='../examples/mistral/mistral_with_memory.py' target='_blank'>mistral_with_memory.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral thru CTransformers that includes a memory of the conversation history.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers). The chatbot includes a
+memory of the conversation history.
 """
 
 import panel as pn

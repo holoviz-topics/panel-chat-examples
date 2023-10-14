@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2 and Mistral.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Llama2](https://ai.meta.com/llama/) and [Mistral](https://docs.mistral.ai).
 """
 
 import panel as pn

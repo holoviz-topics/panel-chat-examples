@@ -2,11 +2,11 @@
 
 ## Async Chat
 
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API with async/await.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+OpenAI's with async/await.
 
-<video controls poster="..\assets\thumbnails\openai_async_chat.png" >
-    <source src="..\assets\videos\openai_async_chat.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/openai_async_chat.png" >
+    <source src="../assets/videos/openai_async_chat.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -15,12 +15,12 @@ OpenAI's GPT-3 API with async/await.
 
 <details>
 
-<summary>Source code for <a href='..\examples\openai\openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
+<summary>Source code for <a href='../examples/openai/openai_async_chat.py' target='_blank'>openai_async_chat.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API with async/await.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+OpenAI's with async/await.
 """
 
 import openai
@@ -52,11 +52,11 @@ chat_interface.servable()
 
 ## Authentication
 
-Demonstrates how to use the ChatInterface widget with authentication for
+Demonstrates how to use the `ChatInterface` widget with authentication for
 OpenAI's API.
 
-<video controls poster="..\assets\thumbnails\openai_authentication.png" >
-    <source src="..\assets\videos\openai_authentication.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/openai_authentication.png" >
+    <source src="../assets/videos/openai_authentication.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -65,11 +65,11 @@ OpenAI's API.
 
 <details>
 
-<summary>Source code for <a href='..\examples\openai\openai_authentication.py' target='_blank'>openai_authentication.py</a></summary>
+<summary>Source code for <a href='../examples/openai/openai_authentication.py' target='_blank'>openai_authentication.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget with authentication for
+Demonstrates how to use the `ChatInterface` widget with authentication for
 OpenAI's API.
 """
 
@@ -139,11 +139,11 @@ pn.template.MaterialTemplate(
 
 ## Chat
 
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+OpenAI's API.
 
-<video controls poster="..\assets\thumbnails\openai_chat.png" >
-    <source src="..\assets\videos\openai_chat.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/openai_chat.png" >
+    <source src="../assets/videos/openai_chat.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -152,12 +152,12 @@ OpenAI's GPT-3 API.
 
 <details>
 
-<summary>Source code for <a href='..\examples\openai\openai_chat.py' target='_blank'>openai_chat.py</a></summary>
+<summary>Source code for <a href='../examples/openai/openai_chat.py' target='_blank'>openai_chat.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+OpenAI's API.
 """
 
 import openai
@@ -189,11 +189,11 @@ chat_interface.servable()
 
 ## Hvplot
 
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
+Demonstrates how to use the `ChatInterface` to create a chatbot
+that can generate plots of your data using [hvplot](https://hvplot.holoviz.org/).
 
-<video controls poster="..\assets\thumbnails\openai_hvplot.png" >
-    <source src="..\assets\videos\openai_hvplot.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/openai_hvplot.png" >
+    <source src="../assets/videos/openai_hvplot.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -202,12 +202,12 @@ that can generate plots using hvplot.
 
 <details>
 
-<summary>Source code for <a href='..\examples\openai\openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
+<summary>Source code for <a href='../examples/openai/openai_hvplot.py' target='_blank'>openai_hvplot.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
+Demonstrates how to use the `ChatInterface` to create a chatbot
+that can generate plots of your data using [hvplot](https://hvplot.holoviz.org/).
 """
 
 import re
@@ -306,11 +306,11 @@ chat_interface.servable()
 
 ## Image Generation
 
-Demonstrates how to use the ChatInterface widget to create an image using
-OpenAI's DALL-E API.
+Demonstrates how to use the `ChatInterface` to create images using
+OpenAI's [DALL-E API](https://platform.openai.com/docs/guides/images/image-generation).
 
-<video controls poster="..\assets\thumbnails\openai_image_generation.png" >
-    <source src="..\assets\videos\openai_image_generation.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/openai_image_generation.png" >
+    <source src="../assets/videos/openai_image_generation.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -319,12 +319,12 @@ OpenAI's DALL-E API.
 
 <details>
 
-<summary>Source code for <a href='..\examples\openai\openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
+<summary>Source code for <a href='../examples/openai/openai_image_generation.py' target='_blank'>openai_image_generation.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create an image using
-OpenAI's DALL-E API.
+Demonstrates how to use the `ChatInterface` to create images using
+OpenAI's [DALL-E API](https://platform.openai.com/docs/guides/images/image-generation).
 """
 
 import openai
@@ -352,11 +352,11 @@ chat_interface.servable()
 
 ## Two Bots
 
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
+Demonstrates how to use the `ChatInterface` to create two bots that chat with each
+other.
 
-<video controls poster="..\assets\thumbnails\openai_two_bots.png" >
-    <source src="..\assets\videos\openai_two_bots.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/openai_two_bots.png" >
+    <source src="../assets/videos/openai_two_bots.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -365,12 +365,12 @@ chat with each other.
 
 <details>
 
-<summary>Source code for <a href='..\examples\openai\openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
+<summary>Source code for <a href='../examples/openai/openai_two_bots.py' target='_blank'>openai_two_bots.py</a></summary>
 
 ```python
 """
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
+Demonstrates how to use the `ChatInterface` to create two bots that chat with each
+other.
 """
 
 import openai

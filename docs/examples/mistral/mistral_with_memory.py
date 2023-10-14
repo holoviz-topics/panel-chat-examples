@@ -1,6 +1,8 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral thru CTransformers that includes a memory of the conversation history.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers). The chatbot includes a
+memory of the conversation history.
 """
 
 import panel as pn
