@@ -1,20 +1,11 @@
 """
-The `EnvironmentWidgetBase` class enables you to manage variable values from a
-combination of
+The [`EnvironmentWidgetBase`](https://github.com/holoviz-topics/panel-chat-examples/blob/main/panel_chat_examples/_environment_widget.py)
+class enables you to manage variable values from a combination of custom values,
+environment variables and user input.
 
-- custom variable values
-- environment variables
-- user input.
-
-(listed by order of precedence)
-
-You can use it as a drop in replacement for `os.environ`.
-
-For example you might not have the resources to provide an `OPENAI_API_KEY`,
-`WEAVIATE_API_KEY` or `LANGCHAIN_API_KEY`. In that case you would would like to ask the
-user for it.
-
-Inherit from this widget to create your own custom `EnvironmentWidget`.
+Its very useful when you don't have the resources to provide API keys for services
+like OpenAI. It will determine which variables have not been set as environment
+variables and ask the user for them.
 """
 # Longer term we should try to get this widget included in Panel
 import panel as pn

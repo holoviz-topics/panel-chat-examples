@@ -1,5 +1,5 @@
 """
-Demonstrates how to use the ChatInterface widget with authentication for
+Demonstrates how to use the `ChatInterface` widget with authentication for
 OpenAI's API.
 """
 

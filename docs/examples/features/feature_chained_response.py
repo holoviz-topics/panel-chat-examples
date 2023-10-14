@@ -1,5 +1,5 @@
 """
-Demonstrates how to chain responses in a ChatInterface.
+Demonstrates how to chain responses in a `ChatInterface`.
 """
 
 from time import sleep

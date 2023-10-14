@@ -1,5 +1,5 @@
 """
-Demonstrates how to update the response of a ChatInterface widget.
+Demonstrates how to update the response of the `ChatInterface`.
 """
 
 from asyncio import sleep

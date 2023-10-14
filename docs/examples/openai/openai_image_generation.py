@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create an image using
-OpenAI's DALL-E API.
+Demonstrates how to use the `ChatInterface` to create images using
+OpenAI's [DALL-E API](https://platform.openai.com/docs/guides/images/image-generation).
 """
 
 import openai

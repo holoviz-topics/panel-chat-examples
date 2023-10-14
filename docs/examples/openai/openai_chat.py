@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-OpenAI's GPT-3 API.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+OpenAI's API.
 """
 
 import openai

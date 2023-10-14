@@ -1,5 +1,5 @@
 """
-Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+Demonstrates how to create a slim `ChatInterface` that fits in the sidebar.
 """
 import panel as pn
 

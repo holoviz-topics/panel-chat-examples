@@ -1,6 +1,8 @@
 """
-Demonstrates how to use the ChatInterface widget to create
-a math chatbot using OpenAI's text-davinci-003 model with LangChain.
+Demonstrates how to use the `ChatInterface` to create
+a math chatbot using OpenAI and the `PanelCallbackHandler` for
+[LangChain](https://python.langchain.com/docs/get_started/introduction). See
+[LangChain Callbacks](https://python.langchain.com/docs/modules/callbacks/).
 """
 
 import panel as pn

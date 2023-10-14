@@ -1,6 +1,7 @@
 """
-Demonstrates how to use the ChatInterface widget to chat about a PDF using
-OpenAI, LangChain and Chroma.
+Demonstrates how to use the `ChatInterface` to chat about a PDF using
+OpenAI, [LangChain](https://python.langchain.com/docs/get_started/introduction) and
+[Chroma](https://docs.trychroma.com/).
 """
 
 import tempfile
