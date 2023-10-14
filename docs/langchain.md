@@ -5,8 +5,8 @@
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 Llama2 and Mistral.
 
-<video controls poster="../assets/thumbnails/langchain_llama_and_mistral.png" >
-    <source src="../assets/videos/langchain_llama_and_mistral.webm" type="video/webm"
+<video controls poster="..\assets\thumbnails\langchain_llama_and_mistral.png" >
+    <source src="..\assets\videos\langchain_llama_and_mistral.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -15,7 +15,7 @@ Llama2 and Mistral.
 
 <details>
 
-<summary>Source code for <a href='../examples/langchain/langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
+<summary>Source code for <a href='..\examples\langchain\langchain_llama_and_mistral.py' target='_blank'>langchain_llama_and_mistral.py</a></summary>
 
 ```python
 """
@@ -102,8 +102,8 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to create
 a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 
-<video controls poster="../assets/thumbnails/langchain_math_assistant.png" >
-    <source src="../assets/videos/langchain_math_assistant.webm" type="video/webm"
+<video controls poster="..\assets\thumbnails\langchain_math_assistant.png" >
+    <source src="..\assets\videos\langchain_math_assistant.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -112,7 +112,7 @@ a math chatbot using OpenAI's text-davinci-003 model with LangChain.
 
 <details>
 
-<summary>Source code for <a href='../examples/langchain/langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
+<summary>Source code for <a href='..\examples\langchain\langchain_math_assistant.py' target='_blank'>langchain_math_assistant.py</a></summary>
 
 ```python
 """
@@ -152,8 +152,8 @@ chat_interface.servable()
 Demonstrates how to use the ChatInterface widget to chat about a PDF using
 OpenAI, LangChain and Chroma.
 
-<video controls poster="../assets/thumbnails/langchain_pdf_assistant.png" >
-    <source src="../assets/videos/langchain_pdf_assistant.webm" type="video/webm"
+<video controls poster="..\assets\thumbnails\langchain_pdf_assistant.png" >
+    <source src="..\assets\videos\langchain_pdf_assistant.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -162,7 +162,7 @@ OpenAI, LangChain and Chroma.
 
 <details>
 
-<summary>Source code for <a href='../examples/langchain/langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
+<summary>Source code for <a href='..\examples\langchain\langchain_pdf_assistant.py' target='_blank'>langchain_pdf_assistant.py</a></summary>
 
 ```python
 """
@@ -357,8 +357,8 @@ template.servable()
 Demonstrates how to use the ChatInterface widget to create a chatbot using
 OpenAI's GPT-3 API with LangChain.
 
-<video controls poster="../assets/thumbnails/langchain_with_memory.png" >
-    <source src="../assets/videos/langchain_with_memory.webm" type="video/webm"
+<video controls poster="..\assets\thumbnails\langchain_with_memory.png" >
+    <source src="..\assets\videos\langchain_with_memory.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -367,7 +367,7 @@ OpenAI's GPT-3 API with LangChain.
 
 <details>
 
-<summary>Source code for <a href='../examples/langchain/langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
+<summary>Source code for <a href='..\examples\langchain\langchain_with_memory.py' target='_blank'>langchain_with_memory.py</a></summary>
 
 ```python
 """

@@ -87,6 +87,10 @@ hatch run pytest -m ui --screenshot on --video on --headed
 
 The screenshots and videos can be found in the [test-results](test-results) folder.
 
+You can convert the `.webm` to `.mp4` using a command like
+`ffmpeg -i input.webm -c:v libx264 -preset slow -crf 22 -c:a copy output.mp4`.
+Alternatively you can use online services like [onlineconverter](https://www.onlineconverter.com/webm-to-mp4).
+
 For more info on using Playwright+Panel see the [Panel UI tests](https://panel.holoviz.org/how_to/test/uitests.html) guide.
 
 ## Run Load tests
@@ -121,18 +125,6 @@ hatch run docs-serve
 ```
 
 It'll automatically watch for changes in your code.
-
-## Check list
-
-Before publishing a new version please make sure
-
-- [ ] The file name follows the naming convention, is unique and makes sense when used as header
-in the documentation and app gallery.
-- [ ] You have added a thumbnail and video
-
-Please also consider
-
-- [ ] Adding a custom UI test to [user.py](tests/ui/user.py).
 
 ## Publish a new version
 
