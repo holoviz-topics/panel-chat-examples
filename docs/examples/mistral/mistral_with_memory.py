@@ -27,7 +27,7 @@ def apply_template(history):
     return prompt
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     if "mistral" not in llms:
         instance.placeholder_text = "Downloading model; please wait..."
         config = AutoConfig(
@@ -52,7 +52,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
 
 llms = {}
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     callback_user="Mistral",
 )

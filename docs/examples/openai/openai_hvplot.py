@@ -66,7 +66,7 @@ async def respond_with_executor(code: str):
 async def callback(
     contents: Union[str, pd.DataFrame],
     name: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if not isinstance(contents, (str, pd.DataFrame)):
         return
@@ -79,7 +79,7 @@ async def callback(
         yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
     callback=callback,
 )

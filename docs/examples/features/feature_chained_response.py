@@ -12,7 +12,7 @@ ARM_BOT = "Arm Bot"
 LEG_BOT = "Leg Bot"
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     sleep(1)
     if user == "User":
         yield {
@@ -31,6 +31,6 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         }
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send("Send a message!", user="System", respond=False)
 chat_interface.servable()

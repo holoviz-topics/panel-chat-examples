@@ -152,7 +152,7 @@ async def respond(contents, user, chat_interface):
     yield {"user": "OpenAI", "value": answers}
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=respond,
     sizing_mode="stretch_width",
     widgets=[pdf_input, text_input],

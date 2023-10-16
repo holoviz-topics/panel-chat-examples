@@ -12,7 +12,7 @@ pn.extension(design="material")
 async def callback(
     contents: str,
     user: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if user in ["User", "Happy Bot"]:
         callback_user = "Nerd Bot"
@@ -42,7 +42,7 @@ async def callback(
     instance.respond()
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a topic for the bots to discuss! Beware the token usage!",
     user="System",
