@@ -12,12 +12,12 @@ from langchain.llms import OpenAI
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     final_answer = await llm_math.arun(question=contents)
     instance.stream(final_answer, entry=instance.value[-1])
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Langchain")
+chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="Langchain")
 chat_interface.send(
     "Send a math question to get an answer from MathGPT!", user="System", respond=False
 )

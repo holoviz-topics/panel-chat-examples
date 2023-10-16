@@ -51,7 +51,7 @@ async def _get_response(contents: str, model: str) -> str:
     return response
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     for model in MODEL_KWARGS:
         if model not in llm_chains:
             instance.placeholder_text = (
@@ -66,7 +66,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
             entry = instance.stream(chunk, user=model.title(), entry=entry)
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
+chat_interface = pn.chat.ChatInterface(callback=callback, placeholder_threshold=0.1)
 chat_interface.send(
     "Send a message to get a reply from both Llama 2 and Mistral (7B)!",
     user="System",

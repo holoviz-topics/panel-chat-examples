@@ -11,11 +11,11 @@ from langchain.memory import ConversationBufferMemory
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     await chain.apredict(input=contents)
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="ChatGPT")
 chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )

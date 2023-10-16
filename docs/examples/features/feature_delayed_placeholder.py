@@ -9,7 +9,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     try:
         seconds = float(contents)
         if 0 < seconds < 10:
@@ -21,7 +21,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         return "Please enter a number!"
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     placeholder_threshold=2,
     placeholder_text="Waiting for reply...",
