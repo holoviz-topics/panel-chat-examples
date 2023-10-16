@@ -57,8 +57,8 @@ watch:
 nav:
     - Home: index.md
     - Basics: basics.md
-    - OpenAI: openai.md
+    - Components: components.md
+    - Features: features.md
     - Langchain: langchain.md
     - Mistral: mistral.md
-    - Features: features.md
-    - Components: components.md
+    - OpenAI: openai.md
