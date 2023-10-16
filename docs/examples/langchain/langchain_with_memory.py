@@ -20,9 +20,7 @@ chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )
 
-callback_handler = pn.widgets.langchain.PanelCallbackHandler(
-    chat_interface=chat_interface
-)
+callback_handler = pn.chat.langchain.PanelCallbackHandler(chat_interface)
 llm = ChatOpenAI(streaming=True, callbacks=[callback_handler])
 memory = ConversationBufferMemory()
 chain = ConversationChain(llm=llm, memory=memory)

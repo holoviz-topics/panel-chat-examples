@@ -22,9 +22,7 @@ chat_interface.send(
     "Send a math question to get an answer from MathGPT!", user="System", respond=False
 )
 
-callback_handler = pn.widgets.langchain.PanelCallbackHandler(
-    chat_interface=chat_interface
-)
+callback_handler = pn.chat.langchain.PanelCallbackHandler(chat_interface)
 llm = OpenAI(streaming=True, callbacks=[callback_handler])
 llm_math = LLMMathChain.from_llm(llm, verbose=True)
 chat_interface.servable()
