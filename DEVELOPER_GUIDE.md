@@ -76,13 +76,13 @@ hatch run test
 To run the Playwright tests in *headed* mode (i.e. show the browser) you can run
 
 ```bash
-hatch run pytest -m ui --headed
+hatch run pytest -s -m ui --headed
 ```
 
 You can take screenshots or record videos the `--screenshot` and `--video` flags.
 
 ```bash
-hatch run pytest -m ui --screenshot on --video on --headed
+hatch run pytest -s -m ui --screenshot on --video on --headed
 ```
 
 The screenshots and videos can be found in the [test-results](test-results) folder.

@@ -95,7 +95,7 @@ def langchain_llama_and_mistral(page: Page):
     # Could not get this working as it always starts by downloading models
     chat = ChatInterface(page)
     chat.send("Please explain what kind of model you are in one sentence")
-    page.wait_for_timeout(8000)
+    page.wait_for_timeout(10000)
 
 
 def langchain_with_memory(page: Page):
@@ -215,19 +215,19 @@ ACTION = {
     "openai_two_bots.py": openai_two_bots,
 }
 ZOOM = {
-    "basic_chat.py": 2,
-    "basic_streaming_chat_async.py": 2,
-    "basic_streaming_chat.py": 2,
+    "basic_chat.py": 1.8,
+    "basic_streaming_chat_async.py": 1.8,
+    "basic_streaming_chat.py": 1.8,
     "component_environment_widget.py": 1.25,
-    "feature_chained_response.py": 2,
-    "feature_delayed_placeholder.py": 2,
-    "feature_replace_response.py": 2,
+    "feature_chained_response.py": 1.8,
+    "feature_delayed_placeholder.py": 1.8,
+    "feature_replace_response.py": 1.8,
     "feature_slim_interface.py": 1.25,
     "langchain_llama_and_mistral.py": 1.25,
     "langchain_math_assistant.py": 1.5,
     "langchain_pdf_assistant.py": 1,
     "langchain_with_memory.py": 1.25,
-    "mistral_chat.py": 2,
+    "mistral_chat.py": 1.8,
     "mistral_with_memory.py": 1,
     "openai_async_chat.py": 1.75,
     "openai_authentication.py": 1,
