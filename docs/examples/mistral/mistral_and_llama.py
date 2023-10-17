@@ -32,9 +32,9 @@ def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         llm = pn.state.cache[model]
         response = llm(contents, max_new_tokens=512, stream=True)
 
-        entry = None
+        message = None
         for chunk in response:
-            entry = instance.stream(chunk, user=model.title(), entry=entry)
+            message = instance.stream(chunk, user=model.title(), message=message)
 
 
 chat_interface = pn.chat.ChatInterface(callback=callback)

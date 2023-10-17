@@ -41,8 +41,8 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         }
         instance.respond()
     elif user == ARM_BOT:
-        user_entry = instance.value[-2]
-        user_contents = user_entry.value
+        user_message = instance.value[-2]
+        user_contents = user_message.value
         yield {
             "user": LEG_BOT,
             "avatar": "🦿",
