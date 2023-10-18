@@ -8,7 +8,7 @@ from langchain.chains import ConversationChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
-pn.extension(design="material")
+pn.extension()
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):

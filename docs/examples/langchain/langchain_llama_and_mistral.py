@@ -60,10 +60,10 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
             )
             llm_chains[model] = _get_llm_chain(model)
 
-        entry = None
+        message = None
         response = await _get_response(contents, model)
         for chunk in response:
-            entry = instance.stream(chunk, user=model.title(), entry=entry)
+            message = instance.stream(chunk, user=model.title(), message=message)
 
 
 chat_interface = pn.chat.ChatInterface(callback=callback, placeholder_threshold=0.1)

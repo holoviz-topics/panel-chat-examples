@@ -80,10 +80,10 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
             )
             llm_chains[model] = _get_llm_chain(model)
 
-        entry = None
+        message = None
         response = await _get_response(contents, model)
         for chunk in response:
-            entry = instance.stream(chunk, user=model.title(), entry=entry)
+            message = instance.stream(chunk, user=model.title(), message=message)
 
 
 chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
@@ -133,7 +133,7 @@ pn.extension(design="material")
 
 async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
     final_answer = await llm_math.arun(question=contents)
-    instance.stream(final_answer, entry=instance.value[-1])
+    instance.stream(final_answer, message=instance.value[-1])
 
 
 chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Langchain")
