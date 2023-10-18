@@ -12,7 +12,7 @@ from pathlib import Path
 
 import panel as pn
 import param
-    from langchain.callbacks import get_openai_callback
+from langchain.callbacks import get_openai_callback
 from langchain.chains.retrieval_qa.base import BaseRetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import DirectoryLoader, WebBaseLoader

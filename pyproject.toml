@@ -85,6 +85,7 @@ dependencies = [
     "beautifulsoup4",
     "chromadb",
     "ctransformers",
+    "html2text",
     "hvplot",
     "langchain",
     "numexpr",
@@ -92,6 +93,7 @@ dependencies = [
     "panel @ git+https://github.com/holoviz/panel.git@main",
     "pypdf",
     "tiktoken",
+    "unstructured",
 ]
 
 [project.urls]
