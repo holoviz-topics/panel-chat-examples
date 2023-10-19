@@ -30,12 +30,12 @@ import panel as pn
 pn.extension(design="material")
 
 
-def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     message = f"Echoing {user}: {contents}"
     return message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a message in the TextInput below and receive an echo!",
     user="System",
@@ -83,7 +83,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     sleep(1)
     message = ""
     for char in f"Echoing {user}: {contents}":
@@ -92,7 +92,7 @@ def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a message in the TextInput below and receive an echo!",
     user="System",
@@ -140,7 +140,7 @@ import panel as pn
 pn.extension()
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     await sleep(1)
     message = ""
     for char in "Echoing User: " + contents:
@@ -149,7 +149,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a message in the TextInput below and receive an echo!",
     user="System",

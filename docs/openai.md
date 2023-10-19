@@ -29,7 +29,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     response = await openai.ChatCompletion.acreate(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
@@ -41,7 +41,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="ChatGPT")
 chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )
@@ -105,7 +105,7 @@ pn.bind(add_key_to_env, key=key_input, watch=True)
 async def callback(
     contents: str,
     user: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if "OPENAI_API_KEY" not in os.environ:
         yield "Please first set your OpenAI key in the sidebar!"
@@ -123,7 +123,7 @@ async def callback(
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, disabled=True)
+chat_interface = pn.chat.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(
     "First enter your OpenAI key in the sidebar, then send a message!", **SYSTEM_KWARGS
 )
@@ -166,7 +166,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
@@ -178,7 +178,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="ChatGPT")
 chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )
@@ -253,7 +253,7 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "value": message}
+        yield {"user": "ChatGPT", "object": message}
 
 
 async def respond_with_executor(code: str):
@@ -273,7 +273,7 @@ async def respond_with_executor(code: str):
 async def callback(
     contents: Union[str, pd.DataFrame],
     name: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if not isinstance(contents, (str, pd.DataFrame)):
         return
@@ -286,7 +286,7 @@ async def callback(
         yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
     callback=callback,
 )
@@ -333,13 +333,13 @@ import panel as pn
 pn.extension(design="material")
 
 
-def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     response = openai.Image.create(prompt=contents, n=1, size="256x256")
     image_url = response["data"][0]["url"]
     return pn.pane.Image(image_url, width=256, height=256)
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback, callback_user="DALL-E", placeholder_text="Generating..."
 )
 chat_interface.send(
@@ -382,7 +382,7 @@ pn.extension(design="material")
 async def callback(
     contents: str,
     user: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if user in ["User", "Happy Bot"]:
         callback_user = "Nerd Bot"
@@ -412,7 +412,7 @@ async def callback(
     instance.respond()
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a topic for the bots to discuss! Beware the token usage!",
     user="System",

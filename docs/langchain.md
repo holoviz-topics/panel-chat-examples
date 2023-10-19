@@ -71,7 +71,7 @@ async def _get_response(contents: str, model: str) -> str:
     return response
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     for model in MODEL_KWARGS:
         if model not in llm_chains:
             instance.placeholder_text = (
@@ -86,7 +86,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
             message = instance.stream(chunk, user=model.title(), message=message)
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
+chat_interface = pn.chat.ChatInterface(callback=callback, placeholder_threshold=0.1)
 chat_interface.send(
     "Send a message to get a reply from both Llama 2 and Mistral (7B)!",
     user="System",
@@ -131,19 +131,17 @@ from langchain.llms import OpenAI
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     final_answer = await llm_math.arun(question=contents)
     instance.stream(final_answer, message=instance.value[-1])
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="Langchain")
+chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="Langchain")
 chat_interface.send(
     "Send a math question to get an answer from MathGPT!", user="System", respond=False
 )
 
-callback_handler = pn.widgets.langchain.PanelCallbackHandler(
-    chat_interface=chat_interface
-)
+callback_handler = pn.chat.langchain.PanelCallbackHandler(chat_interface)
 llm = OpenAI(streaming=True, callbacks=[callback_handler])
 llm_math = LLMMathChain.from_llm(llm, verbose=True)
 chat_interface.servable()
@@ -324,7 +322,7 @@ async def respond(contents, user, chat_interface):
     yield {"user": "OpenAI", "value": answers}
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=respond,
     sizing_mode="stretch_width",
     widgets=[pdf_input, text_input],
@@ -386,21 +384,19 @@ from langchain.chains import ConversationChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
-pn.extension(design="material")
+pn.extension()
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     await chain.apredict(input=contents)
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, callback_user="ChatGPT")
+chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="ChatGPT")
 chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
 )
 
-callback_handler = pn.widgets.langchain.PanelCallbackHandler(
-    chat_interface=chat_interface
-)
+callback_handler = pn.chat.langchain.PanelCallbackHandler(chat_interface)
 llm = ChatOpenAI(streaming=True, callbacks=[callback_handler])
 memory = ConversationBufferMemory()
 chain = ConversationChain(llm=llm, memory=memory)

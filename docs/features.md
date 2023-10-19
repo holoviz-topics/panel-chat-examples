@@ -31,7 +31,7 @@ ARM_BOT = "Arm Bot"
 LEG_BOT = "Leg Bot"
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     sleep(1)
     if user == "User":
         yield {
@@ -50,7 +50,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         }
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send("Send a message!", user="System", respond=False)
 chat_interface.servable()
 ```
@@ -85,7 +85,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     try:
         seconds = float(contents)
         if 0 < seconds < 10:
@@ -97,7 +97,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         return "Please enter a number!"
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     placeholder_threshold=2,
     placeholder_text="Waiting for reply...",
@@ -141,7 +141,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     yield "Let me flip the coin for you..."
     await sleep(1)
 
@@ -159,7 +159,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield f"Aw, got {result}. Try again!"
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     widgets=[
         pn.widgets.RadioButtonGroup(
             options=["Heads!", "Tails!"], button_type="primary", button_style="outline"
@@ -201,12 +201,12 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     message = f"Echoing {user}: {contents}"
     return message
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     show_send=False,
     show_rerun=False,
