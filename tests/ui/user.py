@@ -49,6 +49,18 @@ def basic_streaming_chat_async(page: Page):
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()
 
+def component_chat_input(page: Page):
+    text_input = page.get_by_placeholder("Say something")
+    
+    text_input.fill("Hello World")
+    page.wait_for_timeout(TIMEOUT)
+    text_input.press("Enter")
+    page.get_by_text("User has sent the following prompt: Hello World").wait_for()
+    
+    text_input.fill("Could you please repeat that?")
+    page.wait_for_timeout(TIMEOUT)
+    text_input.press("Enter")
+    page.get_by_text("User has sent the following prompt: Could you please repeat that?").wait_for()
 
 def component_environment_widget(page: Page):
     langchain = page.get_by_role("textbox").nth(0)
@@ -60,6 +72,10 @@ def component_environment_widget(page: Page):
     weviate.press("Enter")
     page.wait_for_timeout(4 * TIMEOUT)
 
+def component_status(page: Page):
+    page.get_by_role("button", name="Run").dispatch_event("click")
+    page.get_by_text("Validating data...").wait_for()
+    page.wait_for_timeout(TIMEOUT)
 
 def feature_chained_response(page: Page):
     chat = ChatInterface(page)
@@ -196,7 +212,9 @@ ACTION = {
     "basic_chat.py": basic_chat,
     "basic_streaming_chat_async.py": basic_streaming_chat_async,
     "basic_streaming_chat.py": basic_streaming_chat,
+    "component_chat_input.py": component_chat_input,
     "component_environment_widget.py": component_environment_widget,
+    "component_status.py": component_status,
     "feature_chained_response.py": feature_chained_response,
     "feature_delayed_placeholder.py": feature_delayed_placeholder,
     "feature_replace_response.py": feature_replace_response,
@@ -218,7 +236,9 @@ ZOOM = {
     "basic_chat.py": 1.8,
     "basic_streaming_chat_async.py": 1.8,
     "basic_streaming_chat.py": 1.8,
+    "component_chat_input.py": 2,
     "component_environment_widget.py": 1.25,
+    "component_status.py": 2,
     "feature_chained_response.py": 1.8,
     "feature_delayed_placeholder.py": 1.8,
     "feature_replace_response.py": 1.8,
