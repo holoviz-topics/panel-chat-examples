@@ -95,7 +95,7 @@ def langchain_llama_and_mistral(page: Page):
     # Could not get this working as it always starts by downloading models
     chat = ChatInterface(page)
     chat.send("Please explain what kind of model you are in one sentence")
-    page.wait_for_timeout(10000)
+    page.wait_for_timeout(15000)
 
 
 def langchain_with_memory(page: Page):
@@ -124,6 +124,12 @@ def langchain_pdf_assistant(page: Page):
     page.get_by_placeholder("Ask questions here!").fill("What assets does the PSF own?")
     page.get_by_placeholder("Ask questions here!").press("Enter")
     page.wait_for_timeout(10000)
+
+
+def mistral_and_llama(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What do you think about HoloViz in a single sentence?")
+    page.wait_for_timeout(15000)
 
 
 def mistral_chat(page: Page):
@@ -205,6 +211,7 @@ ACTION = {
     "langchain_math_assistant.py": langchain_math_assistant,
     "langchain_pdf_assistant.py": langchain_pdf_assistant,
     "langchain_with_memory.py": langchain_with_memory,
+    "mistral_and_llama.py": mistral_and_llama,
     "mistral_chat.py": mistral_chat,
     "mistral_with_memory.py": mistral_with_memory,
     "openai_async_chat.py": openai_async_chat,

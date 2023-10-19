@@ -18,12 +18,12 @@ def apply_template(history):
     prompt = ""
     for i, message in enumerate(history):
         if i == 0:
-            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {message.value}[/INST]"
+            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {message.object}[/INST]"
         else:
             if message.user == "Mistral":
-                prompt += f"{message.value}</s>"
+                prompt += f"{message.object}</s>"
             else:
-                prompt += f"""[INST]{message.value}[/INST]"""
+                prompt += f"""[INST]{message.object}[/INST]"""
     return prompt
 
 
@@ -42,7 +42,7 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         )
 
     llm = llms["mistral"]
-    history = [message for message in instance.value]
+    history = [message for message in instance.objects]
     prompt = apply_template(history)
     response = llm(prompt, stream=True)
     message = ""

@@ -56,7 +56,7 @@ async def respond_with_executor(code: str):
     plot = exec_with_return(code=code, global_context=context)
     return {
         "user": "Executor",
-        "value": pn.Tabs(
+        "object": pn.Tabs(
             ("Plot", plot),
             ("Code", code_block),
         ),

@@ -14,7 +14,7 @@ pn.extension(design="material")
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     final_answer = await llm_math.arun(question=contents)
-    instance.stream(final_answer, message=instance.value[-1])
+    instance.stream(final_answer, message=instance.objects[-1])
 
 
 chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="Langchain")

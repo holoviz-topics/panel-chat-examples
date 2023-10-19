@@ -32,9 +32,9 @@ async def callback(
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": callback_user, "avatar": callback_avatar, "value": message}
+        yield {"user": callback_user, "avatar": callback_avatar, "object": message}
 
-    if len(instance.value) % 6 == 0:  # stop at every 6 messages
+    if len(instance.objects) % 6 == 0:  # stop at every 6 messages
         instance.send(
             "That's it for now! Thanks for chatting!", user="System", respond=False
         )
