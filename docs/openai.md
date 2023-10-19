@@ -253,7 +253,7 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "value": message}
+        yield {"user": "ChatGPT", "object": message}
 
 
 async def respond_with_executor(code: str):
@@ -263,7 +263,7 @@ async def respond_with_executor(code: str):
     plot = exec_with_return(code=code, global_context=context)
     return {
         "user": "Executor",
-        "value": pn.Tabs(
+        "object": pn.Tabs(
             ("Plot", plot),
             ("Code", code_block),
         ),
@@ -402,9 +402,9 @@ async def callback(
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": callback_user, "avatar": callback_avatar, "value": message}
+        yield {"user": callback_user, "avatar": callback_avatar, "object": message}
 
-    if len(instance.value) % 6 == 0:  # stop at every 6 messages
+    if len(instance.objects) % 6 == 0:  # stop at every 6 messages
         instance.send(
             "That's it for now! Thanks for chatting!", user="System", respond=False
         )

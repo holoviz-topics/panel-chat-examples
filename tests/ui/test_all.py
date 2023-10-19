@@ -87,7 +87,7 @@ def test_app(server, app_path, port, page):
     # zoom and run should be defined for all examples
     # even if we don't run the video
     run = ACTION[name]
-    zoom = ZOOM[name]
+    zoom = ZOOM.get(name, 1.5)
 
     # We cannot run these tests in pipelines etc. as they require models downloaded,
     # api keys etc.

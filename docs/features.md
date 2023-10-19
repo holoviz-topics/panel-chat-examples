@@ -37,16 +37,16 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield {
             "user": ARM_BOT,
             "avatar": "🦾",
-            "value": f"Hey, {LEG_BOT}! Did you hear the user?",
+            "object": f"Hey, {LEG_BOT}! Did you hear the user?",
         }
         instance.respond()
     elif user == ARM_BOT:
-        user_message = instance.value[-2]
-        user_contents = user_message.value
+        user_message = instance.objects[-2]
+        user_contents = user_message.object
         yield {
             "user": LEG_BOT,
             "avatar": "🦿",
-            "value": f'Yeah! They said "{user_contents}".',
+            "object": f'Yeah! They said "{user_contents}".',
         }
 
 

@@ -132,7 +132,7 @@ def _send_not_ready_message(chat_interface) -> bool:
     message = _get_validation_message()
 
     if message:
-        chat_interface.send({"user": "System", "value": message}, respond=False)
+        chat_interface.send({"user": "System", "object": message}, respond=False)
     return bool(message)
 
 
@@ -142,14 +142,14 @@ async def respond(contents, user, chat_interface):
     if chat_interface.active == 0:
         chat_interface.active = 1
         chat_interface.active_widget.placeholder = "Ask questions here!"
-        yield {"user": "OpenAI", "value": "Let's chat about the PDF!"}
+        yield {"user": "OpenAI", "object": "Let's chat about the PDF!"}
         return
 
     response, documents = _get_response(contents)
     pages_layout = pn.Accordion(*documents, sizing_mode="stretch_width", max_width=800)
     answers = pn.Column(response["result"], pages_layout)
 
-    yield {"user": "OpenAI", "value": answers}
+    yield {"user": "OpenAI", "object": answers}
 
 
 chat_interface = pn.chat.ChatInterface(
