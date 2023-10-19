@@ -49,18 +49,22 @@ def basic_streaming_chat_async(page: Page):
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()
 
+
 def component_chat_input(page: Page):
     text_input = page.get_by_placeholder("Say something")
-    
+
     text_input.fill("Hello World")
     page.wait_for_timeout(TIMEOUT)
     text_input.press("Enter")
     page.get_by_text("User has sent the following prompt: Hello World").wait_for()
-    
+
     text_input.fill("Could you please repeat that?")
     page.wait_for_timeout(TIMEOUT)
     text_input.press("Enter")
-    page.get_by_text("User has sent the following prompt: Could you please repeat that?").wait_for()
+    page.get_by_text(
+        "User has sent the following prompt: Could you please repeat that?"
+    ).wait_for()
+
 
 def component_environment_widget(page: Page):
     langchain = page.get_by_role("textbox").nth(0)
@@ -72,10 +76,12 @@ def component_environment_widget(page: Page):
     weviate.press("Enter")
     page.wait_for_timeout(4 * TIMEOUT)
 
+
 def component_status(page: Page):
     page.get_by_role("button", name="Run").dispatch_event("click")
     page.get_by_text("Validating data...").wait_for()
     page.wait_for_timeout(TIMEOUT)
+
 
 def feature_chained_response(page: Page):
     chat = ChatInterface(page)
