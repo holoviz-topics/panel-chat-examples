@@ -1,4 +1,5 @@
-"""The `Status` *indicator* can report progress in steps and with
+"""
+The `Status` *indicator* can report progress in steps and with
 detailed context."""
 from contextlib import contextmanager
 

@@ -2,6 +2,7 @@
 
 ## Chat Input
 
+The `ChatInput` widget is a combination of a `TextInput` widget and a `Button`.
 When the input is submitted the `TextInput` widget is cleared and ready to accept
 a new input.
 
@@ -21,7 +22,8 @@ If you need a `ChatInput` widget you can copy the code from
 <summary>Source code for <a href='../examples/components/component_chat_input.py' target='_blank'>component_chat_input.py</a></summary>
 
 ```python
-"""The `ChatInput` widget is a combination of a `TextInput` widget and a `Button`.
+"""
+The `ChatInput` widget is a combination of a `TextInput` widget and a `Button`.
 When the input is submitted the `TextInput` widget is cleared and ready to accept
 a new input.
 
@@ -115,6 +117,7 @@ pn.template.FastListTemplate(
 
 ## Status
 
+The `Status` *indicator* can report progress in steps and with
 detailed context.
 
 If you need a `Status` widget you can copy the code from
@@ -133,7 +136,8 @@ If you need a `Status` widget you can copy the code from
 <summary>Source code for <a href='../examples/components/component_status.py' target='_blank'>component_status.py</a></summary>
 
 ```python
-"""The `Status` *indicator* can report progress in steps and with
+"""
+The `Status` *indicator* can report progress in steps and with
 detailed context.
 
 If you need a `Status` widget you can copy the code from

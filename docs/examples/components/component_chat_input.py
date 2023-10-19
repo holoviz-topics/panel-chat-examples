@@ -1,4 +1,5 @@
-"""The `ChatInput` widget is a combination of a `TextInput` widget and a `Button`.
+"""
+The `ChatInput` widget is a combination of a `TextInput` widget and a `Button`.
 When the input is submitted the `TextInput` widget is cleared and ready to accept
 a new input.
 
