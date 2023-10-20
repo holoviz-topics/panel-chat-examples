@@ -8,7 +8,7 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 **Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
 
-PANELS CHAT COMPONENTS HAVE NOT YET BEEN RELEASED. WILL BE VERY SOON!
+PANELS CHAT COMPONENTS ARE AVAILABLE FROM v1.30.
 
 ## Installation
 
