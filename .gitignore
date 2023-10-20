@@ -166,3 +166,4 @@ test-results/
 cache/
 
 .DS_STORE
+docs/basics.md
