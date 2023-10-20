@@ -37,7 +37,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install hatch
         hatch env create
-    - name: Build
+    - name: Build Pyodide Apps
+      run: hatch run panel-convert
+    - name: Build Docs
       run: hatch run docs-build
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
