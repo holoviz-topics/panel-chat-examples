@@ -24,10 +24,8 @@
         5006, 8000
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
-    // Install app dependencies.
     "postCreateCommand": "pip3 install --user .",
     // Use 'postAttachCommand' to run commands after a tool has attached to the container.
-    // Start the app.
     "postAttachCommand": {
         "server": "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
     },
@@ -37,7 +35,6 @@
             "onAutoForward": "openPreview"
         }
     },
-    // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
     "remoteUser": "vscode",
     "remoteEnv": {
       "BOKEH_ALLOW_WS_ORIGIN": "*"
