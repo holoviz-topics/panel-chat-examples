@@ -24,7 +24,7 @@
         5006, 8000
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "pip3 install --user .",
+    "postCreateCommand": "pip install --user -e .",
     // Use 'postAttachCommand' to run commands after a tool has attached to the container.
     "postAttachCommand": {
         "server": "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
