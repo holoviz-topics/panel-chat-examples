@@ -7,8 +7,7 @@
           "openFiles": [
             "README.md",
             "docs/examples/basics/basic_chat.py",
-            "docs/examples/openai/openai_chat.py",
-            "docs/examples/langchain/langchain_pdf_assistant.py"    
+            "docs/examples/openai/openai_chat.py"
           ]
         },
         "vscode": {
