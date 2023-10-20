@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from textwrap import dedent, indent
+
 from convert_apps import APPS_READY_FOR_PYODIDE
 
 DOCS_PATH = Path(__file__).parent.parent / "docs"
@@ -10,6 +11,7 @@ INDEX_MD_PATH = DOCS_PATH / "index.md"
 THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
 VIDEOS_PATH = DOCS_PATH / "assets" / "videos"
 PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
+
 
 def run():
     """Generates a Gallery markdown file describing all the example
@@ -88,7 +90,9 @@ def run():
                 if file.name in APPS_READY_FOR_PYODIDE:
                     docstring_lines.append(
                         f"""\
-Live Apps: <a href='../pyodide/{file.name.replace(".py", ".html")}' target='_blank' title='The app is running entirely in the browser powered by Pyodide.'>Pyodide</a>"""
+Live Apps: <a href='../pyodide/{file.name.replace(".py", ".html")}' \
+target='_blank' title='The app is running entirely in the browser powered by Pyodide'\
+>Pyodide</a>"""
                     )
                 docstring = "\n".join(docstring_lines)
                 text += f"\n{docstring}\n"
