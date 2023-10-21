@@ -15,7 +15,7 @@ from panel_chat_examples import EnvironmentWidgetBase
 
 pn.extension("perspective", design="material")
 
-
+PENGUINS_URL = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
 class Environment(EnvironmentWidgetBase):
     OPENAI_API_KEY = param.String()
 
@@ -92,7 +92,7 @@ and click the **send** button."""
 
     @property
     def welcome_message(self):
-        return (
+        text = (
             f"""I'm your <a href="\
 https://python.langchain.com/docs/integrations/toolkits/pandas" target="_blank">\
 LangChain Pandas DataFrame Agent</a>.
@@ -102,6 +102,12 @@ generated Python code is harmful. Use cautiously!
 
 {self.error_message}"""
         ).strip()
+        if self.data is None:
+            text += f"""
+
+Example: <a href="{PENGUINS_URL}" download>penguins.csv<a>
+"""
+        return text
 
     async def callback(self, contents, user, instance):
         if isinstance(contents, pd.DataFrame):
