@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot
-that can generate plots using hvplot.
+Demonstrates how to use the `ChatInterface` to create a chatbot
+that can generate plots of your data using [hvplot](https://hvplot.holoviz.org/).
 """
 
 import re
@@ -46,7 +46,7 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "value": message}
+        yield {"user": "ChatGPT", "object": message}
 
 
 async def respond_with_executor(code: str):
@@ -56,7 +56,7 @@ async def respond_with_executor(code: str):
     plot = exec_with_return(code=code, global_context=context)
     return {
         "user": "Executor",
-        "value": pn.Tabs(
+        "object": pn.Tabs(
             ("Plot", plot),
             ("Code", code_block),
         ),
@@ -66,7 +66,7 @@ async def respond_with_executor(code: str):
 async def callback(
     contents: Union[str, pd.DataFrame],
     name: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if not isinstance(contents, (str, pd.DataFrame)):
         return
@@ -79,7 +79,7 @@ async def callback(
         yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
     callback=callback,
 )

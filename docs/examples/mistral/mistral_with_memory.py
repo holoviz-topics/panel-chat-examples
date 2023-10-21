@@ -1,6 +1,8 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral thru CTransformers that includes a memory of the conversation history.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers). The chatbot includes a
+memory of the conversation history.
 """
 
 import panel as pn
@@ -12,20 +14,20 @@ SYSTEM_INSTRUCTIONS = "Do what the user requests."
 
 
 def apply_template(history):
-    history = [entry for entry in history if entry.user != "System"]
+    history = [message for message in history if message.user != "System"]
     prompt = ""
-    for i, entry in enumerate(history):
+    for i, message in enumerate(history):
         if i == 0:
-            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {entry.value}[/INST]"
+            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {message.object}[/INST]"
         else:
-            if entry.user == "Mistral":
-                prompt += f"{entry.value}</s>"
+            if message.user == "Mistral":
+                prompt += f"{message.object}</s>"
             else:
-                prompt += f"""[INST]{entry.value}[/INST]"""
+                prompt += f"""[INST]{message.object}[/INST]"""
     return prompt
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     if "mistral" not in llms:
         instance.placeholder_text = "Downloading model; please wait..."
         config = AutoConfig(
@@ -40,7 +42,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         )
 
     llm = llms["mistral"]
-    history = [entry for entry in instance.value]
+    history = [message for message in instance.objects]
     prompt = apply_template(history)
     response = llm(prompt, stream=True)
     message = ""
@@ -50,7 +52,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
 
 
 llms = {}
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     callback_user="Mistral",
 )

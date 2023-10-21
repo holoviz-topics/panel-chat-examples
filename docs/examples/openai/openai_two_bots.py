@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create two bots that
-chat with each other.
+Demonstrates how to use the `ChatInterface` to create two bots that chat with each
+other.
 """
 
 import openai
@@ -12,7 +12,7 @@ pn.extension(design="material")
 async def callback(
     contents: str,
     user: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if user in ["User", "Happy Bot"]:
         callback_user = "Nerd Bot"
@@ -32,9 +32,9 @@ async def callback(
     message = ""
     async for chunk in response:
         message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": callback_user, "avatar": callback_avatar, "value": message}
+        yield {"user": callback_user, "avatar": callback_avatar, "object": message}
 
-    if len(instance.value) % 6 == 0:  # stop at every 6 messages
+    if len(instance.objects) % 6 == 0:  # stop at every 6 messages
         instance.send(
             "That's it for now! Thanks for chatting!", user="System", respond=False
         )
@@ -42,7 +42,7 @@ async def callback(
     instance.respond()
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback)
+chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a topic for the bots to discuss! Beware the token usage!",
     user="System",

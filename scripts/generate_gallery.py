@@ -3,6 +3,8 @@
 from pathlib import Path
 from textwrap import dedent, indent
 
+from convert_apps import APPS_READY_FOR_PYODIDE
+
 DOCS_PATH = Path(__file__).parent.parent / "docs"
 EXAMPLES_PATH = DOCS_PATH / "examples"
 INDEX_MD_PATH = DOCS_PATH / "index.md"
@@ -85,6 +87,13 @@ def run():
                     f"```\n"
                     "</details>\n"
                 )
+                if file.name in APPS_READY_FOR_PYODIDE:
+                    docstring_lines.append(
+                        f"""\
+Live Apps: <a href='../pyodide/{file.name.replace(".py", ".html")}' \
+target='_blank' title='The app is running entirely in the browser powered by Pyodide'\
+>Pyodide</a>"""
+                    )
                 docstring = "\n".join(docstring_lines)
                 text += f"\n{docstring}\n"
 

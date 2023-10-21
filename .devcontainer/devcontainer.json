@@ -1,0 +1,47 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3
+{
+    "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+    "customizations": {
+        "codespaces": {
+          "openFiles": [
+            "README.md",
+            "docs/examples/basics/basic_chat.py",
+            "docs/examples/openai/openai_chat.py"
+          ]
+        },
+        "vscode": {
+          "settings": {},
+          "extensions": [
+            "ms-python.python",
+            "ms-python.vscode-pylance"
+          ]
+        }
+      },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "forwardPorts": [
+        5006, 8000
+    ],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "pip install --user -e .",
+    // Use 'postAttachCommand' to run commands after a tool has attached to the container.
+    "postAttachCommand": {
+        "server": "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
+    },
+    "portsAttributes": {
+        "5006": {
+            "label": "Application",
+            "onAutoForward": "openPreview"
+        }
+    },
+    "remoteUser": "vscode",
+    "remoteEnv": {
+      "BOKEH_ALLOW_WS_ORIGIN": "*"
+   },
+    "features": {
+        // Optional features for development - increase container boot time!
+        // "ghcr.io/devcontainers-contrib/features/coverage-py:2": {},
+        // "git": "latest",
+        // "github-cli": "latest"
+    }
+}

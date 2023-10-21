@@ -1,6 +1,7 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Mistral through CTransformers.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Mistral](https://docs.mistral.ai) through
+[CTransformers](https://github.com/marella/ctransformers).
 """
 
 import panel as pn
@@ -18,7 +19,7 @@ def apply_template(instructions, contents):
     return text_row
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     if "mistral" not in llms:
         instance.placeholder_text = "Downloading model; please wait..."
         config = AutoConfig(
@@ -40,7 +41,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     callback_user="Mistral",
     reset_on_send=True,

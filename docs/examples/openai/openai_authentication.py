@@ -1,5 +1,5 @@
 """
-Demonstrates how to use the ChatInterface widget with authentication for
+Demonstrates how to use the `ChatInterface` widget with authentication for
 OpenAI's API.
 """
 
@@ -35,7 +35,7 @@ pn.bind(add_key_to_env, key=key_input, watch=True)
 async def callback(
     contents: str,
     user: str,
-    instance: pn.widgets.ChatInterface,
+    instance: pn.chat.ChatInterface,
 ):
     if "OPENAI_API_KEY" not in os.environ:
         yield "Please first set your OpenAI key in the sidebar!"
@@ -53,7 +53,7 @@ async def callback(
         yield message
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, disabled=True)
+chat_interface = pn.chat.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(
     "First enter your OpenAI key in the sidebar, then send a message!", **SYSTEM_KWARGS
 )

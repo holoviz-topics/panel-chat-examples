@@ -166,3 +166,9 @@ test-results/
 cache/
 
 .DS_STORE
+docs/basics.md
+docs/components.md
+docs/features.md
+docs/langchain.md
+docs/mistral.md
+docs/openai.md

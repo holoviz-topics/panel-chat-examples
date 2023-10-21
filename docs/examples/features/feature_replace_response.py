@@ -1,5 +1,5 @@
 """
-Demonstrates how to update the response of a ChatInterface widget.
+Demonstrates how to update the response of the `ChatInterface`.
 """
 
 from asyncio import sleep
@@ -10,7 +10,7 @@ import panel as pn
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     yield "Let me flip the coin for you..."
     await sleep(1)
 
@@ -28,7 +28,7 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
         yield f"Aw, got {result}. Try again!"
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     widgets=[
         pn.widgets.RadioButtonGroup(
             options=["Heads!", "Tails!"], button_type="primary", button_style="outline"

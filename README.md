@@ -10,6 +10,10 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 PANELS CHAT COMPONENTS HAVE NOT YET BEEN RELEASED. WILL BE VERY SOON!
 
+## Exploration
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/holoviz-topics/panel-chat-examples?quickstart=1)
+
 ## Installation
 
 To install and serve all examples:

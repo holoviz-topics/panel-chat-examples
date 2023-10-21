@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the ChatInterface widget to create a chatbot using
-Llama2 and Mistral.
+Demonstrates how to use the `ChatInterface` to create a chatbot using
+[Llama2](https://ai.meta.com/llama/) and [Mistral](https://docs.mistral.ai).
 """
 
 import panel as pn
@@ -51,7 +51,7 @@ async def _get_response(contents: str, model: str) -> str:
     return response
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     for model in MODEL_KWARGS:
         if model not in llm_chains:
             instance.placeholder_text = (
@@ -60,13 +60,13 @@ async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface)
             )
             llm_chains[model] = _get_llm_chain(model)
 
-        entry = None
+        message = None
         response = await _get_response(contents, model)
         for chunk in response:
-            entry = instance.stream(chunk, user=model.title(), entry=entry)
+            message = instance.stream(chunk, user=model.title(), message=message)
 
 
-chat_interface = pn.widgets.ChatInterface(callback=callback, placeholder_threshold=0.1)
+chat_interface = pn.chat.ChatInterface(callback=callback, placeholder_threshold=0.1)
 chat_interface.send(
     "Send a message to get a reply from both Llama 2 and Mistral (7B)!",
     user="System",

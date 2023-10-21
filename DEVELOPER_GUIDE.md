@@ -76,20 +76,22 @@ hatch run test
 To run the Playwright tests in *headed* mode (i.e. show the browser) you can run
 
 ```bash
-hatch run pytest -m ui --headed
+hatch run pytest -s -m ui --headed
 ```
 
 You can take screenshots or record videos the `--screenshot` and `--video` flags.
 
 ```bash
-hatch run pytest -m ui --screenshot on --video on --headed
+hatch run pytest -s -m ui --screenshot on --video on --headed
 ```
 
 The screenshots and videos can be found in the [test-results](test-results) folder.
 
-You can convert the `.webm` to `.mp4` using a command like
-`ffmpeg -i input.webm -c:v libx264 -preset slow -crf 22 -c:a copy output.mp4`.
-Alternatively you can use online services like [onlineconverter](https://www.onlineconverter.com/webm-to-mp4).
+You can convert `.webm` to `.mp4` and put them into the docs' assets directory by running `postprocess_videos.py`. Ensure you have `ffmpeg` installed on your machine.
+
+```bash
+hatch run python scripts/postprocess_videos.py
+```
 
 For more info on using Playwright+Panel see the [Panel UI tests](https://panel.holoviz.org/how_to/test/uitests.html) guide.
 

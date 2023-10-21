@@ -1,17 +1,17 @@
 """
-Demonstrates how to create a slim ChatInterface widget that fits in the sidebar.
+Demonstrates how to create a slim `ChatInterface` that fits in the sidebar.
 """
 import panel as pn
 
 pn.extension(design="material")
 
 
-async def callback(contents: str, user: str, instance: pn.widgets.ChatInterface):
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     message = f"Echoing {user}: {contents}"
     return message
 
 
-chat_interface = pn.widgets.ChatInterface(
+chat_interface = pn.chat.ChatInterface(
     callback=callback,
     show_send=False,
     show_rerun=False,

@@ -60,7 +60,7 @@ def test_has_video(app_path):
 
 @pytest.fixture
 def server(app_path, port):
-    """Returns a panel server runnning the app"""
+    """Returns a panel server running the app"""
     bokeh_allow_ws_origin = os.environ.get("BOKEH_ALLOW_WS_ORIGIN")
     os.environ["BOKEH_ALLOW_WS_ORIGIN"] = "localhost"
     server = serve(app_path, port=port, threaded=True, show=False)
@@ -83,10 +83,11 @@ def test_app(server, app_path, port, page):
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
 
+    print(f"Running {name}")
     # zoom and run should be defined for all examples
     # even if we don't run the video
     run = ACTION[name]
-    zoom = ZOOM[name]
+    zoom = ZOOM.get(name, 1.5)
 
     # We cannot run these tests in pipelines etc. as they require models downloaded,
     # api keys etc.
