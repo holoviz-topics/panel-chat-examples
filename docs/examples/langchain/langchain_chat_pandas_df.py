@@ -1,8 +1,9 @@
 """
 Demonstrates how to use the `ChatInterface` and `PanelCallbackHandler` to create a
-chatbot to talk to your Pandas DataFrame.
+chatbot to talk to your Pandas DataFrame. This is heavily inspired by the 
+[LangChain `chat_pandas_df` Reference Example]\
+(https://github.com/langchain-ai/streamlit-agent/blob/main/streamlit_agent/chat_pandas_df.py)
 """
-# Reference: https://github.com/langchain-ai/streamlit-agent/blob/main/streamlit_agent/chat_pandas_df.py
 from __future__ import annotations
 
 import pandas as pd
@@ -15,20 +16,24 @@ from panel_chat_examples import EnvironmentWidgetBase
 
 pn.extension("perspective", design="material")
 
-PENGUINS_URL = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
+PENGUINS_URL = (
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
+)
+
+
 class Environment(EnvironmentWidgetBase):
+    """Will be asking the user for the API Key if not set as environment variable"""
+
     OPENAI_API_KEY = param.String()
 
 
 class AgentConfig(param.Parameterized):
+    """Configuration used for the Pandas Agent"""
+
     user = "Pandas Agent"
     avatar = "🐼"
 
-    show_details = param.Boolean(default=False)
-
-    agent_type = param.Parameter(AgentType.OPENAI_FUNCTIONS)
-    verbose = (param.Boolean(True),)
-    handle_parsing_errors = (param.Boolean(True),)
+    show_chain_of_thought = param.Boolean(default=False)
 
     def _get_agent_message(self, message: str) -> pn.chat.ChatMessage:
         return pn.chat.ChatMessage(message, user=self.user, avatar=self.avatar)
@@ -53,7 +58,7 @@ class AppState(param.Parameterized):
         super().__init__(config=config, environ=environ)
 
     @param.depends("environ.OPENAI_API_KEY", on_init=True, watch=True)
-    def _update_llm(self):
+    def _reset_llm(self):
         with param.edit_constant(self):
             if self.environ.OPENAI_API_KEY:
                 self.llm = ChatOpenAI(
@@ -123,9 +128,11 @@ species are there?'"""
             return  # message
 
         if self.error_message:
-            return self.error_message
+            message = self.config._get_agent_message(self.error_message)
+            instance.send(message, respond=False)
+            return  # message
 
-        if self.config.show_details:
+        if self.config.show_chain_of_thought:
             langchain_callbacks = [
                 pn.chat.langchain.PanelCallbackHandler(instance=instance)
             ]
@@ -146,15 +153,19 @@ chat_interface = pn.chat.ChatInterface(
     renderers=pn.pane.Perspective,
     callback=state.callback,
     callback_exception="verbose",
+    show_rerun=False,
+    show_undo=False,
+    show_clear=False,
     min_height=400,
 )
-
 chat_interface.send(
     state.welcome_message, user="Pandas Agent", avatar="🐼", respond=False
 )
 
 layout = pn.template.MaterialTemplate(
-    title="🦜 LangChain - Chat with Pandas DataFrame", main=[chat_interface]
+    title="🦜 LangChain - Chat with Pandas DataFrame",
+    main=[chat_interface],
+    sidebar=["Agent Settings", state.config.param.show_chain_of_thought],
 )
 
 if state.environ.variables_not_set:
