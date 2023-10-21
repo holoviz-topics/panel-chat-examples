@@ -1,8 +1,7 @@
 """
 Demonstrates how to use the `ChatInterface` and `PanelCallbackHandler` to create a
 chatbot to talk to your Pandas DataFrame. This is heavily inspired by the 
-[LangChain `chat_pandas_df` Reference Example]\
-(https://github.com/langchain-ai/streamlit-agent/blob/main/streamlit_agent/chat_pandas_df.py)
+[LangChain `chat_pandas_df` Reference Example](https://github.com/langchain-ai/streamlit-agent/blob/main/streamlit_agent/chat_pandas_df.py)
 """
 from __future__ import annotations
 
