@@ -149,7 +149,10 @@ species are there?'"""
 state = AppState()
 
 chat_interface = pn.chat.ChatInterface(
-    widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
+    widgets=[
+        pn.widgets.FileInput(name="Upload"),
+        pn.widgets.TextInput(name="Message", placeholder="Send a message"),
+    ],
     renderers=pn.pane.Perspective,
     callback=state.callback,
     callback_exception="verbose",

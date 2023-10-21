@@ -91,6 +91,7 @@ dependencies = [
     "openai",
     "panel @ git+https://github.com/holoviz/panel.git@main",
     "pypdf",
+    "tabulate",
     "tiktoken",
 ]
 
