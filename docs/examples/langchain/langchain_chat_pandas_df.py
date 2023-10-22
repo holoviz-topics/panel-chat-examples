@@ -96,15 +96,15 @@ and click the **send** button."""
 
     @property
     def welcome_message(self):
-        text = (
-            f"""I'm your <a href="\
-https://python.langchain.com/docs/integrations/toolkits/pandas" target="_blank">\
-LangChain Pandas DataFrame Agent</a>.
+        text = dedent(f"""
+            I'm your <a href="\
+            https://python.langchain.com/docs/integrations/toolkits/pandas" target="_blank">\
+            LangChain Pandas DataFrame Agent</a>.
 
-I execute LLM generated Python code under the hood - this can be bad if the `llm`
-generated Python code is harmful. Use cautiously!
+            I execute LLM generated Python code under the hood - this can be bad if the `llm`
+            generated Python code is harmful. Use cautiously!
 
-{self.error_message}"""
+            {self.error_message}"""
         ).strip()
         if self.data is None:
             text += f"""
