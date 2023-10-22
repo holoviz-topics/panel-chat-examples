@@ -88,7 +88,8 @@ class AppState(param.Parameterized):
     @property
     def error_message(self):
         if not self.llm and self.data is None:
-            return dedent("""\
+            return dedent(
+                """\
                 Please provide your `OPENAI_API_KEY`, **upload a `.csv` file** 
                 and click the **send** button."""
             )
@@ -100,7 +101,8 @@ class AppState(param.Parameterized):
 
     @property
     def welcome_message(self):
-        text = dedent(f"""
+        text = dedent(
+            f"""
             I'm your <a href="\
             https://python.langchain.com/docs/integrations/toolkits/pandas" target="_blank">\
             LangChain Pandas DataFrame Agent</a>.
