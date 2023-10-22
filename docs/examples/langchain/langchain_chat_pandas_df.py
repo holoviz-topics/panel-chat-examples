@@ -5,6 +5,8 @@ chatbot to talk to your Pandas DataFrame. This is heavily inspired by the
 """
 from __future__ import annotations
 
+from textwrap import dedent
+
 import pandas as pd
 import panel as pn
 import param
@@ -86,8 +88,10 @@ class AppState(param.Parameterized):
     @property
     def error_message(self):
         if not self.llm and self.data is None:
-            return """Please provide your `OPENAI_API_KEY`, **upload a `.csv` file** 
-and click the **send** button."""
+            return dedent("""\
+                Please provide your `OPENAI_API_KEY`, **upload a `.csv` file** 
+                and click the **send** button."""
+            )
         if not self.llm:
             return "Please provide your `OPENAI_API_KEY`."
         if self.data is None:
@@ -100,7 +104,7 @@ and click the **send** button."""
             I'm your <a href="\
             https://python.langchain.com/docs/integrations/toolkits/pandas" target="_blank">\
             LangChain Pandas DataFrame Agent</a>.
-
+                    
             I execute LLM generated Python code under the hood - this can be bad if the `llm`
             generated Python code is harmful. Use cautiously!
 
