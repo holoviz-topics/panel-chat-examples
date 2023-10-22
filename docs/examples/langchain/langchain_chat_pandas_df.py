@@ -1,6 +1,6 @@
 """
 Demonstrates how to use the `ChatInterface` and `PanelCallbackHandler` to create a
-chatbot to talk to your Pandas DataFrame. This is heavily inspired by the 
+chatbot to talk to your Pandas DataFrame. This is heavily inspired by the
 [LangChain `chat_pandas_df` Reference Example](https://github.com/langchain-ai/streamlit-agent/blob/main/streamlit_agent/chat_pandas_df.py).
 """
 from __future__ import annotations
@@ -31,8 +31,8 @@ class Environment(EnvironmentWidgetBase):
 class AgentConfig(param.Parameterized):
     """Configuration used for the Pandas Agent"""
 
-    user = "Pandas Agent"
-    avatar = "🐼"
+    user = param.String("Pandas Agent")
+    avatar = param.String("🐼")
 
     show_chain_of_thought = param.Boolean(default=False)
 
@@ -90,7 +90,7 @@ class AppState(param.Parameterized):
         if not self.llm and self.data is None:
             return dedent(
                 """\
-                Please provide your `OPENAI_API_KEY`, **upload a `.csv` file** 
+                Please provide your `OPENAI_API_KEY`, **upload a `.csv` file**
                 and click the **send** button."""
             )
         if not self.llm:
@@ -104,11 +104,11 @@ class AppState(param.Parameterized):
         text = dedent(
             f"""
             I'm your <a href="\
-            https://python.langchain.com/docs/integrations/toolkits/pandas" target="_blank">\
-            LangChain Pandas DataFrame Agent</a>.
-                    
-            I execute LLM generated Python code under the hood - this can be bad if the `llm`
-            generated Python code is harmful. Use cautiously!
+            https://python.langchain.com/docs/integrations/toolkits/pandas" \
+            target="_blank">LangChain Pandas DataFrame Agent</a>.
+
+            I execute LLM generated Python code under the hood - this can be bad if
+            the `llm` generated Python code is harmful. Use cautiously!
 
             {self.error_message}"""
         ).strip()
@@ -167,7 +167,10 @@ chat_interface = pn.chat.ChatInterface(
     min_height=400,
 )
 chat_interface.send(
-    state.welcome_message, user="Pandas Agent", avatar="🐼", respond=False
+    state.welcome_message,
+    user=state.config.user,
+    avatar=state.config.avatar,
+    respond=False,
 )
 
 layout = pn.template.MaterialTemplate(
