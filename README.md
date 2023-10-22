@@ -8,6 +8,12 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 **Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
 
+<video controls>
+    <source src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
 PANELS CHAT COMPONENTS HAVE NOT YET BEEN RELEASED. WILL BE VERY SOON!
 
 ## Exploration
