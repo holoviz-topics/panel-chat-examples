@@ -11,6 +11,7 @@ from textwrap import dedent
 import pandas as pd
 import panel as pn
 import param
+import requests
 from langchain.agents import AgentType, create_pandas_dataframe_agent
 from langchain.chat_models import ChatOpenAI
 
@@ -18,8 +19,13 @@ from panel_chat_examples import EnvironmentWidgetBase
 
 pn.extension("perspective", design="material")
 
-# Source: "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
+PENGUINS_URL = (
+    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
+)
 PENGUINS_PATH = Path(__file__).parent / "penguins.csv"
+if not PENGUINS_PATH.exists():
+    response = requests.get(PENGUINS_URL)
+    PENGUINS_PATH.write_text(response.text)
 
 FILE_DOWNLOAD_STYLE = """
 .bk-btn a {
@@ -110,7 +116,7 @@ class AppState(param.Parameterized):
 
     @property
     def welcome_message(self):
-        text = dedent(
+        return dedent(
             f"""
             I'm your <a href="\
             https://python.langchain.com/docs/integrations/toolkits/pandas" \
@@ -121,18 +127,6 @@ class AppState(param.Parameterized):
 
             {self.error_message}"""
         ).strip()
-        if self.data is not None:
-            return text
-
-        return pn.Column(
-            text,
-            pn.widgets.FileDownload(
-                PENGUINS_PATH,
-                button_style="outline",
-                height=30,
-                stylesheets=[FILE_DOWNLOAD_STYLE],
-            ),
-        )
 
     async def callback(self, contents, user, instance):
         if isinstance(contents, pd.DataFrame):
@@ -190,10 +184,23 @@ chat_interface.send(
     respond=False,
 )
 
+download_button = pn.widgets.FileDownload(
+    PENGUINS_PATH,
+    button_type="primary",
+    button_style="outline",
+    height=30,
+    width=335,
+    stylesheets=[FILE_DOWNLOAD_STYLE],
+)
+
 layout = pn.template.MaterialTemplate(
     title="🦜 LangChain - Chat with Pandas DataFrame",
     main=[chat_interface],
-    sidebar=["Agent Settings", state.config.param.show_chain_of_thought],
+    sidebar=[
+        download_button,
+        "#### Agent Settings",
+        state.config.param.show_chain_of_thought,
+    ],
 )
 
 if state.environ.variables_not_set:
