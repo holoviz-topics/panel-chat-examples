@@ -5,6 +5,7 @@ chatbot to talk to your Pandas DataFrame. This is heavily inspired by the
 """
 from __future__ import annotations
 
+from pathlib import Path
 from textwrap import dedent
 
 import pandas as pd
@@ -17,9 +18,17 @@ from panel_chat_examples import EnvironmentWidgetBase
 
 pn.extension("perspective", design="material")
 
-PENGUINS_URL = (
-    "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
-)
+# Source: "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"
+PENGUINS_PATH = Path(__file__).parent / "penguins.csv"
+
+FILE_DOWNLOAD_STYLE = """
+.bk-btn a {
+    padding: 0px;
+}
+.bk-btn-group > button, .bk-input-group > button {
+    font-size: small;
+}
+"""
 
 
 class Environment(EnvironmentWidgetBase):
@@ -112,14 +121,18 @@ class AppState(param.Parameterized):
 
             {self.error_message}"""
         ).strip()
-        if self.data is None:
-            text += dedent(
-                f"""
+        if self.data is not None:
+            return text
 
-                Example: <a href="{PENGUINS_URL}" download>penguins.csv<a>
-                """
-            )
-        return text
+        return pn.Column(
+            text,
+            pn.widgets.FileDownload(
+                PENGUINS_PATH,
+                button_style="outline",
+                height=30,
+                stylesheets=[FILE_DOWNLOAD_STYLE],
+            ),
+        )
 
     async def callback(self, contents, user, instance):
         if isinstance(contents, pd.DataFrame):
