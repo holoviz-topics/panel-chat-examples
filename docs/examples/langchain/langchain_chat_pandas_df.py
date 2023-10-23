@@ -113,10 +113,12 @@ class AppState(param.Parameterized):
             {self.error_message}"""
         ).strip()
         if self.data is None:
-            text += f"""
+            text += dedent(
+                f"""
 
-Example: <a href="{PENGUINS_URL}" download>penguins.csv<a>
-"""
+                Example: <a href="{PENGUINS_URL}" download>penguins.csv<a>
+                """
+            )
         return text
 
     async def callback(self, contents, user, instance):
@@ -124,8 +126,10 @@ Example: <a href="{PENGUINS_URL}" download>penguins.csv<a>
             self.data = contents
             instance.active = 1
             message = self.config._get_agent_message(
-                """You can ask me anything about the data. For example 'how many
-species are there?'"""
+                dedent(
+                    """You can ask me anything about the data. For example 'how many
+                    species are there?'"""
+                )
             )
             # We `send` instead of just `return` due to the bug
             # https://github.com/holoviz/panel/issues/5708
