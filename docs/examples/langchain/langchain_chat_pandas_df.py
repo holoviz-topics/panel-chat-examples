@@ -139,7 +139,7 @@ class AppState(param.Parameterized):
                 )
             )
             # We `send` instead of just `return` due to the bug
-            # https://github.com/holoviz/pane   l/issues/5708
+            # https://github.com/holoviz/panel/issues/5708
             instance.send(message, respond=False)
             return  # message
 
