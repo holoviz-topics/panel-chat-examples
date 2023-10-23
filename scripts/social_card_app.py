@@ -5,9 +5,9 @@ import panel as pn
 
 pn.extension(design="material")
 
+WELCOME = """
+# Check out **Panel Chat Examples**.
 
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    return """
 Panel Chat Examples is a collection of reference **Panel chat apps with accessible \
 source code**.
 
@@ -18,6 +18,11 @@ style="height:125px"></img>
 """
 
 
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
+    return ""
+
+
 chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="Assistant")
-chat_interface.send("**What is Panel Chat Examples**?", user="User", avatar="👩")
+chat_interface.send(WELCOME, user="User", avatar="👩", respond=False)
+
 chat_interface.servable()
