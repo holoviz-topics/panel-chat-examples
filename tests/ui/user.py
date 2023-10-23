@@ -11,6 +11,7 @@ TIMEOUT = 350
 
 EXAMPLE_PDF = str((Path.cwd() / "docs/examples/langchain/example.pdf").absolute())
 EXAMPLE_CSV = str((Path.cwd() / "tests/ui/example.csv").absolute())
+PENGUINS_CSV = str((Path.cwd() / "tests/ui/penguins.csv").absolute())
 
 
 class ChatInterface:
@@ -118,6 +119,20 @@ def langchain_llama_and_mistral(page: Page):
     chat = ChatInterface(page)
     chat.send("Please explain what kind of model you are in one sentence")
     page.wait_for_timeout(15000)
+
+
+def langchain_chat_pandas_df(page: Page):
+    chat = ChatInterface(page)
+    page.get_by_role("textbox").set_input_files(PENGUINS_CSV)
+    page.wait_for_timeout(333)
+    chat.button_click(" Send")
+    page.get_by_text("For example 'how many species are there?'").wait_for()
+    chat.send("What are the species?")
+    page.get_by_text("The species in the dataframe are").wait_for()
+    page.wait_for_timeout(100)
+    chat.send("What is the average bill length per species?")
+    page.get_by_text("The average bill length per species is as follows").wait_for()
+    page.wait_for_timeout(2500)
 
 
 def langchain_with_memory(page: Page):
@@ -233,6 +248,7 @@ ACTION = {
     "feature_slim_interface.py": feature_slim_interface,
     "langchain_llama_and_mistral.py": langchain_llama_and_mistral,
     "langchain_math_assistant.py": langchain_math_assistant,
+    "langchain_chat_pandas_df.py": langchain_chat_pandas_df,
     "langchain_pdf_assistant.py": langchain_pdf_assistant,
     "langchain_with_memory.py": langchain_with_memory,
     "mistral_and_llama.py": mistral_and_llama,
@@ -256,6 +272,7 @@ ZOOM = {
     "feature_delayed_placeholder.py": 1.8,
     "feature_replace_response.py": 1.8,
     "feature_slim_interface.py": 1.25,
+    "langchain_chat_pandas_df.py": 1,
     "langchain_llama_and_mistral.py": 1.25,
     "langchain_math_assistant.py": 1.5,
     "langchain_pdf_assistant.py": 1,
