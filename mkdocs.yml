@@ -5,7 +5,6 @@ site_author: HoloViz Panel
 repo_url: https://github.com/holoviz-topics/panel-chat-examples
 repo_name: holoviz-topics/panel-chat-examples
 
-canonical_url: https://holoviz-topics.github.io/panel-chat-examples/
 
 theme:
     name: material
