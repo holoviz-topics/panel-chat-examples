@@ -8,8 +8,18 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 **Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
 
-PANELS CHAT COMPONENTS ARE AVAILABLE FROM Panel v1.3.0.
+<video controls style="height:auto;width: 100%;max-height:500px">
+    <source src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+Panel Chat Components (`ChatInterface`, `ChatMessage`, etc) are available from Panel v1.3.0. To get started:
+
 `pip install "panel>=1.3.0"`
+
+## Exploration
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/holoviz-topics/panel-chat-examples?quickstart=1)
 
 ## Installation
 

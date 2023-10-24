@@ -11,6 +11,7 @@ TIMEOUT = 350
 
 EXAMPLE_PDF = str((Path.cwd() / "docs/examples/langchain/example.pdf").absolute())
 EXAMPLE_CSV = str((Path.cwd() / "tests/ui/example.csv").absolute())
+PENGUINS_CSV = str((Path.cwd() / "tests/ui/penguins.csv").absolute())
 
 
 class ChatInterface:
@@ -50,6 +51,22 @@ def basic_streaming_chat_async(page: Page):
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
+def component_chat_input(page: Page):
+    text_input = page.get_by_placeholder("Say something")
+
+    text_input.fill("Hello World")
+    page.wait_for_timeout(TIMEOUT)
+    text_input.press("Enter")
+    page.get_by_text("User has sent the following prompt: Hello World").wait_for()
+
+    text_input.fill("Could you please repeat that?")
+    page.wait_for_timeout(TIMEOUT)
+    text_input.press("Enter")
+    page.get_by_text(
+        "User has sent the following prompt: Could you please repeat that?"
+    ).wait_for()
+
+
 def component_environment_widget(page: Page):
     langchain = page.get_by_role("textbox").nth(0)
     langchain.fill("some-secret")
@@ -59,6 +76,12 @@ def component_environment_widget(page: Page):
     weviate.fill("another-secret")
     weviate.press("Enter")
     page.wait_for_timeout(4 * TIMEOUT)
+
+
+def component_status(page: Page):
+    page.get_by_role("button", name="Run").dispatch_event("click")
+    page.get_by_text("Validating data...").wait_for()
+    page.wait_for_timeout(TIMEOUT)
 
 
 def feature_chained_response(page: Page):
@@ -96,6 +119,20 @@ def langchain_llama_and_mistral(page: Page):
     chat = ChatInterface(page)
     chat.send("Please explain what kind of model you are in one sentence")
     page.wait_for_timeout(15000)
+
+
+def langchain_chat_pandas_df(page: Page):
+    chat = ChatInterface(page)
+    page.get_by_role("textbox").set_input_files(PENGUINS_CSV)
+    page.wait_for_timeout(333)
+    chat.button_click(" Send")
+    page.get_by_text("For example 'how many species are there?'").wait_for()
+    chat.send("What are the species?")
+    page.get_by_text("The species in the dataframe are").wait_for()
+    page.wait_for_timeout(100)
+    chat.send("What is the average bill length per species?")
+    page.get_by_text("The average bill length per species is as follows").wait_for()
+    page.wait_for_timeout(2500)
 
 
 def langchain_with_memory(page: Page):
@@ -202,13 +239,16 @@ ACTION = {
     "basic_chat.py": basic_chat,
     "basic_streaming_chat_async.py": basic_streaming_chat_async,
     "basic_streaming_chat.py": basic_streaming_chat,
+    "component_chat_input.py": component_chat_input,
     "component_environment_widget.py": component_environment_widget,
+    "component_status.py": component_status,
     "feature_chained_response.py": feature_chained_response,
     "feature_delayed_placeholder.py": feature_delayed_placeholder,
     "feature_replace_response.py": feature_replace_response,
     "feature_slim_interface.py": feature_slim_interface,
     "langchain_llama_and_mistral.py": langchain_llama_and_mistral,
     "langchain_math_assistant.py": langchain_math_assistant,
+    "langchain_chat_pandas_df.py": langchain_chat_pandas_df,
     "langchain_pdf_assistant.py": langchain_pdf_assistant,
     "langchain_with_memory.py": langchain_with_memory,
     "mistral_and_llama.py": mistral_and_llama,
@@ -225,11 +265,14 @@ ZOOM = {
     "basic_chat.py": 1.8,
     "basic_streaming_chat_async.py": 1.8,
     "basic_streaming_chat.py": 1.8,
+    "component_chat_input.py": 2,
     "component_environment_widget.py": 1.25,
+    "component_status.py": 2,
     "feature_chained_response.py": 1.8,
     "feature_delayed_placeholder.py": 1.8,
     "feature_replace_response.py": 1.8,
     "feature_slim_interface.py": 1.25,
+    "langchain_chat_pandas_df.py": 1,
     "langchain_llama_and_mistral.py": 1.25,
     "langchain_math_assistant.py": 1.5,
     "langchain_pdf_assistant.py": 1,
