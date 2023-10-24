@@ -13,7 +13,9 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
     Your browser does not support the video tag.
 </video>
 
-PANELS CHAT COMPONENTS HAVE NOT YET BEEN RELEASED. WILL BE VERY SOON!
+Panel Chat Components (`ChatInterface`, `ChatMessage`, etc) are available from Panel v1.3.0. To get started:
+
+`pip install -U "panel>=1.3.0"`
 
 ## Exploration
 

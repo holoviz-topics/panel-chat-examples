@@ -89,7 +89,7 @@ dependencies = [
     "langchain",
     "numexpr",
     "openai",
-    "panel @ git+https://github.com/holoviz/panel.git@main",
+    "panel>=1.3.0",
     "pypdf",
     "tabulate",
     "tiktoken",
