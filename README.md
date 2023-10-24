@@ -36,7 +36,7 @@ panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnail
 
 Then open [http://localhost:5006](http://localhost:5006) in your browser.
 
-![Panel Index Page](assets/images/panel-chat-examples-index-page.png)
+![Panel Index Page](https://raw.githubusercontent.com/holoviz-topics/panel-chat-examples/main/assets/images/panel-chat-examples-index-page.png)
 
 ### GPU Usage
 
