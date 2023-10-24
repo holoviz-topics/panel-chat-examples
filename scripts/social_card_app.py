@@ -6,15 +6,24 @@ import panel as pn
 pn.extension(design="material")
 
 WELCOME = """
-# Check out **Panel Chat Examples**.
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu">
+<style>
+a {
+ text-decoration: none !important;
+ color:black;
+}
+</style>
+<div style="text-align:center;margin-top:20px;font-family: Ubuntu, \
+"times new roman", times, roman, serif;">
+<img src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/docs/assets\
+/images/panel-logo.png" style="height:25px;margin-right:10px"></img>\
+<span style="font-size:35px;font-weight:900;text-align:center">\
+Panel Chat Examples</span>.
+</div>
 
-Panel Chat Examples is a collection of reference **Panel chat apps with accessible \
-source code**.
+Reference chat apps with accessible source code.
 
-**HoloViz Panel** is the powerful data exploration & web app framework for Python.
-
-<img src="https://panel.holoviz.org/_static/logo_horizontal_light_theme.png" \
-style="height:125px"></img>
+**holoviz-topics.github.io/panel-chat-examples**
 """
 
 

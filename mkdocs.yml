@@ -1,11 +1,10 @@
 site_name: Panel Chat Examples
-site_description: A collection of reference Panel chat apps with accessible source code
+site_description: Reference chat apps with accessible source code
 site_author: HoloViz Panel
 
 repo_url: https://github.com/holoviz-topics/panel-chat-examples
 repo_name: holoviz-topics/panel-chat-examples
 
-canonical_url: https://holoviz-topics.github.io/panel-chat-examples/
 
 theme:
     name: material
