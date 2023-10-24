@@ -15,7 +15,7 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 Panel Chat Components (`ChatInterface`, `ChatMessage`, etc) are available from Panel v1.3.0. To get started:
 
-`pip install "panel>=1.3.0"`
+`pip install -U "panel>=1.3.0"`
 
 ## Exploration
 
