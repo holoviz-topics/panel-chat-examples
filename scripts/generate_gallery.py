@@ -16,8 +16,8 @@ PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
 # ruff: noqa: E501
 VIDEO_URL = "https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde"
 VIDEO_TAG = """\
-<video controls style="height:auto;width: 100%;max-height:500px">
-    <source src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
+<video controls style="height:auto;width: 100%;max-height:500px" poster="assets/videos/panel-chat-examples-splash.png">
+    <source src="assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
 </video>"""
 
 
