@@ -6,10 +6,6 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 **Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
 
-<video controls style="height:auto;width: 100%;max-height:500px">
-    <source src="https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/064164ac-1d57-44c3-a6ba-295d085032b2" type="video/mp4">
-</video>
-
 [![Video](https://github.com/holoviz-topics/panel-chat-examples/blob/16a6bd59500813c85f85fb88d0f8e3cbd8bd2ef9/docs/assets/images/panel-chat-examples-card-1600x837.png)](https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/064164ac-1d57-44c3-a6ba-295d085032b2)
 
 Panel Chat Components (`ChatInterface`, `ChatMessage`, etc) are available from Panel v1.3.0. To get started:
