@@ -5,12 +5,26 @@ from textwrap import dedent, indent
 
 from convert_apps import APPS_READY_FOR_PYODIDE
 
-DOCS_PATH = Path(__file__).parent.parent / "docs"
+ROOT_PATH = Path(__file__).parent.parent
+README_PATH = ROOT_PATH / "README.md"
+DOCS_PATH = ROOT_PATH / "docs"
 EXAMPLES_PATH = DOCS_PATH / "examples"
 INDEX_MD_PATH = DOCS_PATH / "index.md"
 THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
 VIDEOS_PATH = DOCS_PATH / "assets" / "videos"
 PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
+# ruff: noqa: E501
+VIDEO_URL = "https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde"
+VIDEO_TAG = """\
+<video controls style="height:auto;width: 100%;max-height:500px">
+    <source src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
+</video>"""
+
+
+def _copy_readme_to_index():
+    text = README_PATH.read_text()
+    text = text.replace(VIDEO_URL, VIDEO_TAG)
+    INDEX_MD_PATH.write_text(text)
 
 
 def run():
@@ -22,6 +36,7 @@ def run():
     - For each .py file of a header is added "### File Name" to the text as well as the
     content of the module docstring.
     """
+    _copy_readme_to_index()
 
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
         if folder.name in ["examples", "__pycache__"]:
