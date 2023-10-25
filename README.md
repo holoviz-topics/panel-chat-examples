@@ -10,7 +10,9 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
     <source src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
 </video>
 
-<div style="display:none">https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4</div>
+
+
+<div style="display:none">[https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4](https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde)</div>
 
 Panel Chat Components (`ChatInterface`, `ChatMessage`, etc) are available from Panel v1.3.0. To get started:
 
