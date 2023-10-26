@@ -4,16 +4,11 @@
 
 Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](https://panel.holoviz.org/reference/index.html#chat); Panels chat components are *multi modal* and supports [LangChain](https://python.langchain.com/docs/get_started/introduction), [OpenAI](https://openai.com/blog/chatgpt), [Mistral](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjZtP35yvSBAxU00wIHHerUDZAQFnoECBEQAQ&url=https%3A%2F%2Fdocs.mistral.ai%2F&usg=AOvVaw2qpx09O_zOzSksgjBKiJY_&opi=89978449), [Llama](https://ai.meta.com/llama/), etc.
 
-**Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">https://holoviz-topics.github.io/panel-chat-examples/</a>
+**Documentation**: <a href="https://holoviz-topics.github.io/panel-chat-examples/" target="_blank">holoviz-topics.github.io/panel-chat-examples/</a>
 
-<video controls style="height:auto;width: 100%;max-height:500px">
-    <source src="https://github.com/holoviz-topics/panel-chat-examples/raw/main/assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde
 
-Panel Chat Components (`ChatInterface`, `ChatMessage`, etc) are available from Panel v1.3.0. To get started:
-
-`pip install -U "panel>=1.3.0"`
+Panels Chat Components are available from Panel v1.3.0.
 
 ## Exploration
 
