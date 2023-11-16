@@ -12,8 +12,9 @@ import pandas as pd
 import panel as pn
 import param
 import requests
-from langchain.agents import AgentType, create_pandas_dataframe_agent
+from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 
 from panel_chat_examples import EnvironmentWidgetBase
 
@@ -154,7 +155,7 @@ class AppState(param.Parameterized):
             ]
         else:
             langchain_callbacks = []
-        response = await state.pandas_df_agent.arun(
+        response = await self.pandas_df_agent.arun(
             contents, callbacks=langchain_callbacks
         )
         message = self.config._get_agent_message(response)
