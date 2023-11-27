@@ -58,7 +58,7 @@ class EnvironmentWidgetBase(pn.viewable.Viewer):
             "the publisher of this app before entering your secrets."
         ),
         doc="""An Alert message to display to the user to make them handle their secrets
-        securely. If not set, then no Alert is diplayed""",
+        securely. If not set, then no Alert is displayed""",
     )
 
     variables_not_set = param.List(

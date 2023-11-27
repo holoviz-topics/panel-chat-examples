@@ -87,6 +87,7 @@ dependencies = [
     "ctransformers",
     "hvplot",
     "langchain",
+    "langchain-experimental",
     "numexpr",
     "openai",
     "panel>=1.3.0",
