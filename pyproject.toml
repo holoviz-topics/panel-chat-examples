@@ -89,7 +89,7 @@ dependencies = [
     "langchain",
     "langchain-experimental",
     "numexpr",
-    "openai",
+    "openai>1.0.0",
     "panel>=1.3.0",
     "pypdf",
     "tabulate",

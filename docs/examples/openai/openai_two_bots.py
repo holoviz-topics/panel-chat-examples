@@ -3,7 +3,9 @@ Demonstrates how to use the `ChatInterface` to create two bots that chat with ea
 other.
 """
 
-import openai
+from openai import AsyncOpenAI
+
+aclient = AsyncOpenAI()
 import panel as pn
 
 pn.extension()
@@ -22,7 +24,7 @@ async def callback(
         callback_avatar = "😃"
 
     prompt = f"Think profoundly about {contents}, then ask a question."
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
         stream=True,

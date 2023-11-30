@@ -3,14 +3,16 @@ Demonstrates how to use the `ChatInterface` to create a chatbot using
 OpenAI's with async/await.
 """
 
-import openai
+from openai import AsyncOpenAI
+
+aclient = AsyncOpenAI()
 import panel as pn
 
 pn.extension()
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,

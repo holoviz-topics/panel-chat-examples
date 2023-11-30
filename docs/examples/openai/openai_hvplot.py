@@ -6,7 +6,9 @@ that can generate plots of your data using [hvplot](https://hvplot.holoviz.org/)
 import re
 from typing import Union
 
-import openai
+from openai import AsyncOpenAI
+
+aclient = AsyncOpenAI()
 import pandas as pd
 import panel as pn
 from panel.io.mime_render import exec_with_return
@@ -36,7 +38,7 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     else:
         message = contents
 
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": message}],
         temperature=0,

@@ -5,7 +5,9 @@ OpenAI's API.
 
 import os
 
-import openai
+from openai import AsyncOpenAI
+
+aclient = AsyncOpenAI()
 import panel as pn
 
 SYSTEM_KWARGS = dict(
@@ -41,7 +43,7 @@ async def callback(
         yield "Please first set your OpenAI key in the sidebar!"
         return
 
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,

@@ -3,14 +3,16 @@ Demonstrates how to use the `ChatInterface` to create images using
 OpenAI's [DALL-E API](https://platform.openai.com/docs/guides/images/image-generation).
 """
 
-import openai
+from openai import OpenAI
+
+client = OpenAI()
 import panel as pn
 
 pn.extension()
 
 
 def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    response = openai.Image.create(prompt=contents, n=1, size="256x256")
+    response = client.images.generate(prompt=contents, n=1, size="256x256")
     image_url = response["data"][0]["url"]
     return pn.pane.Image(image_url, width=256, height=256)
 
