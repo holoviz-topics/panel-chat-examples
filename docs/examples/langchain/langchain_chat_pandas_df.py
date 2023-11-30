@@ -139,15 +139,11 @@ class AppState(param.Parameterized):
                     species are there?'"""
                 )
             )
-            # We `send` instead of just `return` due to the bug
-            # https://github.com/holoviz/panel/issues/5708
-            instance.send(message, respond=False)
-            return  # message
+            return message
 
         if self.error_message:
             message = self.config._get_agent_message(self.error_message)
-            instance.send(message, respond=False)
-            return  # message
+            return message
 
         if self.config.show_chain_of_thought:
             langchain_callbacks = [
@@ -155,12 +151,12 @@ class AppState(param.Parameterized):
             ]
         else:
             langchain_callbacks = []
+
         response = await self.pandas_df_agent.arun(
             contents, callbacks=langchain_callbacks
         )
         message = self.config._get_agent_message(response)
-        instance.send(message, respond=False)
-        return
+        return message
 
 
 state = AppState()
