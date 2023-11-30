@@ -3,10 +3,8 @@ Demonstrates how to use the `ChatInterface` to create two bots that chat with ea
 other.
 """
 
-from openai import AsyncOpenAI
-
-aclient = AsyncOpenAI()
 import panel as pn
+from openai import AsyncOpenAI
 
 pn.extension()
 
@@ -44,6 +42,7 @@ async def callback(
     instance.respond()
 
 
+aclient = AsyncOpenAI()
 chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a topic for the bots to discuss! Beware the token usage!",

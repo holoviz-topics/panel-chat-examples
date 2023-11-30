@@ -5,10 +5,8 @@ OpenAI's API.
 
 import os
 
-from openai import AsyncOpenAI
-
-aclient = AsyncOpenAI()
 import panel as pn
+from openai import AsyncOpenAI
 
 SYSTEM_KWARGS = dict(
     user="System",
@@ -55,6 +53,7 @@ async def callback(
         yield message
 
 
+aclient = AsyncOpenAI()
 chat_interface = pn.chat.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(
     "First enter your OpenAI key in the sidebar, then send a message!", **SYSTEM_KWARGS

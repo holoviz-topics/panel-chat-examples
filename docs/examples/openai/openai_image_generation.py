@@ -3,10 +3,8 @@ Demonstrates how to use the `ChatInterface` to create images using
 OpenAI's [DALL-E API](https://platform.openai.com/docs/guides/images/image-generation).
 """
 
-from openai import OpenAI
-
-client = OpenAI()
 import panel as pn
+from openai import OpenAI
 
 pn.extension()
 
@@ -17,6 +15,7 @@ def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     return pn.pane.Image(image_url, width=256, height=256)
 
 
+client = OpenAI()
 chat_interface = pn.chat.ChatInterface(
     callback=callback, callback_user="DALL-E", placeholder_text="Generating..."
 )
