@@ -13,7 +13,7 @@ import param
 
 from panel_chat_examples import EnvironmentWidgetBase
 
-pn.extension(design="material")
+pn.extension()
 
 
 class EnvironmentWidget(EnvironmentWidgetBase):

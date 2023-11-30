@@ -9,7 +9,7 @@ import panel as pn
 from langchain.chains import LLMMathChain
 from langchain.llms import OpenAI
 
-pn.extension(design="material")
+pn.extension()
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):

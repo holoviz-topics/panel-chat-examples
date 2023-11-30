@@ -6,7 +6,7 @@ OpenAI's [DALL-E API](https://platform.openai.com/docs/guides/images/image-gener
 import openai
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 
 def callback(contents: str, user: str, instance: pn.chat.ChatInterface):

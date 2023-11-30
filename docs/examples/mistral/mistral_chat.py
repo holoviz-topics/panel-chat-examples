@@ -7,7 +7,7 @@ Demonstrates how to use the `ChatInterface` to create a chatbot using
 import panel as pn
 from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
-pn.extension(design="material")
+pn.extension()
 
 llms = pn.state.cache["llms"] = pn.state.cache.get("llms", {})
 

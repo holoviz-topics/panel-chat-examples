@@ -8,7 +8,7 @@ memory of the conversation history.
 import panel as pn
 from ctransformers import AutoConfig, AutoModelForCausalLM, Config
 
-pn.extension(design="material")
+pn.extension()
 
 SYSTEM_INSTRUCTIONS = "Do what the user requests."
 

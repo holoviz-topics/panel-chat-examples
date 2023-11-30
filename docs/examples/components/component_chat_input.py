@@ -10,7 +10,7 @@ import panel as pn
 
 from panel_chat_examples.components import ChatInput
 
-pn.extension(design="material")
+pn.extension()
 
 chat_input = ChatInput(placeholder="Say something")
 

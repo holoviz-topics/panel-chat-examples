@@ -18,7 +18,7 @@ from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe
 
 from panel_chat_examples import EnvironmentWidgetBase
 
-pn.extension("perspective", design="material")
+pn.extension("perspective")
 
 PENGUINS_URL = (
     "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"

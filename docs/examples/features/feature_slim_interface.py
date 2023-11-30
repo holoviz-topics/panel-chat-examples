@@ -3,7 +3,7 @@ Demonstrates how to create a slim `ChatInterface` that fits in the sidebar.
 """
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
