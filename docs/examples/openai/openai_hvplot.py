@@ -6,9 +6,9 @@ that can generate plots of your data using [hvplot](https://hvplot.holoviz.org/)
 import re
 from typing import Union
 
-import openai
 import pandas as pd
 import panel as pn
+from openai import AsyncOpenAI
 from panel.io.mime_render import exec_with_return
 
 DATAFRAME_PROMPT = """
@@ -36,7 +36,7 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     else:
         message = contents
 
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": message}],
         temperature=0,
@@ -45,8 +45,10 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     )
     message = ""
     async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "object": message}
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield {"user": "ChatGPT", "object": message}
 
 
 async def respond_with_executor(code: str):
@@ -79,6 +81,7 @@ async def callback(
         yield await respond_with_executor(CODE_REGEX.search(contents).group(1))
 
 
+aclient = AsyncOpenAI()
 chat_interface = pn.chat.ChatInterface(
     widgets=[pn.widgets.FileInput(name="Upload"), pn.widgets.TextInput(name="Message")],
     callback=callback,

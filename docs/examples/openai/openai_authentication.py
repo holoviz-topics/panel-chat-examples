@@ -5,8 +5,8 @@ OpenAI's API.
 
 import os
 
-import openai
 import panel as pn
+from openai import AsyncOpenAI
 
 SYSTEM_KWARGS = dict(
     user="System",
@@ -41,7 +41,7 @@ async def callback(
         yield "Please first set your OpenAI key in the sidebar!"
         return
 
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,
@@ -49,10 +49,13 @@ async def callback(
     )
     message = ""
     async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield message
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield message
 
 
+aclient = AsyncOpenAI()
 chat_interface = pn.chat.ChatInterface(callback=callback, disabled=True)
 chat_interface.send(
     "First enter your OpenAI key in the sidebar, then send a message!", **SYSTEM_KWARGS

@@ -3,8 +3,8 @@ Demonstrates how to use the `ChatInterface` to create two bots that chat with ea
 other.
 """
 
-import openai
 import panel as pn
+from openai import AsyncOpenAI
 
 pn.extension()
 
@@ -22,7 +22,7 @@ async def callback(
         callback_avatar = "😃"
 
     prompt = f"Think profoundly about {contents}, then ask a question."
-    response = await openai.ChatCompletion.acreate(
+    response = await aclient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
         stream=True,
@@ -31,8 +31,10 @@ async def callback(
     )
     message = ""
     async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": callback_user, "avatar": callback_avatar, "object": message}
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield {"user": callback_user, "avatar": callback_avatar, "object": message}
 
     if len(instance.objects) % 6 == 0:  # stop at every 6 messages
         instance.send(
@@ -42,6 +44,7 @@ async def callback(
     instance.respond()
 
 
+aclient = AsyncOpenAI()
 chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
     "Enter a topic for the bots to discuss! Beware the token usage!",

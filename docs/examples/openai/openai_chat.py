@@ -3,24 +3,27 @@ Demonstrates how to use the `ChatInterface` to create a chatbot using
 OpenAI's API.
 """
 
-import openai
 import panel as pn
+from openai import OpenAI
 
 pn.extension()
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": contents}],
         stream=True,
     )
     message = ""
     for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield message
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield message
 
 
+client = OpenAI()
 chat_interface = pn.chat.ChatInterface(callback=callback, callback_user="ChatGPT")
 chat_interface.send(
     "Send a message to get a reply from ChatGPT!", user="System", respond=False
