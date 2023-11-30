@@ -6,7 +6,7 @@ other.
 import openai
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 
 async def callback(

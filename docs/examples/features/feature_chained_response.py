@@ -6,7 +6,7 @@ from time import sleep
 
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 ARM_BOT = "Arm Bot"
 LEG_BOT = "Leg Bot"

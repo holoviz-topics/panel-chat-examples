@@ -6,7 +6,7 @@ from asyncio import sleep
 
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):

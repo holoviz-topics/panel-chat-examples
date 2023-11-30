@@ -3,7 +3,7 @@ Used to create the panel-chat-examples-card-HEIGHTxWIDTH.png cards for social me
 """
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 WELCOME = """
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu">
