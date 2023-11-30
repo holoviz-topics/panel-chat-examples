@@ -49,8 +49,10 @@ async def callback(
     )
     message = ""
     async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield message
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield message
 
 
 aclient = AsyncOpenAI()

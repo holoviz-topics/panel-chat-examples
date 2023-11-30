@@ -45,8 +45,10 @@ async def respond_with_openai(contents: Union[pd.DataFrame, str]):
     )
     message = ""
     async for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield {"user": "ChatGPT", "object": message}
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield {"user": "ChatGPT", "object": message}
 
 
 async def respond_with_executor(code: str):

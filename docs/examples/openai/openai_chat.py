@@ -17,8 +17,10 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     )
     message = ""
     for chunk in response:
-        message += chunk["choices"][0]["delta"].get("content", "")
-        yield message
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield message
 
 
 client = OpenAI()

@@ -11,7 +11,7 @@ pn.extension()
 
 def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     response = client.images.generate(prompt=contents, n=1, size="256x256")
-    image_url = response["data"][0]["url"]
+    image_url = response.data[0].url
     return pn.pane.Image(image_url, width=256, height=256)
 
 
