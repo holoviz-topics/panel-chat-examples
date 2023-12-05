@@ -209,6 +209,16 @@ def openai_chat(page: Page):
     )
     page.wait_for_timeout(2000)
 
+
+def openai_chat_with_memory(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Remember this number 8")
+    page.locator("div").filter(has_text=re.compile(r"^ChatGPT$")).first.dispatch_event(
+        "click"
+    )
+    page.wait_for_timeout(2000)
+    chat.send("What number did I just ask you to remember?")
+
     # ---------------------
 
 
@@ -257,6 +267,7 @@ ACTION = {
     "openai_async_chat.py": openai_async_chat,
     "openai_authentication.py": openai_authentication,
     "openai_chat.py": openai_chat,
+    "openai_chat_with_memory.py": openai_chat_with_memory,
     "openai_hvplot.py": openai_hvplot,
     "openai_image_generation.py": openai_image_generation,
     "openai_two_bots.py": openai_two_bots,
