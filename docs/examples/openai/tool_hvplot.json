@@ -1,0 +1,57 @@
+{
+      "type": "function",
+      "function": {
+            "name": "hvplot",
+            "description": "Creates a plot using the `.hvplot` method on the data",
+            "parameters": {
+                  "type": "object",
+                  "properties": {
+                        "x": {
+                              "type": "string",
+                              "description": "The series to plot on the x-axis"
+                        },
+                        "y": {
+                              "oneOf": [
+                                    {
+                                          "type": "string",
+                                          "description": "A single series to be plotted on the y-axis"
+                                    },
+                                    {
+                                          "type": "array",
+                                          "items": {
+                                                "type": "string"
+                                          },
+                                          "description": "An array of series to be plotted on the y-axis"
+                                    }
+                              ]
+                        },
+                        "size": {
+                              "type": "integer",
+                              "description": "The size of the marker"
+                        },
+                        "color": {
+                              "oneOf": [
+                                    {
+                                          "type": "string",
+                                          "description": "A single color to be used for plotting"
+                                    },
+                                    {
+                                          "type": "array",
+                                          "items": {
+                                                "type": "string"
+                                          },
+                                          "description": "An array of colors to be used for plotting"
+                                    }
+                              ]
+                        },
+                        "kind": {
+                              "type": "string",
+                              "description": "The kind of plot. One of 'area', 'bar', 'barh', 'bivariate', 'box', 'contour', 'contourf', 'dataset', 'density', 'errorbars', 'hist', 'image', 'kde', 'labels', 'line', 'scatter', 'heatmap', 'hexbin', 'ohlc', 'paths', 'points', 'polygons', 'quadmesh', 'rgb', 'step', 'table', 'vectorfield', 'violin'"
+                        }
+                  },
+                  "required": [
+                        "kind"
+                  ]
+            }
+      }
+}
