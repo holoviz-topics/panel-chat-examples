@@ -59,8 +59,8 @@ watch:
 
 nav:
     - Home: index.md
+    - Awesome: awesome_list.md
     - Basics: basics.md
-    - Autogen: autogen.md
     - Components: components.md
     - Features: features.md
     - Langchain: langchain.md
