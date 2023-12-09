@@ -2,7 +2,15 @@
 
 Below we list **awesome chat resources** by the community
 
-## Basics
+## Getting Started
+
+### Panel 1.30 NEW Chat Interface
+
+Author: [Andy Cheung](https://twitter.com/andycheung0211)
+
+Source: [Medium](https://medium.com/@andy456333/holoviz-panel-1-30-new-chat-interface-widget-d78c18f6e244)
+
+[![Panel 1.30 NEW Chat Interface](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Cz-zCwXBeXssMIshvf8bdg.png)](https://medium.com/@andy456333/holoviz-panel-1-30-new-chat-interface-widget-d78c18f6e244)
 
 ### Getting Started Guide by Andrew and Sophia
 
@@ -62,7 +70,7 @@ Link: [Blog Post](https://blog.holoviz.org/posts/fleet_ai/)
 
 ### Building a Retrieval Augmented Generation Chatbot
 
-Wih [endorsement](https://x.com/hwchase17/status/1730990206856437831?s=20) by [Harrison Chase](https://twitter.com/hwchase17) the founder of LangChain.
+With [endorsement](https://x.com/hwchase17/status/1730990206856437831?s=20) by [Harrison Chase](https://twitter.com/hwchase17) the founder of LangChain.
 
 Authors: [Andrew Huang](https://twitter.com/IAteAnDrew1) | [Sophia Yang](https://twitter.com/sophiamyang)
 
