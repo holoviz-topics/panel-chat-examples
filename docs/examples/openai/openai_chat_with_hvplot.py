@@ -231,6 +231,7 @@ chat_interface = pn.chat.ChatInterface(
     show_rerun=False,
     show_undo=False,
     show_clear=False,
+    callback_exception="verbose",
 )
 chat_interface.send(
     SYSTEM_PROMPT,
