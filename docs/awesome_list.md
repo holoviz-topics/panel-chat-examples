@@ -34,7 +34,7 @@ Author: [Li Jiang](https://x.com/jliisme)
 
 Links: [Hugging Face](https://huggingface.co/spaces/thinkall/AutoGen_Playground)
 
-[![Autogen Endorsement and App](../assets/images/autogen-testimonial.png)](https://x.com/jliisme/status/1727287346817810847?s=20)
+[![Autogen Endorsement and App](assets/images/autogen-testimonial.png)](https://x.com/jliisme/status/1727287346817810847?s=20)
 
 ### Fully Functioning UI for Autogen (ep.1)
 

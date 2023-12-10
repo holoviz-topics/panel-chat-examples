@@ -1,8 +1,10 @@
-# LLama Index
+# LlamaIndex
 
-Our examples for [Llama Index](https://www.llamaindex.ai/) **will very soon be available** as the
+Our examples for [LlamaIndex](https://www.llamaindex.ai/) are available as the
 [`panel_chatbot`](https://llamahub.ai/l/llama_packs-panel_chatbot) pack on
-[Llama Hub](https://llamahub.ai/).
+LlamaHub.
+
+Please [give it a ⭐](https://llamahub.ai/l/llama_packs-panel_chatbot) if you like it.
 
 ## Talk to Github
 
