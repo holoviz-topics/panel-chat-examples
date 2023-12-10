@@ -1,30 +1,41 @@
+# pylint: disable=line-too-long
 """
 ## hvPlot by HoloViz
 ---
 
-`hvPlot` is a high-level plotting library that that works almost in the same way as the well known `Pandas` `.plot` method.
+`hvPlot` is a high-level plotting library that that works almost in the same way as \
+the well known `Pandas` `.plot` method.
 
-The `.hvplot` method supports more data backends, plotting backends and provides more features than `Pandas` `.plot` method.
+The `.hvplot` method supports more data backends, plotting backends and provides more \
+features than the `.plot` method.
 
 ## OpenAI GPT with Tools
 ---
 
-We are using the OpenAI `{model}` model with the `hvplot` *tool*.
+We are using the OpenAI `{model}` model with the `hvplot` and `renderer` *tools*.
 
 You can refer to the following `hvplot` arguments
 
-- `x`, `y`, `color`, `size`, `kind`"""
+- {hvplot_arguments}
+
+and `renderer` arguments
+
+- `backend`
+"""
 import json
 from pathlib import Path
 
 import hvplot.pandas  # noqa
+import matplotlib.pyplot as plt
 import pandas as pd
 import panel as pn
+import plotly.io as pio
 from openai import AsyncOpenAI
 
 ROOT = Path(__file__).parent
 
 ACCENT = "#00A67E"
+THEME = pn.config.theme
 CSS_TO_BE_UPSTREAMED_TO_PANEL = """
 a {color: var(--accent-fill-rest) !important;}
 a:hover {color: var(--accent-fill-hover) !important;}
@@ -43,7 +54,6 @@ PANEL_LOGO = {
     "dark": "https://panel.holoviz.org/_static/logo_horizontal_dark_theme.png",
 }
 PANEL_URL = "https://panel.holoviz.org/index.html"
-EXPLANATION = __doc__.format(model=MODEL)
 
 pn.chat.message.DEFAULT_AVATARS["assistant"] = HVPLOT_LOGO
 pn.chat.ChatMessage.show_reaction_icons = False
@@ -68,10 +78,26 @@ def _read_tool(name: str) -> dict:
         return json.load(file)
 
 
-TOOLS = [_read_tool("hvplot")]
+def _set_theme():
+    if THEME == "dark":
+        pio.templates.default = "plotly_dark"
+        plt.style.use(["default", "dark_background"])
+    else:
+        pio.templates.default = "plotly"
+        plt.style.use(["default", "seaborn-v0_8"])
+
+
+TOOLS_MAP = {"hvplot": _read_tool("hvplot"), "renderer": _read_tool("renderer")}
+TOOLS = list(TOOLS_MAP.values())
+
+HVPLOT_ARGUMENTS = (
+    "`" + "`, `".join(TOOLS_MAP["hvplot"]["function"]["parameters"]["properties"]) + "`"
+)
+EXPLANATION = __doc__.format(model=MODEL, hvplot_arguments=HVPLOT_ARGUMENTS)
 
 SYSTEM_PROMPT = """\
-You are now a **Plotting Assistant** that helps users plot their data using `hvPlot` by HoloViz.\
+You are now a **Plotting Assistant** that helps users plot their data using `hvPlot` \
+by `HoloViz`.\
 """
 
 DATA_PROMPT = f"""\
@@ -124,6 +150,29 @@ def to_code(kwargs):
     return code
 
 
+tool_kwargs = {"hvplot": {}, "renderer": {}}
+
+
+def _update_tool_kwargs(tool_calls, original_kwargs):
+    if tool_calls:
+        for tool_call in tool_calls:
+            name = tool_call.function.name
+            kwargs = json.loads(tool_call.function.arguments)
+            if kwargs:
+                # the llm does not always specify both the hvplot and renderer args
+                # if not is specified its most natural to assume we continue with the
+                # same args as before
+                original_kwargs[name] = kwargs
+
+
+def _clean_tool_kwargs(kwargs):
+    # Sometimes the llm adds the backend argument to the hvplot arguments
+    backend = kwargs["hvplot"].pop("backend", None)
+    if backend and "backend" not in kwargs["renderer"]:
+        # We add the backend argument to the renderer if none is specified
+        kwargs["renderer"]["backend"] = backend
+
+
 async def callback(
     contents: str, user: str, instance
 ):  # pylint: disable=unused-argument
@@ -139,15 +188,10 @@ async def callback(
     response_message = response.choices[0].message
     tool_calls = response_message.tool_calls
 
-    plot_kwargs = {}
-    if tool_calls:
-        for tool_call in tool_calls:
-            kwargs = json.loads(tool_call.function.arguments)
+    _update_tool_kwargs(tool_calls, tool_kwargs)
+    _clean_tool_kwargs(tool_kwargs)
+    code = to_code(tool_kwargs["hvplot"])
 
-            if tool_call.function.name == "hvplot":
-                plot_kwargs = kwargs
-
-    code = to_code(plot_kwargs)
     response = f"""
 Try running
 
@@ -161,12 +205,13 @@ Try running
         }
     )
     chat_interface.send(response, user="Assistant", respond=False)
-    plot = DATA.hvplot(**plot_kwargs, responsive=True)
-    pane = pn.pane.HoloViews(object=plot, sizing_mode="stretch_both", name="Plot")
+    plot = DATA.hvplot(**tool_kwargs["hvplot"], responsive=True)
+    _set_theme()
+    pane = pn.pane.HoloViews(
+        object=plot, sizing_mode="stretch_both", name="Plot", **tool_kwargs["renderer"]
+    )
     arguments = pn.pane.JSON(
-        {
-            "hvplot": plot_kwargs,
-        },
+        tool_kwargs,
         sizing_mode="stretch_both",
         depth=3,
         theme=JSON_THEME,
@@ -177,6 +222,7 @@ Try running
 
 
 pn.extension(
+    "plotly",
     raw_css=[CSS_TO_BE_UPSTREAMED_TO_PANEL],
 )
 
@@ -209,13 +255,4 @@ pn.template.FastListTemplate(
     main=[component],
     main_layout=None,
     accent=ACCENT,
-    theme_toggle=False,
 ).servable()
-
-# Todo: Fix dark theme
-# Create FR for describing how to theme HoloViews pane for matplotlib and bokeh backends
-# Create bug report about plotly not responsive in HoloViews pane
-# Report bad color for ohlc in dark mode
-# The JSON pane overflows its container
-# When I hover over the anchor the line expands
-# Support HoloViews tool to change backend
