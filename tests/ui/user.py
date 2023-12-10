@@ -211,13 +211,13 @@ def openai_chat(page: Page):
 
     # ---------------------
 
+
 def openai_chat_with_hvplot(page: Page):
     chat = ChatInterface(page)
-    chat.send("Create a plot of the open price. Use a pink color")
-    page.locator("div").filter(has_text=re.compile(r"^ChatGPT$")).first.dispatch_event(
-        "click"
-    )
-    page.wait_for_timeout(10000)
+    chat.send("Plot the prices using distinct shades of pink")
+    page.wait_for_timeout(4000)
+    chat.send("Create an ohlc plot. Give it the title 'OHLC Plot'")
+    page.wait_for_timeout(4000)
 
 
 def openai_hvplot(page: Page):
@@ -291,7 +291,7 @@ ZOOM = {
     "openai_async_chat.py": 1.75,
     "openai_authentication.py": 1,
     "openai_chat.py": 1.5,
-    "openai_chat_with_hvplot.py": 1.5,
+    "openai_chat_with_hvplot.py": 1,
     "openai_hvplot.py": 1,
     "openai_image_generation.py": 1.5,
     "openai_two_bots.py": 1,
