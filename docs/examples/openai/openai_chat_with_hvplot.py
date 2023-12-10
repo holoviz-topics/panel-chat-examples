@@ -1,26 +1,6 @@
-# pylint: disable=line-too-long
 """
-## hvPlot by HoloViz
----
-
-`hvPlot` is a high-level plotting library that that works almost in the same way as \
-the well known `Pandas` `.plot` method.
-
-The `.hvplot` method supports more data backends, plotting backends and provides more \
-features than the `.plot` method.
-
-## OpenAI GPT with Tools
----
-
-We are using the OpenAI `{model}` model with the `hvplot` and `renderer` *tools*.
-
-You can refer to the following `hvplot` arguments
-
-- {hvplot_arguments}
-
-and `renderer` arguments
-
-- `backend`
+We use [OpenAI *Function Calling*](https://platform.openai.com/docs/guides/function-calling) and
+[hvPlot](https://hvplot.holoviz.org/) to create an **advanced chatbot** that can create plots.
 """
 import json
 from pathlib import Path
@@ -93,7 +73,29 @@ TOOLS = list(TOOLS_MAP.values())
 HVPLOT_ARGUMENTS = (
     "`" + "`, `".join(TOOLS_MAP["hvplot"]["function"]["parameters"]["properties"]) + "`"
 )
-EXPLANATION = __doc__.format(model=MODEL, hvplot_arguments=HVPLOT_ARGUMENTS)
+EXPLANATION = """
+## hvPlot by HoloViz
+---
+
+`hvPlot` is a high-level plotting library that that works almost in the same way as \
+the well known `Pandas` `.plot` method.
+
+The `.hvplot` method supports more data backends, plotting backends and provides more \
+features than the `.plot` method.
+
+## OpenAI GPT with Tools
+---
+
+We are using the OpenAI `{MODEL}` model with the `hvplot` and `renderer` *tools*.
+
+You can refer to the following `hvplot` arguments
+
+- {HVPLOT_ARGUMENTS}
+
+and `renderer` arguments
+
+- `backend`
+"""
 
 SYSTEM_PROMPT = """\
 You are now a **Plotting Assistant** that helps users plot their data using `hvPlot` \

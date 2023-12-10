@@ -1,6 +1,6 @@
 """
-Demonstrates how to use the `ChatInterface` to create a chatbot
-that can generate plots of your data using [hvplot](https://hvplot.holoviz.org/).
+Demonstrates how to use the `ChatInterface` to create a **simple chatbot**
+that can generate plots of your data using [hvPlot](https://hvplot.holoviz.org/).
 """
 
 import re
