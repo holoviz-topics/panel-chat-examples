@@ -31,4 +31,4 @@ jobs:
       run: |
         hatch run test-cov-xml
       env:
-        MY_SECRET_KEY: ${{ secrets.MY_SECRET_NAME }}
+        MY_SECRET_KEY: ${{ secrets.OPENAI_API_KEY }}
