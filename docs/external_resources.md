@@ -1,6 +1,6 @@
-# Awesome Chat Resources
+# External Resources
 
-Below we list **awesome chat resources** by the community
+Below we list **awesome external resources**.
 
 ## Getting Started
 

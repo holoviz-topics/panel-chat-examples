@@ -59,7 +59,6 @@ watch:
 
 nav:
     - Home: index.md
-    - Awesome: awesome_list.md
     - Basics: basics.md
     - Components: components.md
     - Features: features.md
@@ -67,3 +66,4 @@ nav:
     - LlamaIndex: llama_index.md
     - Mistral: mistral.md
     - OpenAI: openai.md
+    - External: external_resources.md
