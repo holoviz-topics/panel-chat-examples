@@ -63,5 +63,7 @@ nav:
     - Components: components.md
     - Features: features.md
     - Langchain: langchain.md
+    - LlamaIndex: llama_index.md
     - Mistral: mistral.md
     - OpenAI: openai.md
+    - External: external_resources.md
