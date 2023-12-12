@@ -163,7 +163,7 @@ def _clean_tool_kwargs(kwargs):
         # We add the backend argument to the renderer if none is specified
         kwargs["renderer"]["backend"] = backend
     # Use responsive by default
-    if not "responsive" in kwargs:
+    if "responsive" not in kwargs:
         kwargs["hvplot"]["responsive"] = True
 
 
