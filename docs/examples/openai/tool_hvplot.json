@@ -33,14 +33,14 @@
                               "oneOf": [
                                     {
                                           "type": "string",
-                                          "description": "A single color to be used for plotting"
+                                          "description": "A single named or hex color to use for plotting"
                                     },
                                     {
                                           "type": "array",
                                           "items": {
                                                 "type": "string"
                                           },
-                                          "description": "An array of colors to be used for plotting"
+                                          "description": "An array of named or hex colors to use for plotting"
                                     }
                               ]
                         },

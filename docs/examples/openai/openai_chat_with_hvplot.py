@@ -73,7 +73,7 @@ TOOLS = list(TOOLS_MAP.values())
 HVPLOT_ARGUMENTS = (
     "`" + "`, `".join(TOOLS_MAP["hvplot"]["function"]["parameters"]["properties"]) + "`"
 )
-EXPLANATION = """
+EXPLANATION = f"""
 ## hvPlot by HoloViz
 ---
 
@@ -179,8 +179,7 @@ async def callback(
     contents: str, user: str, instance
 ):  # pylint: disable=unused-argument
     """Responds to a task"""
-    messages.append({"role": "user", "content": contents})
-
+    messages = instance.serialize()
     response = await client.chat.completions.create(
         model=MODEL,
         messages=messages,
@@ -200,12 +199,6 @@ Try running
 ```python
 {code}
 ```"""
-    messages.append(
-        {
-            "role": "assistant",
-            "content": response,
-        }
-    )
     chat_interface.send(response, user="Assistant", respond=False)
     plot = DATA.hvplot(**tool_kwargs["hvplot"], responsive=True)
     _set_theme()
@@ -220,7 +213,6 @@ Try running
         name="Arguments",
     )
     tabs_layout[:] = [pane, tools_pane, arguments]
-    messages.append({"role": "user", "content": "That worked great"})
 
 
 pn.extension(
