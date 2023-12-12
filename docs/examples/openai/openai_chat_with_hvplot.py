@@ -58,15 +58,6 @@ def _read_tool(name: str) -> dict:
         return json.load(file)
 
 
-def _set_theme():
-    if THEME == "dark":
-        pio.templates.default = "plotly_dark"
-        plt.style.use(["default", "dark_background"])
-    else:
-        pio.templates.default = "plotly"
-        plt.style.use(["default", "seaborn-v0_8"])
-
-
 TOOLS_MAP = {"hvplot": _read_tool("hvplot"), "renderer": _read_tool("renderer")}
 TOOLS = list(TOOLS_MAP.values())
 
@@ -111,11 +102,10 @@ The type is `{DATA.__class__.__name__}`. The `dtypes` are
 {DATA.dtypes}
 ```"""
 
-client = AsyncOpenAI()
-messages = [
-    {"role": "system", "content": SYSTEM_PROMPT},
-    {"role": "assistant", "content": DATA_PROMPT},
-]
+pn.extension(
+    "plotly",
+    raw_css=[CSS_TO_BE_UPSTREAMED_TO_PANEL],
+)
 
 tools_pane = pn.pane.JSON(
     object=TOOLS, depth=6, theme=JSON_THEME, name="Tools", sizing_mode="stretch_both"
@@ -129,7 +119,7 @@ tabs_layout = pn.Tabs(
 )
 
 
-def powered_by():
+def _powered_by():
     """Returns a component describing the frameworks powering the chat ui"""
     params = {"height": 50, "sizing_mode": "fixed", "margin": (10, 10)}
     return pn.Column(
@@ -141,7 +131,7 @@ def powered_by():
     )
 
 
-def to_code(kwargs):
+def _to_code(kwargs):
     """Returns the .hvplot code corresponding to the kwargs"""
     code = "data.hvplot("
     if kwargs:
@@ -150,9 +140,6 @@ def to_code(kwargs):
         code += f"    {key}={repr(value)},\n"
     code += ")"
     return code
-
-
-tool_kwargs = {"hvplot": {}, "renderer": {}}
 
 
 def _update_tool_kwargs(tool_calls, original_kwargs):
@@ -175,6 +162,19 @@ def _clean_tool_kwargs(kwargs):
         kwargs["renderer"]["backend"] = backend
 
 
+def _set_theme():
+    if THEME == "dark":
+        pio.templates.default = "plotly_dark"
+        plt.style.use(["default", "dark_background"])
+    else:
+        pio.templates.default = "plotly"
+        plt.style.use(["default", "seaborn-v0_8"])
+
+
+client = AsyncOpenAI()
+tool_kwargs = {"hvplot": {}, "renderer": {}}
+
+
 async def callback(
     contents: str, user: str, instance
 ):  # pylint: disable=unused-argument
@@ -191,7 +191,7 @@ async def callback(
 
     _update_tool_kwargs(tool_calls, tool_kwargs)
     _clean_tool_kwargs(tool_kwargs)
-    code = to_code(tool_kwargs["hvplot"])
+    code = _to_code(tool_kwargs["hvplot"])
 
     response = f"""
 Try running
@@ -214,11 +214,6 @@ Try running
     )
     tabs_layout[:] = [pane, tools_pane, arguments]
 
-
-pn.extension(
-    "plotly",
-    raw_css=[CSS_TO_BE_UPSTREAMED_TO_PANEL],
-)
 
 chat_interface = pn.chat.ChatInterface(
     callback=callback,
@@ -244,7 +239,7 @@ component = pn.Row(chat_interface, tabs_layout, sizing_mode="stretch_both")
 pn.template.FastListTemplate(
     title="Chat with hvPlot",
     sidebar=[
-        powered_by(),
+        _powered_by(),
         EXPLANATION,
     ],
     main=[component],
