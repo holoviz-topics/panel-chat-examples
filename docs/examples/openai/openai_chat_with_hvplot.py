@@ -62,7 +62,9 @@ TOOLS_MAP = {"hvplot": _read_tool("hvplot"), "renderer": _read_tool("renderer")}
 TOOLS = list(TOOLS_MAP.values())
 
 HVPLOT_ARGUMENTS = (
-    "`" + "`, `".join(TOOLS_MAP["hvplot"]["function"]["parameters"]["properties"]) + "`"
+    "`"
+    + "`, `".join(sorted(TOOLS_MAP["hvplot"]["function"]["parameters"]["properties"]))
+    + "`"
 )
 EXPLANATION = f"""
 ## hvPlot by HoloViz
@@ -160,6 +162,9 @@ def _clean_tool_kwargs(kwargs):
     if backend and "backend" not in kwargs["renderer"]:
         # We add the backend argument to the renderer if none is specified
         kwargs["renderer"]["backend"] = backend
+    # Use responsive by default
+    if not "responsive" in kwargs:
+        kwargs["hvplot"]["responsive"] = True
 
 
 def _set_theme():
@@ -200,7 +205,7 @@ Try running
 {code}
 ```"""
     chat_interface.send(response, user="Assistant", respond=False)
-    plot = DATA.hvplot(**tool_kwargs["hvplot"], responsive=True)
+    plot = DATA.hvplot(**tool_kwargs["hvplot"])
     _set_theme()
     pane = pn.pane.HoloViews(
         object=plot, sizing_mode="stretch_both", name="Plot", **tool_kwargs["renderer"]
