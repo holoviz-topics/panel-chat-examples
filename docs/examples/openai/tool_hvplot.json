@@ -194,14 +194,6 @@
                                     }
                               ]
                         },
-                        "xformatter": {
-                              "type": "string",
-                              "description": "Formats the x values. Accepts printf()-style formatter e.g. '%.3f'"
-                        },
-                        "yformatter": {
-                              "type": "string",
-                              "description": "Formats the y values. Accepts printf()-style formatter e.g. '%.3f'"
-                        },
                         "x": {
                               "type": "string",
                               "description": "The series to plot on the x-axis"
