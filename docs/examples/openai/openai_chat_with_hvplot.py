@@ -104,6 +104,7 @@ The type is `{DATA.__class__.__name__}`. The `dtypes` are
 {DATA.dtypes}
 ```"""
 
+hvplot.extension("plotly")
 pn.extension(
     "plotly",
     raw_css=[CSS_TO_BE_UPSTREAMED_TO_PANEL],
