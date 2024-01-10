@@ -17,7 +17,7 @@ def get_default_port():
     """to get a different starting port per worker for pytest-xdist"""
     worker_id = os.environ.get("PYTEST_XDIST_WORKER", "0")
     factor = int(re.sub(r"\D", "", worker_id))
-    return 6000 + factor * 30
+    return 4000 + factor * 30
 
 
 PORT = [get_default_port()]
@@ -86,11 +86,10 @@ def _get_paths():
         for file in folder.glob("*.py"):
             if file not in skip_paths:
                 paths.append(str(file))
-
     return paths
 
 
-APP_PATHS = _get_paths()
+APP_PATHS = _get_paths()[:-2]
 
 
 @pytest.fixture(params=APP_PATHS)

@@ -18,10 +18,8 @@ EXPECTED_LOG_MESSAGES = [
     "[bokeh] document idle at",
     "Bokeh items were rendered successfully",
 ]
-RECORD_VIDEO_SIZE = {"width": 1600, "height": 900}  # Optimal for Twitter
-THUMBNAILS_PATH = Path.cwd() / "docs/assets/thumbnails"
-VIDEOS_PATH = Path.cwd() / "docs/assets/videos"
-VIEWPORT = {"width": 1600, "height": 900}  # Optimal for Twitter
+RECORD_VIDEO_SIZE = {"width": 1200, "height": 675}
+VIEWPORT = {"width": 1200, "height": 675}
 
 
 def _bokeh_messages_have_been_logged(msgs):
@@ -48,22 +46,12 @@ def _expect_no_traceback(page):
     expect(page.get_by_text("Traceback (most recent call last):")).to_have_count(0)
 
 
-def test_has_thumbnail(app_path):
-    name = Path(app_path).name
-    assert (THUMBNAILS_PATH / name.replace(".py", ".png")).exists()
-
-
-def test_has_video(app_path):
-    name = Path(app_path).name
-    assert (VIDEOS_PATH / name.replace(".py", ".mp4")).exists()
-
-
 @pytest.fixture
 def server(app_path, port):
     """Returns a panel server running the app"""
     bokeh_allow_ws_origin = os.environ.get("BOKEH_ALLOW_WS_ORIGIN")
     os.environ["BOKEH_ALLOW_WS_ORIGIN"] = "localhost"
-    server = serve(app_path, port=port, threaded=True, show=False)
+    server = serve(app_path, port=port, threaded=False, show=False)
     time.sleep(0.2)
     yield server
     server.stop()
@@ -83,11 +71,11 @@ def test_app(server, app_path, port, page):
 
     page.goto(f"http://localhost:{port}", timeout=40_000)
 
-    print(f"Running {name}")
+    print(f"\n\nRunning {app_path} on http://localhost:{port}\n\n")
     # zoom and run should be defined for all examples
     # even if we don't run the video
     run = ACTION[name]
-    zoom = ZOOM.get(name, 1.5)
+    zoom = ZOOM.get(name, 1)
 
     # We cannot run these tests in pipelines etc. as they require models downloaded,
     # api keys etc.

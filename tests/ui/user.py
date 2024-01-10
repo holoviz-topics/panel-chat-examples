@@ -210,16 +210,15 @@ def openai_chat(page: Page):
     page.wait_for_timeout(2000)
 
 
-def openai_chat_with_memory(page: Page):
+def openai_with_memory(page: Page):
     chat = ChatInterface(page)
     chat.send("Remember this number 8")
     page.locator("div").filter(has_text=re.compile(r"^ChatGPT$")).first.dispatch_event(
         "click"
     )
-    page.wait_for_timeout(2000)
+    page.wait_for_timeout(1500)
     chat.send("What number did I just ask you to remember?")
-
-    # ---------------------
+    page.wait_for_timeout(1000)
 
 
 def openai_chat_with_hvplot(page: Page):
@@ -275,35 +274,34 @@ ACTION = {
     "openai_async_chat.py": openai_async_chat,
     "openai_authentication.py": openai_authentication,
     "openai_chat.py": openai_chat,
-    "openai_chat_with_memory.py": openai_chat_with_memory,
-    "openai_chat_with_hvplot.py": openai_chat_with_hvplot,
     "openai_hvplot.py": openai_hvplot,
     "openai_image_generation.py": openai_image_generation,
     "openai_two_bots.py": openai_two_bots,
+    "openai_with_memory.py": openai_with_memory,
 }
 ZOOM = {
-    "basic_chat.py": 1.8,
-    "basic_streaming_chat_async.py": 1.8,
-    "basic_streaming_chat.py": 1.8,
-    "component_chat_input.py": 2,
-    "component_environment_widget.py": 1.25,
-    "component_status.py": 2,
-    "feature_chained_response.py": 1.8,
-    "feature_delayed_placeholder.py": 1.8,
-    "feature_replace_response.py": 1.8,
-    "feature_slim_interface.py": 1.25,
-    "langchain_chat_pandas_df.py": 1,
-    "langchain_llama_and_mistral.py": 1.25,
-    "langchain_math_assistant.py": 1.5,
-    "langchain_pdf_assistant.py": 1,
-    "langchain_with_memory.py": 1.25,
-    "mistral_chat.py": 1.8,
-    "mistral_with_memory.py": 1,
+    "basic_chat.py": 1.1,
+    "basic_streaming_chat_async.py": 1.1,
+    "basic_streaming_chat.py": 1.1,
+    "component_chat_input.py": 1.1,
+    "component_environment_widget.py": 1.1,
+    "component_status.py": 1.1,
+    "feature_chained_response.py": 1.1,
+    "feature_delayed_placeholder.py": 1.1,
+    "feature_replace_response.py": 1.1,
+    "feature_slim_interface.py": 1.1,
+    "langchain_chat_pandas_df.py": 1.1,
+    "langchain_llama_and_mistral.py": 1.1,
+    "langchain_math_assistant.py": 1.1,
+    "langchain_pdf_assistant.py": 1.1,
+    "langchain_with_memory.py": 1.1,
+    "mistral_chat.py": 1.1,
+    "mistral_with_memory.py": 1.1,
     "openai_async_chat.py": 1.75,
-    "openai_authentication.py": 1,
-    "openai_chat.py": 1.5,
-    "openai_chat_with_hvplot.py": 1,
-    "openai_hvplot.py": 1,
-    "openai_image_generation.py": 1.5,
-    "openai_two_bots.py": 1,
+    "openai_authentication.py": 1.1,
+    "openai_chat.py": 1.1,
+    "openai_hvplot.py": 1.1,
+    "openai_image_generation.py": 1.1,
+    "openai_two_bots.py": 1.1,
+    "openai_with_memory.py": 1.1,
 }
