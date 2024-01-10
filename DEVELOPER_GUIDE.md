@@ -36,7 +36,7 @@ On contribution:
 3. Then run the following commands, updating <NAME_OF_YOUR_EXAMPLE> and <YOUR_BRANCH_NAME>
 
 ```bash
-hatch run pytest -s -m ui -k <NAME_OF_YOUR_EXAMPLE> --screenshot on --video on --headed
+hatch run pytest -s -m ui --screenshot on --video on --headed -k <NAME_OF_YOUR_EXAMPLE>
 hatch run python scripts/postprocess_videos.py
 hatch run docs-build
 git checkout -b <YOUR_BRANCH_NAME>
