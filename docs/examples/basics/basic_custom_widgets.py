@@ -6,7 +6,7 @@ the number of lines in a message or file.
 
 import panel as pn
 
-pn.extension(design="material")
+pn.extension()
 
 
 def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
@@ -15,9 +15,14 @@ def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     return message
 
 
-text_area_input = pn.widgets.TextAreaInput(auto_grow=True, placeholder="Click Send to count lines.")
+text_input = pn.widgets.TextInput(placeholder="Send a message")
+text_area_input = pn.widgets.TextAreaInput(
+    auto_grow=True, placeholder="Click Send to count lines."
+)
 file_input = pn.widgets.FileInput()
-chat_interface = pn.chat.ChatInterface(callback=callback, widgets=[text_area_input, file_input])
+chat_interface = pn.chat.ChatInterface(
+    callback=callback, widgets=[text_input, text_area_input, file_input]
+)
 chat_interface.send(
     "Enter a message in the TextAreaInput below to count how many lines there is, "
     "or upload a file to count the number of lines in the file.",

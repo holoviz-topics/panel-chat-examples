@@ -54,7 +54,7 @@ def basic_streaming_chat_async(page: Page):
 def basic_custom_widgets(page: Page):
     chat = ChatInterface(page)
     chat.send("How many\nlines\nhere?")
-    page.get_by_text("This snippet has 3 lines.").inner_text()
+    page.get_by_text("This snippet has 1 lines.").inner_text()
 
 
 def component_chat_input(page: Page):
