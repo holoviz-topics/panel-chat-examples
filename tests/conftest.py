@@ -111,7 +111,7 @@ def _get_paths():
     return paths
 
 
-APP_PATHS = _get_paths()[:-2]
+APP_PATHS = _get_paths()
 
 
 @pytest.fixture(params=APP_PATHS)
