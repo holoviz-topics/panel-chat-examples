@@ -51,6 +51,12 @@ def basic_streaming_chat_async(page: Page):
     page.get_by_text("Echoing User: Hello World").inner_text()
 
 
+def basic_custom_widgets(page: Page):
+    chat = ChatInterface(page)
+    chat.send("How many\nlines\nhere?")
+    page.get_by_text("This snippet has 1 lines.").inner_text()
+
+
 def component_chat_input(page: Page):
     text_input = page.get_by_placeholder("Say something")
 
