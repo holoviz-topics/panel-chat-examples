@@ -83,8 +83,10 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
+    "beautifulsoup4",
     "chromadb",
     "ctransformers",
+    "html2text",
     "hvplot",
     "langchain-experimental",
     "langchain",
@@ -96,6 +98,7 @@ dependencies = [
     "pypdf",
     "tabulate",
     "tiktoken",
+    "unstructured",
 ]
 
 [project.urls]
