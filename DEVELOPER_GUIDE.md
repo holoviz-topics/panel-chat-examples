@@ -1,6 +1,6 @@
 # Development
 
-**Welcome. Thanks for your interest in Panel-Chat-Examples ❤️**
+Welcome. Thanks for your interest in Panel-Chat-Examples ❤️
 
 You can contribute in many ways, for example, by
 
@@ -13,6 +13,36 @@ You can contribute in many ways, for example, by
 Before you start contributing to our code base or documentation, please make sure your contribution is well described and discussed in a [Github Issue](https://github.com/holoviz-topics/panel-chat-examples/issues).
 
 If you need help to get started, please reach out via [Discord](https://discord.gg/rb6gPXbdAr).
+
+## Contributing TLDR
+
+First time:
+
+1. Fork the repository <https://github.com/holoviz-topics/panel-chat-examples/fork>
+2. Run the following commands, updating <YOUR_USERNAME>
+
+```bash
+git clone https://github.com/<YOUR_USERNAME>/panel-chat-examples
+cd panel-chat-examples
+pip install hatch
+hatch run playwright install chromium
+hatch run pre-commit install
+```
+
+On contribution:
+
+1. Add desired example under `examples/`
+2. Update `tests/ui/user.py` to include your new example
+3. Then run the following commands, updating <NAME_OF_YOUR_EXAMPLE> and <YOUR_BRANCH_NAME>
+
+```bash
+hatch run pytest -s -m ui --screenshot on --video on --headed -k <NAME_OF_YOUR_EXAMPLE>
+hatch run python scripts/postprocess_videos.py
+hatch run docs-build
+git checkout -b <YOUR_BRANCH_NAME>
+git add commit
+git push origin <YOUR_BRANCH_NAME>
+```
 
 ## Getting Installed
 
@@ -44,7 +74,7 @@ The first time `hatch run ...` is run, it will install the required dependencies
 Please ensure `pre-commit` is installed by running
 
 ```bash
-hatch run pre-commit run --all
+hatch run pre-commit install
 ```
 
 You will also need to set the below environment variables

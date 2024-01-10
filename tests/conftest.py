@@ -12,12 +12,34 @@ EXAMPLES_PATH = Path(__file__).parent.parent / "docs/examples"
 
 # The fixtures in this module are heavily inspired the Panel conftest.py file.
 
+optional_markers = {
+    "ui": {
+        "help": "<Command line help text for flag1...>",
+        "marker-descr": "UI test marker",
+        "skip-reason": "Test only runs with the --ui option.",
+    },
+}
+
+
+def pytest_addoption(parser):
+    for marker, info in optional_markers.items():
+        parser.addoption(
+            "--{}".format(marker), action="store_true", default=False, help=info["help"]
+        )
+
+
+def pytest_configure(config):
+    for marker, info in optional_markers.items():
+        config.addinivalue_line(
+            "markers", "{}: {}".format(marker, info["marker-descr"])
+        )
+
 
 def get_default_port():
     """to get a different starting port per worker for pytest-xdist"""
     worker_id = os.environ.get("PYTEST_XDIST_WORKER", "0")
     factor = int(re.sub(r"\D", "", worker_id))
-    return 6000 + factor * 30
+    return 4000 + factor * 30
 
 
 PORT = [get_default_port()]
@@ -86,7 +108,6 @@ def _get_paths():
         for file in folder.glob("*.py"):
             if file not in skip_paths:
                 paths.append(str(file))
-
     return paths
 
 

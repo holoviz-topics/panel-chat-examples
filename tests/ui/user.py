@@ -183,6 +183,12 @@ def mistral_with_memory(page: Page):
     page.wait_for_timeout(3000)
 
 
+def mistral_api_chat(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What is HoloViz Panel in one sentence")
+    page.wait_for_timeout(4000)
+
+
 def openai_async_chat(page: Page):
     chat = ChatInterface(page)
     chat.send("What is HoloViz Panel in one sentence")
@@ -209,7 +215,16 @@ def openai_chat(page: Page):
     )
     page.wait_for_timeout(2000)
 
-    # ---------------------
+
+def openai_with_memory(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Remember this number 8")
+    page.locator("div").filter(has_text=re.compile(r"^ChatGPT$")).first.dispatch_event(
+        "click"
+    )
+    page.wait_for_timeout(1500)
+    chat.send("What number did I just ask you to remember?")
+    page.wait_for_timeout(1000)
 
 
 def openai_chat_with_hvplot(page: Page):
@@ -243,56 +258,8 @@ def openai_two_bots(page: Page):
     page.wait_for_timeout(10000)
 
 
-ACTION = {
-    "basic_chat.py": basic_chat,
-    "basic_streaming_chat_async.py": basic_streaming_chat_async,
-    "basic_streaming_chat.py": basic_streaming_chat,
-    "component_chat_input.py": component_chat_input,
-    "component_environment_widget.py": component_environment_widget,
-    "component_status.py": component_status,
-    "feature_chained_response.py": feature_chained_response,
-    "feature_delayed_placeholder.py": feature_delayed_placeholder,
-    "feature_replace_response.py": feature_replace_response,
-    "feature_slim_interface.py": feature_slim_interface,
-    "langchain_llama_and_mistral.py": langchain_llama_and_mistral,
-    "langchain_math_assistant.py": langchain_math_assistant,
-    "langchain_chat_pandas_df.py": langchain_chat_pandas_df,
-    "langchain_pdf_assistant.py": langchain_pdf_assistant,
-    "langchain_with_memory.py": langchain_with_memory,
-    "mistral_and_llama.py": mistral_and_llama,
-    "mistral_chat.py": mistral_chat,
-    "mistral_with_memory.py": mistral_with_memory,
-    "openai_async_chat.py": openai_async_chat,
-    "openai_authentication.py": openai_authentication,
-    "openai_chat.py": openai_chat,
-    "openai_chat_with_hvplot.py": openai_chat_with_hvplot,
-    "openai_hvplot.py": openai_hvplot,
-    "openai_image_generation.py": openai_image_generation,
-    "openai_two_bots.py": openai_two_bots,
-}
-ZOOM = {
-    "basic_chat.py": 1.8,
-    "basic_streaming_chat_async.py": 1.8,
-    "basic_streaming_chat.py": 1.8,
-    "component_chat_input.py": 2,
-    "component_environment_widget.py": 1.25,
-    "component_status.py": 2,
-    "feature_chained_response.py": 1.8,
-    "feature_delayed_placeholder.py": 1.8,
-    "feature_replace_response.py": 1.8,
-    "feature_slim_interface.py": 1.25,
-    "langchain_chat_pandas_df.py": 1,
-    "langchain_llama_and_mistral.py": 1.25,
-    "langchain_math_assistant.py": 1.5,
-    "langchain_pdf_assistant.py": 1,
-    "langchain_with_memory.py": 1.25,
-    "mistral_chat.py": 1.8,
-    "mistral_with_memory.py": 1,
-    "openai_async_chat.py": 1.75,
-    "openai_authentication.py": 1,
-    "openai_chat.py": 1.5,
-    "openai_chat_with_hvplot.py": 1,
-    "openai_hvplot.py": 1,
-    "openai_image_generation.py": 1.5,
-    "openai_two_bots.py": 1,
-}
+# get all the local functions here
+# and put them in a dict
+# so we can call them by name like {"openai_two_bots.py": openai_two_bots}
+ACTION = {f"{func.__name__}.py": func for func in locals().values() if callable(func)}
+ZOOM = {}
