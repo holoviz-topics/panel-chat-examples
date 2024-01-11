@@ -107,7 +107,7 @@ def _get_paths():
             continue
 
         for file in folder.glob("*.py"):
-            if file not in skip_paths:
+            if file.absolute() not in skip_paths:
                 paths.append(str(file))
     return paths
 
