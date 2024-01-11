@@ -99,6 +99,7 @@ dependencies = [
     "tabulate",
     "tiktoken",
     "mistralai",
+    "llama-index",
 ]
 
 [project.urls]

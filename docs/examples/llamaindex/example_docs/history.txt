@@ -1,0 +1,6 @@
+1. Andrew logged in.
+2. Andrew said hi.
+3. August logged in.
+4. August said hi.
+5. August logged off.
+6. Andrew logged off.
