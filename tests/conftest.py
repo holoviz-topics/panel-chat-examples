@@ -45,16 +45,10 @@ def get_default_port():
 PORT = [get_default_port()]
 
 REQUIRES_OPENAI_API_KEY = [
-    "docs/examples/langchain/langchain_math_assistant.py",
-    "docs/examples/langchain/langchain_with_memory.py",
-    "docs/examples/llamaindex/llamaindex_agents.py",
+    "langchain_math_assistant.py",
+    "langchain_with_memory.py",
+    "llamaindex_agents.py",
 ]
-
-
-def _examples_to_skip():
-    if "OPENAI_API_KEY" not in os.environ:
-        return [Path(path).absolute() for path in REQUIRES_OPENAI_API_KEY]
-    return []
 
 
 @pytest.fixture
@@ -100,14 +94,15 @@ def cache_cleanup():
 
 
 def _get_paths():
-    skip_paths = _examples_to_skip()
     paths = []
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
         if folder.name == "examples":
             continue
 
         for file in folder.glob("*.py"):
-            if file.absolute() not in skip_paths:
+            for skip in REQUIRES_OPENAI_API_KEY:
+                if skip in str(file):
+                    continue
                 paths.append(str(file))
     return paths
 
