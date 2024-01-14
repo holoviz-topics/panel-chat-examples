@@ -88,6 +88,14 @@ Links: [Medium](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral
 
 [![ChatBot with Mistral and Llama2](assets/thumbnails/mistral_and_llama.png)](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral-and-llama2-9c0f5abc296c)
 
+### Talk with Plot
+
+Authors: [Andrew Huang](https://twitter.com/IAteAnDrew1) | [Sophia Yang](https://twitter.com/sophiamyang)
+
+Links: [Blog Post](https://blog.holoviz.org/posts/tweak-mpl-chat/) | [Hugging Face Spaces](https://huggingface.co/spaces/ahuang11/tweak-mpl-chat)
+
+![Talk to Plot](https://blog.holoviz.org/posts/tweak-mpl-chat/images/app1.gif)
+
 ## Ragna
 
 [Ragna](https://ragna.chat/) is an open source RAG orchestration framework. The UI is built on top of Panel.
