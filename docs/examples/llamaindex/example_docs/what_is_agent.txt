@@ -1,0 +1,1 @@
+An agent is initialized from a set of Tools. What makes it great is that they're composable!
