@@ -99,6 +99,7 @@ dependencies = [
     "tabulate",
     "tiktoken",
     "mistralai",
+    "langchain-openai",
 ]
 
 [project.urls]

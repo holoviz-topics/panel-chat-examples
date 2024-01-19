@@ -169,6 +169,12 @@ def langchain_pdf_assistant(page: Page):
     page.wait_for_timeout(10000)
 
 
+def langchain_lcel(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Python")
+    page.wait_for_timeout(5000)
+
+
 def mistral_and_llama(page: Page):
     chat = ChatInterface(page)
     chat.send("What do you think about HoloViz in a single sentence?")
