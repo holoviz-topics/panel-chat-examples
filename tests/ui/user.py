@@ -175,6 +175,14 @@ def langchain_lcel(page: Page):
     page.wait_for_timeout(5000)
 
 
+def langchain_streaming_lcel_with_memory(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Remember this number: 8. Be concise.")
+    page.wait_for_timeout(10000)
+    chat.send("What number did I just ask you to remember?")
+    page.wait_for_timeout(10000)
+
+
 def mistral_and_llama(page: Page):
     chat = ChatInterface(page)
     chat.send("What do you think about HoloViz in a single sentence?")

@@ -1,6 +1,7 @@
 """
 Demonstrates how to use the `ChatInterface` to create a chatbot using
-[LangChain Expression Language](https://python.langchain.com/docs/expression_language/) (LCEL).
+[LangChain Expression Language](https://python.langchain.com/docs/expression_language/) (LCEL)
+with streaming and memory.
 """
 
 from operator import itemgetter
