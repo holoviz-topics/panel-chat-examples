@@ -27,7 +27,7 @@ async def callback(contents, user, instance):
 
 
 model = ChatOpenAI(model="gpt-3.5-turbo")
-memory = ConversationSummaryBufferMemory(return_messages=True)
+memory = ConversationSummaryBufferMemory(return_messages=True, llm=model)
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", SYSTEM_PROMPT),
