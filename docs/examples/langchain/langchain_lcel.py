@@ -6,7 +6,7 @@ Demonstrates how to use the `ChatInterface` to create a chatbot using
 from operator import itemgetter
 
 import panel as pn
-from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationSummaryBufferMemory
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
@@ -27,7 +27,7 @@ async def callback(contents, user, instance):
 
 
 model = ChatOpenAI(model="gpt-3.5-turbo")
-memory = ConversationBufferMemory(return_messages=True)
+memory = ConversationSummaryBufferMemory(return_messages=True)
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", SYSTEM_PROMPT),
