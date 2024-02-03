@@ -92,11 +92,21 @@ Links: [Medium](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral
 
 The news summarizer app by [Eduardo Blancas](https://github.com/edublancas) is a RAG built *from scratch* without any LLM framework. Its deployed to [Ploomber Cloud](https://ploomber.io/cloud/). The methodology is nicely described in [rag-from-scratch.ipynb](https://github.com/ploomber/doc/blob/main/notebooks/rag-from-scratch.ipynb).
 
+Try asking `What is the latest sports news?`.
+
 <iframe
 src="https://ancient-wind-3019.ploomberapp.io/app"
 frameborder="0"
-style="width:100%;height:800px"
+style="width:100%;height:600px"
 ></iframe>
+
+### Talk with Plot
+
+Authors: [Andrew Huang](https://twitter.com/IAteAnDrew1) | [Sophia Yang](https://twitter.com/sophiamyang)
+
+Links: [Blog Post](https://blog.holoviz.org/posts/tweak-mpl-chat/) | [Hugging Face Spaces](https://huggingface.co/spaces/ahuang11/tweak-mpl-chat)
+
+![Talk to Plot](https://blog.holoviz.org/posts/tweak-mpl-chat/images/app1.gif)
 
 ## Ragna
 
