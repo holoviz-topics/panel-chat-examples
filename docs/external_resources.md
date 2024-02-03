@@ -88,6 +88,16 @@ Links: [Medium](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral
 
 [![ChatBot with Mistral and Llama2](assets/thumbnails/mistral_and_llama.png)](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral-and-llama2-9c0f5abc296c)
 
+## News Summarizer
+
+The news summarizer app by [Eduardo Blancas](https://github.com/edublancas) is a RAG built *from scratch* without any LLM framework. Its deployed to [Ploomber Cloud](https://ploomber.io/cloud/). The methodology is nicely described in [rag-from-scratch.ipynb](https://github.com/ploomber/doc/blob/main/notebooks/rag-from-scratch.ipynb).
+
+<iframe
+src="https://ancient-wind-3019.ploomberapp.io/app"
+frameborder="0"
+style="width:100%;height:800px"
+></iframe>
+
 ## Ragna
 
 [Ragna](https://ragna.chat/) is an open source RAG orchestration framework. The UI is built on top of Panel.
