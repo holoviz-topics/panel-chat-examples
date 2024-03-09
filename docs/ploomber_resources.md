@@ -48,7 +48,11 @@ Author:  [Eduardo Blancas](https://github.com/edublancas) | Code: [Github](https
 
 A Panel app that allows users to chat with a PDF document.
 
-![Chat with PDF](https://github.com/ploomber/doc/raw/main/examples/panel/chat-with-pdf/screenshot.webp)
+<video controls poster="../assets/thumbnails/ploomber_chat_with_pdf.png" >
+    <source src="../assets/videos/ploomber_chat_with_pdf.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
 
 ## News summarizer
 
