@@ -12,7 +12,6 @@ EXAMPLES_PATH = DOCS_PATH / "examples"
 INDEX_MD_PATH = DOCS_PATH / "index.md"
 THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
 VIDEOS_PATH = DOCS_PATH / "assets" / "videos"
-PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
 # ruff: noqa: E501
 VIDEO_URL = "https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde"
 VIDEO_TAG = """\
@@ -47,15 +46,7 @@ def run():
         text = f"\n# {folder.name.title()}\n"
 
         for file in sorted(folder.glob("*.py")):
-            prefix = PREFIX.get(folder.name, folder.name)
-
-            title = (
-                file.name.replace(".py", "")
-                .replace("_", " ")
-                .replace(prefix, "")
-                .strip()
-                .title()
-            )
+            title = file.name.replace(".py", "").replace("_", " ").strip().title()
             parent_path = Path("..")
             source_path = parent_path / file.relative_to(EXAMPLES_PATH.parent)
             text += f"\n## {title}\n"

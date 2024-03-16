@@ -4,6 +4,12 @@ stream back responses.
 
 The chatbot Assistant echoes back the message entered by the User in an
 *async streaming* fashion.
+
+Highlights:
+
+- The function is defined as `async` and uses `yield` to stream back responses.
+- Initialize `message` first to gather the characters and then `yield` it;
+    without it, only one letter would be displayed at a time.
 """
 
 
@@ -25,7 +31,7 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
 
 chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send(
-    "Enter a message in the TextInput below and receive an echo!",
+    "Enter a message below and receive an echo!",
     user="System",
     respond=False,
 )

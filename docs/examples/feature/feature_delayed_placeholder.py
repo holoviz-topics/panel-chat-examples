@@ -1,5 +1,11 @@
 """
 Demonstrates how to delay the display of the placeholder.
+
+Highlights:
+
+- The `placeholder_threshold` parameter is used to delay the display of the placeholder.
+    If the response time is less than the threshold, the placeholder will not be displayed.
+- The `placeholder_text` parameter is used to customize the placeholder text.
 """
 
 from asyncio import sleep

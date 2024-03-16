@@ -55,15 +55,9 @@ plugins:
 
 watch:
     - docs
-    - panel_chat_examples
 
 nav:
     - Home: index.md
-    - Basics: basics.md
-    - Components: components.md
-    - Features: features.md
-    - Langchain: langchain.md
-    - LlamaIndex: llama_index.md
-    - Mistral: mistral.md
-    - OpenAI: openai.md
-    - External: external_resources.md
+    - Features: feature.md
+    - Applications: application.md
+    - Links: links.md
