@@ -10,6 +10,14 @@ Highlights:
 chatbot that echoes back the message entered by the User.
 - The `help_text` parameter is used to provide instructions to the User.
 
+<video controls poster="../assets/thumbnails/echo_chat.png" >
+    <source src="../assets/videos/echo_chat.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
 <details>
 
 <summary>Source code for <a href='../examples/core/echo_chat.py' target='_blank'>echo_chat.py</a></summary>
@@ -57,6 +65,14 @@ Highlights:
 - The function is defined as `async` and uses `yield` to stream back responses.
 - Initialize `message` first to gather the characters and then `yield` it;
 without it, only one letter would be displayed at a time.
+
+<video controls poster="../assets/thumbnails/stream_echo_chat.png" >
+    <source src="../assets/videos/stream_echo_chat.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
 
 <details>
 
@@ -118,6 +134,14 @@ chatbot that counts the number of lines in a message or file.
 - The `callback` function is used to count the number of lines in the message
 or file and return the result to the User.
 
+<video controls poster="../assets/thumbnails/custom_input_widgets.png" >
+    <source src="../assets/videos/custom_input_widgets.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
 <details>
 
 <summary>Source code for <a href='../examples/core/custom_input_widgets.py' target='_blank'>custom_input_widgets.py</a></summary>
@@ -172,6 +196,14 @@ Highlights:
 - The `placeholder_threshold` parameter is used to delay the display of the placeholder.
 If the response time is less than the threshold, the placeholder will not be displayed.
 - The `placeholder_text` parameter is used to customize the placeholder text.
+
+<video controls poster="../assets/thumbnails/delayed_placeholder.png" >
+    <source src="../assets/videos/delayed_placeholder.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
 
 <details>
 
@@ -230,6 +262,14 @@ Highlight:
 
 - The `respond` parameter in the `send` method is used to chain responses.
 - It's also possible to use `respond` as a method to chain responses.
+
+<video controls poster="../assets/thumbnails/chained_response.png" >
+    <source src="../assets/videos/chained_response.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
 
 <details>
 
@@ -303,6 +343,14 @@ Highlights:
 - Use yield to continuously update the response message.
 - Use pn.chat.ChatMessage or dict to send a message with a custom user and avatar.
 
+<video controls poster="../assets/thumbnails/control_callback_response.png" >
+    <source src="../assets/videos/control_callback_response.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
 <details>
 
 <summary>Source code for <a href='../examples/core/control_callback_response.py' target='_blank'>control_callback_response.py</a></summary>
@@ -370,7 +418,7 @@ chat_interface.servable()
 </details>
 
 
-## Slim Interface
+## Styled Slim Interface
 
 Demonstrates how to create a slim `ChatInterface` that fits in the sidebar.
 
@@ -379,6 +427,14 @@ Highlights:
 - The `ChatInterface` is placed in the sidebar.
 - Set `show_*` parameters to `False` to hide the respective buttons.
 - Use `message_params` to customize the appearance of each chat messages.
+
+<video controls poster="../assets/thumbnails/styled_slim_interface.png" >
+    <source src="../assets/videos/styled_slim_interface.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
 
 <details>
 
