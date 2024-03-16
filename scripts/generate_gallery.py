@@ -19,6 +19,16 @@ VIDEO_TAG = """\
     <source src="assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
 </video>"""
 
+ORDERING = {
+    "core": [
+        "echo_chat.py",
+        "stream_echo_chat.py",
+        "custom_input_widgets.py",
+        "delayed_placeholder.py",
+        "chained_response.py",
+    ]
+}
+
 
 def _copy_readme_to_index():
     text = README_PATH.read_text()
@@ -45,7 +55,14 @@ def run():
         docs_file_path = DOCS_PATH / folder.with_suffix(".md").name
         text = f"\n# {folder.name.title()}\n"
 
-        for file in sorted(folder.glob("*.py")):
+        ordering = ORDERING.get(folder.name, [])
+        files = sorted(
+            folder.glob("*.py"),
+            key=lambda file: (
+                ordering.index(file.name) if file.name in ordering else 999
+            ),
+        )
+        for file in files:
             title = file.name.replace(".py", "").replace("_", " ").strip().title()
             parent_path = Path("..")
             source_path = parent_path / file.relative_to(EXAMPLES_PATH.parent)

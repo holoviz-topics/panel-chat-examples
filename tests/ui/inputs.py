@@ -40,14 +40,14 @@ def default_chat(page: Page):
     page.wait_for_timeout(TIMEOUT * 3)
 
 
-def feature_custom_input_widgets(page: Page):
+def custom_input_widgets(page: Page):
     chat = ChatInterface(page)
     chat.send("How many\nlines\nhere?")
     page.get_by_text("This snippet has 3 lines.").inner_text()
     page.wait_for_timeout(TIMEOUT * 3)
 
 
-def feature_control_callback_response(page: Page):
+def control_callback_response(page: Page):
     chat = ChatInterface(page)
     chat.button_click(name="Tails!")
     chat.send_click()
@@ -57,14 +57,14 @@ def feature_control_callback_response(page: Page):
     page.wait_for_timeout(TIMEOUT * 5)
 
 
-def feature_chained_response(page: Page):
+def chained_response(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text("Yup").inner_text()
     page.wait_for_timeout(TIMEOUT * 3)
 
 
-def feature_delayed_placeholder(page: Page):
+def delayed_placeholder(page: Page):
     chat = ChatInterface(page)
     chat.send("4")
     page.get_by_text("Slept 4 seconds!").inner_text()

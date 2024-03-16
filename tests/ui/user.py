@@ -90,19 +90,19 @@ def component_status(page: Page):
     page.wait_for_timeout(TIMEOUT)
 
 
-def feature_chained_response(page: Page):
+def chained_response(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text('Yeah! They said "Hello World".').inner_text()
 
 
-def feature_delayed_placeholder(page: Page):
+def delayed_placeholder(page: Page):
     chat = ChatInterface(page)
     chat.send("4")
     page.get_by_text("Slept 4 seconds!").inner_text()
 
 
-def feature_replace_response(page: Page):
+def replace_response(page: Page):
     chat = ChatInterface(page)
 
     chat.button_click(name="Tails!")
@@ -113,7 +113,7 @@ def feature_replace_response(page: Page):
     page.wait_for_timeout(4 * TIMEOUT)
 
 
-def feature_slim_interface(page: Page):
+def styled_slim_interface(page: Page):
     chat = ChatInterface(page)
     chat.send("Hello World")
     page.get_by_text("Echoing User: Hello World").inner_text()

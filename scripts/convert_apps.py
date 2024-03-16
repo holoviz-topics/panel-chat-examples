@@ -11,16 +11,7 @@ DOCS_PATH = Path(__file__).parent.parent / "docs"
 EXAMPLES_PATH = DOCS_PATH / "examples"
 APP_PATH = DOCS_PATH / "pyodide"
 
-APPS_READY_FOR_PYODIDE = [
-    "basic_chat.py",
-    "basic_streaming_chat.py",
-    "basic_streaming_chat_async.py",
-    # "component_environment_widget.py", # imports panel_chat_examples
-    "feature_chained_response.py",
-    "feature_delayed_placeholder.py",
-    # "feature_replace_response.py", # https://github.com/holoviz/panel/issues/5700
-    "feature_slim_interface.py",
-]
+APPS_READY_FOR_PYODIDE = []
 
 BEFORE = """\
     <meta charset="utf-8">

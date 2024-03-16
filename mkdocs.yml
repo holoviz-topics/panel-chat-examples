@@ -58,6 +58,6 @@ watch:
 
 nav:
     - Home: index.md
-    - Features: feature.md
+    - Core: core.md
     - Applications: application.md
     - Links: links.md
