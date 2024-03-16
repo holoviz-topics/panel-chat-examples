@@ -35,9 +35,8 @@ class ChatInterface:
 
 def default_chat(page: Page):
     chat = ChatInterface(page)
-    chat.send("Hello World")
-    page.get_by_text("Echoing User: Hello World").inner_text()
-    page.wait_for_timeout(TIMEOUT * 3)
+    chat.send("What is HoloViz Panel in a sentence")
+    page.wait_for_timeout(TIMEOUT * 10)
 
 
 def custom_input_widgets(page: Page):
