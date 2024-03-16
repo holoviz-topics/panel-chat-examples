@@ -1,4 +1,4 @@
-# External Resources
+# Links
 
 Below we list **awesome external resources**.
 
@@ -17,8 +17,6 @@ Source: [Medium](https://medium.com/@andy456333/holoviz-panel-1-30-new-chat-inte
 Authors: [Andrew Huang](https://twitter.com/IAteAnDrew1) | [Sophia Yang](https://twitter.com/sophiamyang)
 
 Link: [Medium](https://sophiamyang.medium.com/how-to-build-your-own-panel-ai-chatbots-ef764f7f114e)
-
-![Getting Started Blog by Andrew and Sophia](assets/thumbnails/basic_chat.png)
 
 ## Autogen
 
@@ -85,8 +83,6 @@ Links: [Medium](https://sophiamyang.medium.com/building-a-retrieval-augmented-ge
 Authors: [Andrew Huang](https://twitter.com/IAteAnDrew1) | [Sophia Yang](https://twitter.com/sophiamyang)
 
 Links: [Medium](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral-and-llama2-9c0f5abc296c)
-
-[![ChatBot with Mistral and Llama2](assets/thumbnails/mistral_and_llama.png)](https://sophiamyang.medium.com/building-ai-chatbots-with-mistral-and-llama2-9c0f5abc296c)
 
 ### Talk with Plot
 

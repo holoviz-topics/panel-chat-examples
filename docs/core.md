@@ -51,6 +51,7 @@ chat_interface.servable()
 ```
 </details>
 
+Live Apps: <a href='../pyodide/echo_chat.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
 
 ## Stream Echo Chat
 
@@ -120,6 +121,7 @@ chat_interface.servable()
 ```
 </details>
 
+Live Apps: <a href='../pyodide/stream_echo_chat.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
 
 ## Custom Input Widgets
 
@@ -186,6 +188,7 @@ chat_interface.servable()
 ```
 </details>
 
+Live Apps: <a href='../pyodide/custom_input_widgets.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
 
 ## Delayed Placeholder
 
@@ -253,6 +256,7 @@ chat_interface.servable()
 ```
 </details>
 
+Live Apps: <a href='../pyodide/delayed_placeholder.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
 
 ## Chained Response
 
@@ -330,6 +334,7 @@ chat_interface.servable()
 ```
 </details>
 
+Live Apps: <a href='../pyodide/chained_response.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
 
 ## Control Callback Response
 
@@ -417,6 +422,7 @@ chat_interface.servable()
 ```
 </details>
 
+Live Apps: <a href='../pyodide/control_callback_response.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
 
 ## Styled Slim Interface
 
@@ -501,3 +507,5 @@ pn.template.FastListTemplate(
 ).servable()
 ```
 </details>
+
+Live Apps: <a href='../pyodide/styled_slim_interface.html' target='_blank' title='The app is running entirely in the browser powered by Pyodide'>Pyodide</a>
