@@ -8,7 +8,7 @@ import pytest
 from panel.io.server import serve
 from playwright.sync_api import expect
 
-from .user import ACTION, TIMEOUT, ZOOM
+from .inputs import ACTION, TIMEOUT, ZOOM
 
 pytestmark = pytest.mark.ui
 
@@ -74,7 +74,7 @@ def test_app(server, app_path, port, page):
     print(f"\n\nRunning {app_path} on http://localhost:{port}\n\n")
     # zoom and run should be defined for all examples
     # even if we don't run the video
-    run = ACTION[name]
+    run = ACTION.get(name, ACTION["default_chat"])
     zoom = ZOOM.get(name, 1)
 
     # We cannot run these tests in pipelines etc. as they require models downloaded,

@@ -12,13 +12,36 @@ EXAMPLES_PATH = DOCS_PATH / "examples"
 INDEX_MD_PATH = DOCS_PATH / "index.md"
 THUMBNAILS_PATH = DOCS_PATH / "assets" / "thumbnails"
 VIDEOS_PATH = DOCS_PATH / "assets" / "videos"
-PREFIX = {"basics": "basic", "components": "component", "features": "feature"}
 # ruff: noqa: E501
 VIDEO_URL = "https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde"
 VIDEO_TAG = """\
 <video controls style="height:auto;width: 100%;max-height:500px" poster="assets/videos/panel-chat-examples-splash.png">
     <source src="assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
 </video>"""
+
+DESCRIPTION = {
+    "chat_features": (
+        "Highlights some features of Panel's chat components; "
+        "they do not require other packages besides Panel."
+    ),
+    "kickstart_snippets": (
+        "Quickly start using Panel's chat components with popular LLM packages "
+        "by copying and pasting one of these snippets. All of these examples support:\n\n"
+        "- Streaming\n"
+        "- Async\n"
+        "- Memory\n",
+    ),
+}
+
+ORDERING = {
+    "chat_features": [
+        "echo_chat.py",
+        "stream_echo_chat.py",
+        "custom_input_widgets.py",
+        "delayed_placeholder.py",
+        "chained_response.py",
+    ]
+}
 
 
 def _copy_readme_to_index():
@@ -44,18 +67,18 @@ def run():
 
         # Loop through each .py file in the folder
         docs_file_path = DOCS_PATH / folder.with_suffix(".md").name
-        text = f"\n# {folder.name.title()}\n"
+        description = DESCRIPTION[folder.name]
+        text = f"\n# {folder.name.title().replace('_', ' ')}\n{description}\n"
 
-        for file in sorted(folder.glob("*.py")):
-            prefix = PREFIX.get(folder.name, folder.name)
-
-            title = (
-                file.name.replace(".py", "")
-                .replace("_", " ")
-                .replace(prefix, "")
-                .strip()
-                .title()
-            )
+        ordering = ORDERING.get(folder.name, [])
+        files = sorted(
+            folder.glob("*.py"),
+            key=lambda file: (
+                ordering.index(file.name) if file.name in ordering else 999
+            ),
+        )
+        for file in files:
+            title = file.name.replace(".py", "").replace("_", " ").strip().title()
             parent_path = Path("..")
             source_path = parent_path / file.relative_to(EXAMPLES_PATH.parent)
             text += f"\n## {title}\n"
