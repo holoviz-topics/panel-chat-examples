@@ -19,8 +19,22 @@ VIDEO_TAG = """\
     <source src="assets/videos/panel-chat-examples-splash.mp4" type="video/mp4">
 </video>"""
 
+DESCRIPTION = {
+    "chat_features": (
+        "Highlights some features of Panel's chat components; "
+        "they do not require other packages besides Panel."
+    ),
+    "kickstart_snippets": (
+        "Quickly start using Panel's chat components with popular LLM packages "
+        "by copying and pasting one of these snippets. All of these examples support:\n\n"
+        "- Streaming\n"
+        "- Async\n"
+        "- Memory\n",
+    ),
+}
+
 ORDERING = {
-    "core": [
+    "chat_features": [
         "echo_chat.py",
         "stream_echo_chat.py",
         "custom_input_widgets.py",
@@ -53,7 +67,8 @@ def run():
 
         # Loop through each .py file in the folder
         docs_file_path = DOCS_PATH / folder.with_suffix(".md").name
-        text = f"\n# {folder.name.title()}\n"
+        description = DESCRIPTION[folder.name]
+        text = f"\n# {folder.name.title().replace('_', ' ')}\n{description}\n"
 
         ordering = ORDERING.get(folder.name, [])
         files = sorted(

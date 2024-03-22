@@ -1,6 +1,90 @@
-# Recipes
+# Kickstart Snippets
+Quickly start using Panel's chat components with popular LLM packages by copying and pasting one of these snippets.
 
-## Mistralai Core
+## Openai
+
+Demonstrates how to use OpenAI's GPT-3.5 API with Panel's ChatInterface.
+
+Highlights:
+
+- Uses `PasswordInput` to set the API key, or uses the `OPENAI_API_KEY` environment variable.
+- Uses `serialize` to get chat history from the `ChatInterface`.
+- Uses `yield` to continuously concatenate the parts of the response
+
+<video controls poster="../assets/thumbnails/openai.png" >
+    <source src="../assets/videos/openai.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
+<details>
+
+<summary>Source code for <a href='../examples/kickstart_snippets/openai.py' target='_blank'>openai.py</a></summary>
+
+```python
+"""
+Demonstrates how to use OpenAI's GPT-3.5 API with Panel's ChatInterface.
+
+Highlights:
+
+- Uses `PasswordInput` to set the API key, or uses the `OPENAI_API_KEY` environment variable.
+- Uses `serialize` to get chat history from the `ChatInterface`.
+- Uses `yield` to continuously concatenate the parts of the response
+"""
+
+import panel as pn
+from openai import AsyncOpenAI
+
+pn.extension()
+
+
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
+    if api_key_input.value:
+        # use api_key_input.value if set, otherwise use OPENAI_API_KEY
+        aclient.api_key = api_key_input.value
+
+    # memory is a list of messages
+    messages = instance.serialize()
+
+    response = await aclient.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        stream=True,
+    )
+
+    message = ""
+    async for chunk in response:
+        part = chunk.choices[0].delta.content
+        if part is not None:
+            message += part
+            yield message
+
+
+aclient = AsyncOpenAI()
+api_key_input = pn.widgets.PasswordInput(
+    placeholder="sk-... uses $OPENAI_API_KEY if not set",
+    sizing_mode="stretch_width",
+    styles={"color": "black"},
+)
+chat_interface = pn.chat.ChatInterface(
+    callback=callback,
+    callback_user="ChatGPT",
+    help_text="Send a message to get a reply from ChatGPT!",
+)
+template = pn.template.FastListTemplate(
+    title="OpenAI GPT-3.5",
+    header_background="#212121",
+    main=[chat_interface],
+    header=[api_key_input],
+)
+template.servable()
+```
+</details>
+
+
+## Mistralai
 
 Demonstrates how to use MistralAI's Small API with Panel's ChatInterface.
 
@@ -11,8 +95,8 @@ Highlights:
 - Uses `serialize` to get chat history from the `ChatInterface`.
 - Uses `yield` to continuously concatenate the parts of the response.
 
-<video controls poster="../assets/thumbnails/mistralai_core.png" >
-    <source src="../assets/videos/mistralai_core.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/mistralai.png" >
+    <source src="../assets/videos/mistralai.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -21,7 +105,7 @@ Highlights:
 
 <details>
 
-<summary>Source code for <a href='../examples/recipes/mistralai_core.py' target='_blank'>mistralai_core.py</a></summary>
+<summary>Source code for <a href='../examples/kickstart_snippets/mistralai.py' target='_blank'>mistralai.py</a></summary>
 
 ```python
 """
@@ -90,7 +174,7 @@ template.servable()
 </details>
 
 
-## Llamacpp Core
+## Llamacpp
 
 Demonstrates how to use LlamaCpp with a local, quantized model, like TheBloke's Mistral Instruct v0.2,
 with Panel's ChatInterface.
@@ -102,8 +186,8 @@ Highlights:
 - Uses `serialize` to get chat history from the `ChatInterface`.
 - Uses `yield` to continuously concatenate the parts of the response.
 
-<video controls poster="../assets/thumbnails/llamacpp_core.png" >
-    <source src="../assets/videos/llamacpp_core.mp4" type="video/mp4"
+<video controls poster="../assets/thumbnails/llamacpp.png" >
+    <source src="../assets/videos/llamacpp.mp4" type="video/mp4"
     style="max-height: 400px; max-width: 600px;">
     Your browser does not support the video tag.
 </video>
@@ -112,7 +196,7 @@ Highlights:
 
 <details>
 
-<summary>Source code for <a href='../examples/recipes/llamacpp_core.py' target='_blank'>llamacpp_core.py</a></summary>
+<summary>Source code for <a href='../examples/kickstart_snippets/llamacpp.py' target='_blank'>llamacpp.py</a></summary>
 
 ```python
 """
@@ -128,8 +212,8 @@ Highlights:
 """
 
 import panel as pn
-from llama_cpp import Llama
 from huggingface_hub import hf_hub_download
+from llama_cpp import Llama
 
 REPO_ID = "TheBloke/Mistral-7B-Instruct-v0.2-code-ft-GGUF"
 FILENAME = "mistral-7b-instruct-v0.2-code-ft.Q5_K_S.gguf"
@@ -175,89 +259,6 @@ template = pn.template.FastListTemplate(
     main=[chat_interface],
 )
 pn.state.onload(load_model)
-template.servable()
-```
-</details>
-
-
-## Openai Core
-
-Demonstrates how to use OpenAI's GPT-3.5 API with Panel's ChatInterface.
-
-Highlights:
-
-- Uses `PasswordInput` to set the API key, or uses the `OPENAI_API_KEY` environment variable.
-- Uses `serialize` to get chat history from the `ChatInterface`.
-- Uses `yield` to continuously concatenate the parts of the response
-
-<video controls poster="../assets/thumbnails/openai_core.png" >
-    <source src="../assets/videos/openai_core.mp4" type="video/mp4"
-    style="max-height: 400px; max-width: 600px;">
-    Your browser does not support the video tag.
-</video>
-
-
-
-<details>
-
-<summary>Source code for <a href='../examples/recipes/openai_core.py' target='_blank'>openai_core.py</a></summary>
-
-```python
-"""
-Demonstrates how to use OpenAI's GPT-3.5 API with Panel's ChatInterface.
-
-Highlights:
-
-- Uses `PasswordInput` to set the API key, or uses the `OPENAI_API_KEY` environment variable.
-- Uses `serialize` to get chat history from the `ChatInterface`.
-- Uses `yield` to continuously concatenate the parts of the response
-"""
-
-import panel as pn
-from openai import AsyncOpenAI
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    if api_key_input.value:
-        # use api_key_input.value if set, otherwise use OPENAI_API_KEY
-        aclient.api_key = api_key_input.value
-
-    # memory is a list of messages
-    messages = instance.serialize()
-
-    response = await aclient.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        stream=True,
-    )
-
-    message = ""
-    async for chunk in response:
-        part = chunk.choices[0].delta.content
-        if part is not None:
-            message += part
-            yield message
-
-
-aclient = AsyncOpenAI()
-api_key_input = pn.widgets.PasswordInput(
-    placeholder="sk-... uses $OPENAI_API_KEY if not set",
-    sizing_mode="stretch_width",
-    styles={"color": "black"}
-)
-chat_interface = pn.chat.ChatInterface(
-    callback=callback,
-    callback_user="ChatGPT",
-    help_text="Send a message to get a reply from ChatGPT!",
-)
-template = pn.template.FastListTemplate(
-    title="OpenAI GPT-3.5",
-    header_background="#212121",
-    main=[chat_interface],
-    header=[api_key_input],
-)
 template.servable()
 ```
 </details>

@@ -1,4 +1,4 @@
-# Links
+# Linked Resources
 
 Below we list **awesome external resources**.
 

@@ -37,6 +37,7 @@ dependencies = [
     "pytest-playwright",
     "pytest",
     "ruff",
+    "panel-chat-examples[all]",
 ]
 
 [tool.hatch.envs.default.scripts]
@@ -84,6 +85,26 @@ classifiers = [
 requires-python = ">=3.9"
 dependencies = [
     "panel>=1.4.0rc"
+]
+
+[project.optional-dependencies]
+openai = [
+    "openai",
+]
+mistralai = [
+    "mistralai",
+]
+langchain = [
+    "langchain",
+]
+llama_index = [
+    "llama_index",
+]
+llama_cpp = [
+    "llama_cpp",
+]
+all = [
+    "panel-chat-examples[openai,mistralai,langchain,llama_index,llama_cpp]",
 ]
 
 [project.urls]

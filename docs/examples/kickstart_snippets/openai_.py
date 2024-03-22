@@ -44,8 +44,8 @@ api_key_input = pn.widgets.PasswordInput(
 )
 chat_interface = pn.chat.ChatInterface(
     callback=callback,
-    callback_user="ChatGPT",
-    help_text="Send a message to get a reply from ChatGPT!",
+    callback_user="GPT-3.5",
+    help_text="Send a message to get a reply from GPT-3.5 Turbo!",
 )
 template = pn.template.FastListTemplate(
     title="OpenAI GPT-3.5",

@@ -1,4 +1,5 @@
-# Core
+# Chat Features
+Highlights some features of Panel's chat components; they do not require other packages besides Panel.
 
 ## Echo Chat
 
@@ -20,7 +21,7 @@ chatbot that echoes back the message entered by the User.
 
 <details>
 
-<summary>Source code for <a href='../examples/core/echo_chat.py' target='_blank'>echo_chat.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/echo_chat.py' target='_blank'>echo_chat.py</a></summary>
 
 ```python
 """
@@ -77,7 +78,7 @@ without it, only one letter would be displayed at a time.
 
 <details>
 
-<summary>Source code for <a href='../examples/core/stream_echo_chat.py' target='_blank'>stream_echo_chat.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/stream_echo_chat.py' target='_blank'>stream_echo_chat.py</a></summary>
 
 ```python
 """
@@ -146,7 +147,7 @@ or file and return the result to the User.
 
 <details>
 
-<summary>Source code for <a href='../examples/core/custom_input_widgets.py' target='_blank'>custom_input_widgets.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/custom_input_widgets.py' target='_blank'>custom_input_widgets.py</a></summary>
 
 ```python
 """
@@ -210,7 +211,7 @@ If the response time is less than the threshold, the placeholder will not be dis
 
 <details>
 
-<summary>Source code for <a href='../examples/core/delayed_placeholder.py' target='_blank'>delayed_placeholder.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/delayed_placeholder.py' target='_blank'>delayed_placeholder.py</a></summary>
 
 ```python
 """
@@ -277,7 +278,7 @@ Highlight:
 
 <details>
 
-<summary>Source code for <a href='../examples/core/chained_response.py' target='_blank'>chained_response.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/chained_response.py' target='_blank'>chained_response.py</a></summary>
 
 ```python
 """
@@ -358,7 +359,7 @@ Highlights:
 
 <details>
 
-<summary>Source code for <a href='../examples/core/control_callback_response.py' target='_blank'>control_callback_response.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/control_callback_response.py' target='_blank'>control_callback_response.py</a></summary>
 
 ```python
 """
@@ -444,7 +445,7 @@ Highlights:
 
 <details>
 
-<summary>Source code for <a href='../examples/core/styled_slim_interface.py' target='_blank'>styled_slim_interface.py</a></summary>
+<summary>Source code for <a href='../examples/chat_features/styled_slim_interface.py' target='_blank'>styled_slim_interface.py</a></summary>
 
 ```python
 """

@@ -58,6 +58,6 @@ watch:
 
 nav:
     - Home: index.md
-    - Core: core.md
-    - Recipes: recipes.md
-    - Links: links.md
+    - Chat Features: chat_features.md
+    - Kickstart Snippets: kickstart_snippets.md
+    - Linked Resources: linked_resources.md
