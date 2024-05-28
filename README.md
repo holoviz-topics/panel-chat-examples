@@ -8,7 +8,31 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde
 
-Panels Chat Components are available with `pip install "panel>=1.3.0"`; some examples require `pip install "panel>=1.4.0"`.
+Panels Chat Components are available with `pip install "panel>=1.3.0"`; most examples require `pip install "panel>=1.4.0"`.
+
+## Quick Start
+
+It's super easy to get started with Panel chat components.
+
+1. Setup imports
+2. Define a function to dictate what to do with the input message
+3. Define a servable widget with `callback=response_callback`
+
+```python
+# 1.)
+import panel as pn
+pn.extension()
+
+# 2.)
+def response_callback(input_message: str, input_user: str, instance: pn.chat.ChatInterface):
+    # choose your favorite LLM API to respond to the input_message
+    ...
+    response_message = f"Echoing your input: {input_message}"
+    return response_message
+
+# 3.)
+pn.widgets.ChatInterface(callback=response_callback).servable()
+```
 
 ## Exploration
 
