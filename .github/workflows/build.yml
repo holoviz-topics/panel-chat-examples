@@ -1,67 +1,82 @@
-name: Run Tests
-
-env:
-  # enable colored output
-  # https://github.com/pytest-dev/pytest/issues/7443
-  PY_COLORS: 1
-
+name: packages
 on:
   push:
-    branches: ["main"]
-    paths:
-      - .github/workflows/run-tests.yml
-      - src/**
-      - tests/**
-      - pyproject.toml
-      - setup.py
-
-  pull_request:
-    paths:
-      - .github/workflows/run-tests.yml
-      - src**
-      - tests/**
-      - pyproject.toml
-      - setup.py
-
+    tags:
+    - 'v[0-9]+.[0-9]+.[0-9]+'
+    - 'v[0-9]+.[0-9]+.[0-9]+a[0-9]+'
+    - 'v[0-9]+.[0-9]+.[0-9]+b[0-9]+'
+    - 'v[0-9]+.[0-9]+.[0-9]+rc[0-9]+'
+  # Dry-run only
   workflow_dispatch:
-
-permissions:
-  contents: read
+  schedule:
+    - cron: '0 13 * * SUN'
 
 jobs:
-  run_tests:
-    name: ${{ matrix.test-type == '' && 'all' || matrix.test-type }} (Python ${{ matrix.python-version }} on ${{ matrix.os }})
-    timeout-minutes: 15
-    strategy:
-      matrix:
-        # run no_llm tests across all python versions and oses
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.9', '3.10', '3.11', '3.12']
-        test-type: ['no_llm']
-
-        include:
-          # Run LLM tests on 3.9
-          - python-version: '3.9'
-            os: 'ubuntu-latest'
-            test-type: ''
-        
-        
-    runs-on: ${{ matrix.os }}
-
+  conda_build:
+    name: Build Conda Packages
+    runs-on: 'ubuntu-latest'
+    defaults:
+      run:
+        shell: bash -l {0}
+    env:
+      CHANS_DEV: "-c pyviz/label/dev"
+      PKG_TEST_PYTHON: "--test-python=py39"
+      PYTHON_VERSION: "3.9"
+      CHANS: "-c pyviz"
+      CONDA_UPLOAD_TOKEN: ${{ secrets.CONDA_UPLOAD_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v3
+      - name: Fetch unshallow
+        run: git fetch --prune --tags --unshallow -f
+      - uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: "pip"
-      - name: Install
-        run: pip install ".[all]"
-
-      - name: Run tests without LLMs
-        run: pytest -n auto -vv -m "${{ matrix.test-type }}"
-        if: ${{ !(github.event.pull_request.head.repo.fork) && matrix.test-type != '' }}
-      
-      - name: Run tests
-        run: pytest -n auto -vv
-        if: ${{ !(github.event.pull_request.head.repo.fork) && matrix.test-type == '' }}
+          python-version: "3.9"
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+      - name: Set output
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+      - name: conda setup
+        run: |
+          conda update --name base conda
+          conda install anaconda-client conda-build
+          pip install hatch
+      - name: conda build
+        run: |
+          VERSION=`hatch version` conda build conda.recipe/
+      - name: conda dev upload
+        if: (github.event_name == 'push' && (contains(steps.vars.outputs.tag, 'a') || contains(steps.vars.outputs.tag, 'b') || contains(steps.vars.outputs.tag, 'rc')))
+        run: |
+          anaconda --token $CONDA_UPLOAD_TOKEN upload --user pyviz --label=dev $(VERSION=`hatch version` conda build --output conda.recipe)
+      - name: conda main upload
+        if: (github.event_name == 'push' && !(contains(steps.vars.outputs.tag, 'a') || contains(steps.vars.outputs.tag, 'b') || contains(steps.vars.outputs.tag, 'rc')))
+        run: |
+          anaconda --token $CONDA_UPLOAD_TOKEN upload --user pyviz --label=dev --label=main $(VERSION=`hatch version` conda build --output conda.recipe)
+  pip_build:
+    name: Build PyPI Packages
+    runs-on: 'ubuntu-latest'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch unshallow
+        run: git fetch --prune --tags --unshallow -f
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: env setup
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+      - name: pip build
+        run: |
+          python -m build
+      - name: Publish package to PyPI
+        if: github.event_name == 'push'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: ${{ secrets.PPU }}
+          password: ${{ secrets.PPP }}
+          packages_dir: dist/
