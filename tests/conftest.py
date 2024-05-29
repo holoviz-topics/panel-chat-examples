@@ -1,4 +1,5 @@
 """Sahred pytest configuration and fixtures"""
+
 import os
 import re
 from pathlib import Path

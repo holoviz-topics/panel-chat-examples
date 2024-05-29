@@ -38,7 +38,7 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         instance.respond()
     elif user == PERSON_2:
         instance.send(
-            f"Yup, I heard!",
+            "Yup, I heard!",
             user=PERSON_3,
             avatar="😆",
             respond=False,

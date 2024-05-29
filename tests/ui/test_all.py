@@ -1,4 +1,5 @@
 """Test the UI of all apps via Playwright"""
+
 import os
 import sys
 import time

@@ -12,7 +12,6 @@ Highlights:
     without it, only one letter would be displayed at a time.
 """
 
-
 from asyncio import sleep
 
 import panel as pn

@@ -1,4 +1,5 @@
 """Test all app .py files py running them with python"""
+
 import subprocess
 from pathlib import Path
 

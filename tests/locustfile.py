@@ -1,4 +1,5 @@
 """Locust load test file"""
+
 from pathlib import Path
 from random import choice
 
