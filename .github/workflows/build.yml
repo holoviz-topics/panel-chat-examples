@@ -2,9 +2,13 @@ name: Build
 
 on: [push, pull_request]
 
-jobs:
-  test:
+permissions:
+  issues: write
+  contents: write
 
+jobs:
+
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
