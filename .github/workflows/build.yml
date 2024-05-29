@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ['3.9']
+        python_version: ['3.11']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -34,5 +34,3 @@ jobs:
     - name: Test
       run: |
         hatch run test-cov-xml
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
