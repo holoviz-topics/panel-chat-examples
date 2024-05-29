@@ -6,7 +6,7 @@
         "codespaces": {
           "openFiles": [
             "README.md",
-            "docs/examples/basics/basic_chat.py",
+            "docs/examples/features/chat.py",
             "docs/examples/openai/openai_chat.py"
           ]
         },

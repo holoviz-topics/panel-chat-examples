@@ -8,7 +8,31 @@ Examples using [Panel](https://panel.holoviz.org/) and its [Chat Components](htt
 
 https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b98c-44e3-886e-29de6a079bde
 
-Panels Chat Components are available from Panel v1.3.0.
+Panels Chat Components are available with `pip install "panel>=1.3.0"`; most examples require `pip install "panel>=1.4.0"`.
+
+## Quick Start
+
+It's super easy to get started with Panel chat components.
+
+1. Setup imports
+2. Define a function to dictate what to do with the input message
+3. Define a servable widget with `callback=response_callback`
+
+```python
+# 1.)
+import panel as pn
+pn.extension()
+
+# 2.)
+def response_callback(input_message: str, input_user: str, instance: pn.chat.ChatInterface):
+    # choose your favorite LLM API to respond to the input_message
+    ...
+    response_message = f"Echoing your input: {input_message}"
+    return response_message
+
+# 3.)
+pn.widgets.ChatInterface(callback=response_callback).servable()
+```
 
 ## Exploration
 
@@ -21,8 +45,6 @@ To install and serve all examples:
 ```bash
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
-# Optionally create a new virtual environment with conda, venv, etc.
-pip install .
 # Optionally set the OPENAI_API_KEY environment variable
 panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```
@@ -30,23 +52,6 @@ panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnail
 Then open [http://localhost:5006](http://localhost:5006) in your browser.
 
 ![Panel Index Page](https://raw.githubusercontent.com/holoviz-topics/panel-chat-examples/main/assets/images/panel-chat-examples-index-page.png)
-
-### GPU Usage
-
-Note the default installation is not optimized for GPU usage. To enable GPU support for local
-models (i.e. not OpenAI), install `ctransformers` with the [proper backend](https://github.com/marella/ctransformers#gpu) and modify the scripts configs' accordingly, e.g. `n_gpu_layers=1` for a single GPU.
-
-CUDA:
-
-```bash
-pip install ctransformers[cuda] --no-binary ctransformers --no-cache --no-binary ctransformers --force
-```
-
-Mac M1/2:
-
-```bash
-CT_METAL=1 hatch run pip install ctransformers --no-binary ctransformers --no-cache --no-binary ctransformers --force # for m1
-```
 
 ## Contributing
 

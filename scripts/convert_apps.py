@@ -7,19 +7,20 @@ from pathlib import Path
 
 NUM_THREADS = 20
 
-DOCS_PATH = Path(__file__).parent.parent / "docs"
+THIS_DIR = Path(__file__).parent
+DOCS_PATH = THIS_DIR.parent / "docs"
+REQUIREMENTS_PATH = (THIS_DIR / "requirements.txt").absolute()
 EXAMPLES_PATH = DOCS_PATH / "examples"
 APP_PATH = DOCS_PATH / "pyodide"
 
 APPS_READY_FOR_PYODIDE = [
-    "basic_chat.py",
-    "basic_streaming_chat.py",
-    "basic_streaming_chat_async.py",
-    # "component_environment_widget.py", # imports panel_chat_examples
-    "feature_chained_response.py",
-    "feature_delayed_placeholder.py",
-    # "feature_replace_response.py", # https://github.com/holoviz/panel/issues/5700
-    "feature_slim_interface.py",
+    "chained_response.py",
+    "control_callback_response.py",
+    "custom_input_widgets.py",
+    "delayed_placeholder.py",
+    "echo_chat.py",
+    "stream_echo_chat.py",
+    "styled_slim_interface.py",
 ]
 
 BEFORE = """\
@@ -75,6 +76,8 @@ def _convert(file):
             "pyodide-worker",
             "--out",
             str(APP_PATH),
+            "--requirements",
+            str(REQUIREMENTS_PATH),
         ]
     )
     _replace(file)

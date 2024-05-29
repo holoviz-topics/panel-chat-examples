@@ -37,7 +37,6 @@ On contribution:
 
 ```bash
 hatch run pytest -s -m ui --screenshot on --video on --headed -k <NAME_OF_YOUR_EXAMPLE>
-hatch run python scripts/postprocess_videos.py
 hatch run docs-build
 git checkout -b <YOUR_BRANCH_NAME>
 git add commit
@@ -63,7 +62,7 @@ Please ensure it's installed on your system with
 pip install hatch
 ```
 
-Please ensure [Playwright](https://playwright.dev/python/) browsers are installed
+Please ensure [Playwright](https://playwright.dev/python/) browsers are installed.
 
 ```bash
 hatch run playwright install chromium
@@ -71,13 +70,13 @@ hatch run playwright install chromium
 
 The first time `hatch run ...` is run, it will install the required dependencies.
 
-Please ensure `pre-commit` is installed by running
+Please ensure `pre-commit` is installed by running:
 
 ```bash
 hatch run pre-commit install
 ```
 
-You will also need to set the below environment variables
+You will also need to set the below environment variables if it's not already in your environment.
 
 ```bash
 export OPENAI_API_KEY=...
@@ -103,7 +102,7 @@ hatch run test
 
 ## Run UI tests
 
-To run the Playwright tests in *headed* mode (i.e. show the browser) you can run
+To run the Playwright tests in *headed* mode (i.e. show the browser) you can run:
 
 ```bash
 hatch run pytest -s -m ui --headed

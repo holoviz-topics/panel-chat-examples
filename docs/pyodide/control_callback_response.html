@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name= “description” content="An example of a HoloViz Panel chat app powered by Pyodide">
+    <meta name="author" content="Panel Chat Examples">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Panel_org" />
+    <meta name="twitter:creator" content="@Panel_org" />
+    <meta property="og:image" content="https://holoviz-topics.github.io/panel-chat-examples/assets/thumbnails/control_callback_response.png">
+    <meta property="og:description" content="An example of a HoloViz Panel chat app powered by Pyodide">
+    <meta property="og:title" content="Control Callback Response | Panel Chat Examples">
+    <meta property="og:type" content="website">
+    <meta property="og:video:url" content="https://holoviz-topics.github.io/panel-chat-examples/assets/videos/control_callback_response.mp4">
+    <meta property="og:video:secure_url" content="https://holoviz-topics.github.io/panel-chat-examples/assets/videos/control_callback_response.mp4">
+    <meta property="og:video:width" content="1699">
+    <meta property="og:video:height" content="900">
+    <link rel="icon" href="../assets/images/favicon.png">
+    <title>Control Callback Response | Panel Chat Examples</title>
+    <style>
+      html, body {
+        box-sizing: border-box;
+        display: flow-root;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+<link rel="stylesheet" href="https://cdn.holoviz.org/panel/1.4.2/dist/css/loading.css" type="text/css" />
+<style type="text/css">
+
+:host(.pn-loading):before, .pn-loading:before {
+  background-color: #0072B5;
+  mask-size: auto calc(min(50%, 400px));
+  -webkit-mask-size: auto calc(min(50%, 400px));
+}
+.py-error { display: none; }</style><script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.holoviz.org/panel/1.4.2/dist/panel.min.js"></script>
+
+<script type="text/javascript">
+  Bokeh.set_log_level("info");
+</script>  </head>
+  <body class="pn-loading pn-arc">
+    <div id="f4485397-d8e7-40f2-aff4-5a93ce397559" data-root-id="p1002" style="display: contents;"></div>
+  <div id="f910df2d-04e5-4f2a-97cc-d4aa0806616a" data-root-id="p1100" style="display: contents;"></div>
+  <div id="d2098631-8065-40d8-a9b1-8d4780f7a956" data-root-id="p1101" style="display: contents;"></div>
+  
+    <script type="text/javascript">
+      const pyodideWorker = new Worker("./control_callback_response.js");
+      pyodideWorker.busy = false
+      pyodideWorker.queue = []
+      
+      let patching = 0
+      
+      function send_change(jsdoc, event) {
+        if ((event.setter_id != null && event.setter_id == 'py') || (patching > 0)) {
+          return
+        } else if (pyodideWorker.busy && event.model && event.attr) {
+          let events = []
+          for (const old_event of pyodideWorker.queue) {
+            if (!(old_event.model === event.model && old_event.attr === event.attr)) {
+              events.push(old_event)
+            }
+          }
+          events.push(event)
+          pyodideWorker.queue = events
+          return
+        }
+        const patch = jsdoc.create_json_patch([event])
+        pyodideWorker.busy = true
+        pyodideWorker.postMessage({type: 'patch', patch: patch})
+      }
+      
+      pyodideWorker.onmessage = async (event) => {
+        const msg = event.data
+      
+        const body = document.getElementsByTagName('body')[0]
+        const loading_msgs = document.getElementsByClassName('pn-loading-msg')
+        if (msg.type === 'idle') {
+          if (pyodideWorker.queue.length) {
+            const patch = pyodideWorker.jsdoc.create_json_patch(pyodideWorker.queue)
+            pyodideWorker.busy = true
+            pyodideWorker.queue = []
+            pyodideWorker.postMessage({type: 'patch', patch: patch})
+          } else {
+            pyodideWorker.busy = false
+          }
+        } else if (msg.type === 'status') {
+          let loading_msg
+          if (loading_msgs.length) {
+            loading_msg = loading_msgs[0]
+          } else if (body.classList.contains('pn-loading')) {
+            loading_msg = document.createElement('div')
+            loading_msg.classList.add('pn-loading-msg')
+            body.appendChild(loading_msg)
+          }
+          if (loading_msg != null) {
+            loading_msg.innerHTML = msg.msg
+          }
+        } else if (msg.type === 'render') {
+          const docs_json = JSON.parse(msg.docs_json)
+          const render_items = JSON.parse(msg.render_items)
+          const root_ids = JSON.parse(msg.root_ids)
+      
+          // Remap roots in message to element IDs
+          const root_els = document.querySelectorAll('[data-root-id]')
+          const data_roots = []
+          for (const el of root_els) {
+             el.innerHTML = ''
+             data_roots.push([el.getAttribute('data-root-id'), el.id])
+          }
+          data_roots.sort((a, b) => a[0]<b[0] ? -1: 1)
+          const roots = {}
+          for (let i=0; i<data_roots.length; i++) {
+            roots[root_ids[i]] = data_roots[i][1]
+          }
+          render_items[0]['roots'] = roots
+          render_items[0]['root_ids'] = root_ids
+      
+          // Embed content
+          const [views] = await Bokeh.embed.embed_items(docs_json, render_items)
+      
+          // Remove loading spinner and message
+          body.classList.remove("pn-loading", "arc")
+          for (const loading_msg of loading_msgs) {
+            loading_msg.remove()
+          }
+      
+          // Setup bi-directional syncing
+          pyodideWorker.jsdoc = jsdoc = [...views.roots.values()][0].model.document
+          jsdoc.on_change(send_change.bind(null, jsdoc), false)
+          pyodideWorker.postMessage({'type': 'rendered'})
+          pyodideWorker.postMessage({'type': 'location', location: JSON.stringify(window.location)})
+        } else if (msg.type === 'patch') {
+          try {
+            patching += 1
+            pyodideWorker.jsdoc.apply_json_patch(msg.patch, msg.buffers)
+          } finally {
+            patching -= 1
+          }
+        }
+      };
+    </script>
+    <script type="application/json" id="p1102">
+      {"b2e0ff6e-17e6-4266-88c7-3edb8da6102d":{"version":"3.4.1","title":"Panel Application","roots":[{"type":"object","name":"panel.models.layout.Card","id":"p1002","attributes":{"name":"Card00176","css_classes":["chat-interface"],"styles":{"type":"map","entries":[["padding","0px"]]},"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"type":"object","name":"ImportedStyleSheet","id":"p1008","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/loading.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1011","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/listpanel.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1006","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/bundled/theme/default.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1007","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/bundled/theme/native.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1058","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/chat_interface.css"}}],"min_width":45,"margin":5,"sizing_mode":"stretch_both","align":"start","children":[{"type":"object","name":"Row","id":"p1092","attributes":{"name":"Row00175","css_classes":["card-header-row"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"}],"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"panel.models.markup.HTML","id":"p1094","attributes":{"css_classes":["chat-feed-title"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1006"},{"id":"p1007"}],"margin":[5,0],"align":"start","text":"&amp;amp;#8203;","disable_math":true}}]}},{"type":"object","name":"panel.models.feed.Feed","id":"p1003","attributes":{"name":"Feed00173","subscribed_events":{"type":"set","entries":["scroll_button_click"]},"css_classes":["chat-feed-log","scroll-vertical"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1058"}],"min_width":35,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Row","id":"p1004","attributes":{"name":"Row00172","css_classes":["chat-message"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"type":"object","name":"ImportedStyleSheet","id":"p1012","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/chat_message.css"}}],"min_width":35,"max_width":1200,"margin":[5,10],"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"panel.models.layout.Column","id":"p1005","attributes":{"name":"Column00161","css_classes":["left"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"height":100,"min_height":100,"max_width":60,"margin":0,"align":"start","children":[{"type":"object","name":"panel.models.markup.HTML","id":"p1009","attributes":{"css_classes":["avatar"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1006"},{"id":"p1007"}],"margin":[5,10],"align":"start","text":"\u2753","disable_math":true}}]}},{"type":"object","name":"panel.models.layout.Column","id":"p1013","attributes":{"name":"Column00171","css_classes":["right"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"min_width":15,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Row","id":"p1014","attributes":{"name":"Row00167","css_classes":["header"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"min_width":15,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"panel.models.markup.HTML","id":"p1017","attributes":{"css_classes":["name"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"height":20,"min_height":20,"margin":[5,10],"align":"start","text":"Help","disable_math":true}},{"type":"object","name":"panel.models.reactive_html.ReactiveHTML","id":"p1022","attributes":{"subscribed_events":{"type":"set","entries":["dom_event"]},"css_classes":["copy-icon"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"type":"object","name":"ImportedStyleSheet","id":"p1020","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/chat_copy_icon.css"}},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"width":15,"height":15,"margin":0,"sizing_mode":"fixed","align":"start","attrs":{"type":"map","entries":[["copy-button",[["onclick",[],"{script('copy_to_clipboard')}"]]],["copy-icon",[["fill",["fill"],"{fill}"]]]]},"callbacks":{"type":"map","entries":[["copy-button",[["onclick","script('copy_to_clipboard')"]]]]},"data":{"type":"object","name":"copy_to_clipboard1","id":"p1018","attributes":{"name":"ChatCopyIcon00156","value":"Select heads or tails, then click send!"}},"html":"\n&amp;lt;div\n    type=&amp;quot;button&amp;quot;\n    id=&amp;quot;copy-button-${id}&amp;quot;\n    onclick=&amp;quot;${script(&amp;#x27;copy_to_clipboard&amp;#x27;)}&amp;quot;\n    style=&amp;quot;cursor: pointer; width: ${model.width}px; height: ${model.height}px;&amp;quot;\n    title=&amp;quot;Copy message to clipboard&amp;quot;\n&amp;gt;\n    &amp;lt;svg xmlns=&amp;quot;http://www.w3.org/2000/svg&amp;quot; class=&amp;quot;icon icon-tabler icon-tabler-copy&amp;quot; id=&amp;quot;copy-icon-${id}&amp;quot;\n        width=&amp;quot;${model.width}&amp;quot; height=&amp;quot;${model.height}&amp;quot; viewBox=&amp;quot;0 0 24 24&amp;quot;\n        stroke-width=&amp;quot;2&amp;quot; stroke=&amp;quot;currentColor&amp;quot; fill=${fill} stroke-linecap=&amp;quot;round&amp;quot; stroke-linejoin=&amp;quot;round&amp;quot;\n    &amp;gt;\n        &amp;lt;path stroke=&amp;quot;none&amp;quot; d=&amp;quot;M0 0h24v24H0z&amp;quot; fill=&amp;quot;none&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;\n        &amp;lt;path d=&amp;quot;M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;\n        &amp;lt;path d=&amp;quot;M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2&amp;quot;&amp;gt;&amp;lt;/path&amp;gt;\n    &amp;lt;/svg&amp;gt;\n&amp;lt;/div&amp;gt;\n","nodes":["copy-button","copy-icon"],"scripts":{"type":"map","entries":[["copy_to_clipboard",["navigator.clipboard.writeText(`${data.value}`);\ndata.fill = &amp;quot;currentColor&amp;quot;;\nsetTimeout(() =&amp;gt; data.fill = &amp;quot;none&amp;quot;, 50);"]]]}}},{"type":"object","name":"panel.models.markup.HTML","id":"p1025","attributes":{"visible":false,"css_classes":["activity-dot"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"margin":[5,10],"align":"start","text":"\u25cf","disable_math":true}}]}},{"type":"object","name":"Row","id":"p1029","attributes":{"name":"Row00164","css_classes":["center"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"margin":0,"align":"start","children":[{"type":"object","name":"panel.models.markup.HTML","id":"p1033","attributes":{"css_classes":["markdown","message"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"type":"object","name":"ImportedStyleSheet","id":"p1031","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/markdown.css"}},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"margin":[5,10],"align":"start","text":"&amp;lt;p&amp;gt;Select heads or tails, then click send!&amp;lt;/p&amp;gt;\n"}},{"type":"object","name":"panel.models.layout.Column","id":"p1034","attributes":{"name":"Column00152","css_classes":["reaction-icons"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"width":15,"height":15,"margin":[5,10],"sizing_mode":"fixed","align":"start","children":[{"type":"object","name":"panel.models.icon.ToggleIcon","id":"p1037","attributes":{"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"type":"object","name":"ImportedStyleSheet","id":"p1036","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/icon.css"}},{"id":"p1006"},{"id":"p1007"}],"margin":0,"align":"start"}}]}}]}},{"type":"object","name":"panel.models.layout.Column","id":"p1044","attributes":{"name":"Column00170","css_classes":["footer"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1012"}],"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"panel.models.markup.HTML","id":"p1046","attributes":{"css_classes":["timestamp"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1006"},{"id":"p1007"}],"margin":[5,10],"align":"start","text":"10:44","disable_math":true}}]}}]}}]}}],"auto_scroll_limit":200,"scroll_button_threshold":100,"view_latest":true}},{"type":"object","name":"Spacer","id":"p1060","attributes":{"name":"VSpacer00174","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1006"},{"id":"p1007"}],"margin":0,"sizing_mode":"stretch_height","align":"start"}},{"type":"object","name":"Row","id":"p1061","attributes":{"name":"Row00179","css_classes":["chat-interface-input-container"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1058"}],"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Row","id":"p1062","attributes":{"name":"Row00196","css_classes":["chat-interface-input-row"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1011"},{"id":"p1006"},{"id":"p1007"},{"id":"p1058"}],"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"panel.models.widgets.RadioButtonGroup","id":"p1065","attributes":{"button_type":"primary","css_classes":["outline","chat-interface-input-widget"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"type":"object","name":"ImportedStyleSheet","id":"p1064","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.2/dist/css/button.css"}},{"id":"p1006"},{"id":"p1007"}],"margin":[5,10],"sizing_mode":"stretch_width","align":"start","labels":["Heads!","Tails!"],"active":0}},{"type":"object","name":"panel.models.widgets.Button","id":"p1069","attributes":{"subscribed_events":{"type":"set","entries":["button_click"]},"css_classes":["solid"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1064"},{"id":"p1006"},{"id":"p1007"}],"max_width":90,"max_height":50,"margin":[0,5,0,0],"sizing_mode":"stretch_width","align":"center","label":"Send","icon":{"type":"object","name":"TablerIcon","id":"p1066","attributes":{"icon_name":"send"}}}},{"type":"object","name":"panel.models.widgets.Button","id":"p1073","attributes":{"subscribed_events":{"type":"set","entries":["button_click"]},"visible":false,"css_classes":["solid"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1064"},{"id":"p1006"},{"id":"p1007"}],"max_width":90,"max_height":50,"margin":[0,5,0,0],"sizing_mode":"stretch_width","align":"center","label":"Stop","icon":{"type":"object","name":"TablerIcon","id":"p1070","attributes":{"icon_name":"player-stop"}}}},{"type":"object","name":"panel.models.widgets.Button","id":"p1077","attributes":{"subscribed_events":{"type":"set","entries":["button_click"]},"css_classes":["solid"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1064"},{"id":"p1006"},{"id":"p1007"}],"max_width":90,"max_height":50,"margin":[0,5,0,0],"sizing_mode":"stretch_width","align":"center","label":"Rerun","icon":{"type":"object","name":"TablerIcon","id":"p1074","attributes":{"icon_name":"repeat"}}}},{"type":"object","name":"panel.models.widgets.Button","id":"p1081","attributes":{"subscribed_events":{"type":"set","entries":["button_click"]},"css_classes":["solid"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1064"},{"id":"p1006"},{"id":"p1007"}],"max_width":90,"max_height":50,"margin":[0,5,0,0],"sizing_mode":"stretch_width","align":"center","label":"Undo","icon":{"type":"object","name":"TablerIcon","id":"p1078","attributes":{"icon_name":"arrow-back"}}}},{"type":"object","name":"panel.models.widgets.Button","id":"p1085","attributes":{"subscribed_events":{"type":"set","entries":["button_click"]},"css_classes":["solid"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #0072B5;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1008"},{"id":"p1064"},{"id":"p1006"},{"id":"p1007"}],"max_width":90,"max_height":50,"margin":[0,5,0,0],"sizing_mode":"stretch_width","align":"center","label":"Clear","icon":{"type":"object","name":"TablerIcon","id":"p1082","attributes":{"icon_name":"trash"}}}}]}}]}}],"active_header_background":"","button_css_classes":["card-button"],"collapsed":false,"collapsible":false,"header_background":"","header_color":"","header_css_classes":["chat-feed-header"],"hide_header":true}},{"type":"object","name":"panel.models.location.Location","id":"p1100","attributes":{"name":"location","reload":false}},{"type":"object","name":"panel.models.browser.BrowserInfo","id":"p1101","attributes":{"name":"browser_info"}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"mode","kind":"Any","default":"warn"},{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationAreaBase1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"copy_to_clipboard1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"value","kind":"Any","default":null}]},{"type":"model","name":"DownloadButton1","properties":[{"name":"color","kind":"Any","default":"grey"},{"name":"data","kind":"Any","default":""},{"name":"filename","kind":"Any","default":""},{"name":"hide","kind":"Any","default":false},{"name":"size","kind":"Any","default":20}]},{"type":"model","name":"clicked1","properties":[{"name":"disabled","kind":"Any","default":false},{"name":"color","kind":"Any","default":null},{"name":"icon","kind":"Any","default":null},{"name":"size","kind":"Any","default":12}]}]}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('p1102').textContent;
+              const render_items = [{"docid":"b2e0ff6e-17e6-4266-88c7-3edb8da6102d","roots":{"p1002":"f4485397-d8e7-40f2-aff4-5a93ce397559","p1100":"f910df2d-04e5-4f2a-97cc-d4aa0806616a","p1101":"d2098631-8065-40d8-a9b1-8d4780f7a956"},"root_ids":["p1002","p1100","p1101"]}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

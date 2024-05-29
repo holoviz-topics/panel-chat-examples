@@ -1,0 +1,21 @@
+{
+    "type": "function",
+    "function": {
+          "name": "renderer",
+          "description": "Renders a plot using a named backend like 'bokeh', 'matplotlib'",
+          "parameters": {
+                "type": "object",
+                "properties": {
+                      "backend": {
+                            "type": "string",
+                            "enum": ["bokeh", "matplotlib"],
+                            "default": "bokeh",
+                            "description": "The name of the backend to render the plot with. One of 'bokeh', 'matplotlib'"
+                      }
+                },
+                "required": [
+                      "backend"
+                ]
+          }
+    }
+}
