@@ -29,7 +29,7 @@ DESCRIPTION = {
         "by copying and pasting one of these snippets. All of these examples support:\n\n"
         "- Streaming\n"
         "- Async\n"
-        "- Memory\n",
+        "- Memory\n"
     ),
 }
 
