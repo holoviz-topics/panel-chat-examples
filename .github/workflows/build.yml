@@ -1,34 +1,38 @@
-name: Build
+name: Run Tests
+
+env:
+  # enable colored output
+  # https://github.com/pytest-dev/pytest/issues/7443
+  PY_COLORS: 1
 
 on: [push, pull_request]
 
-jobs:
-  test:
+permissions:
+  contents: read
 
-    runs-on: ubuntu-latest
+jobs:
+  run_tests:
+    name: ${{ matrix.test-type == '' && 'all' || matrix.test-type }} (Python ${{ matrix.python-version }} on ${{ matrix.os }})
+    timeout-minutes: 15
     strategy:
       matrix:
-        python_version: ['3.10']
+        # run no_llm tests across all python versions and oses
+        os: [ubuntu-latest]
+        python-version: ['3.10']
+        test-type: ''
+        
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python_version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install hatch
-        hatch env create
-    - name: Lint and typecheck
-      run: |
-        hatch run lint-check
-    - name: Install Playwright browser(s)
-      run: |
-        hatch run playwright install chromium
-    - name: Test
-      run: |
-        hatch run test-cov-xml
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+      - name: Install requirements
+        run: pip install ".[all]"
+
+      - name: Run tests
+        run: pytest -n auto -vv
+        if: ${{ !(github.event.pull_request.head.repo.fork) && matrix.test-type == '' }}
