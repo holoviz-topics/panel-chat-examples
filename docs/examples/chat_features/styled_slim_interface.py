@@ -7,6 +7,7 @@ Highlights:
 - Set `show_*` parameters to `False` to hide the respective buttons.
 - Use `message_params` to customize the appearance of each chat messages.
 """
+
 import panel as pn
 
 pn.extension()

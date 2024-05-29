@@ -97,14 +97,14 @@ mistralai = [
 langchain = [
     "langchain>=0.0.350",
 ]
-llama_index = [
+llamaindex = [
     "llama_index>=0.10.40",
 ]
-llama_cpp_python = [
+llamacpp = [
     "llama_cpp_python",
 ]
 all = [
-    "panel-chat-examples[openai,mistralai,langchain,llama_index,llama_cpp]",
+    "panel-chat-examples[openai,mistralai,langchain,llamaindex,llamacpp]",
 ]
 
 [project.urls]

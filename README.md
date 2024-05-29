@@ -45,6 +45,7 @@ To install and serve all examples:
 ```bash
 git clone https://github.com/holoviz-topics/panel-chat-examples
 cd panel-chat-examples
+pip install -e ".[all]"  # or instead of `all`, just `openai`, `mistralai`, `langchain`, `llamaindex`, `llamacpp`
 # Optionally set the OPENAI_API_KEY environment variable
 panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload
 ```

@@ -146,6 +146,7 @@ We use [OpenAI *Function Calling*](https://platform.openai.com/docs/guides/funct
 We use [OpenAI *Function Calling*](https://platform.openai.com/docs/guides/function-calling) and
 [hvPlot](https://hvplot.holoviz.org/) to create an **advanced chatbot** that can create plots.
 """
+
 import json
 from pathlib import Path
 

@@ -18,6 +18,14 @@ Highlights:
 - Uses `serialize` to get chat history from the `ChatInterface`.
 - Uses `yield` to continuously concatenate the parts of the response.
 
+<video controls poster="../assets/thumbnails/llama_cpp_python.png" >
+    <source src="../assets/videos/llama_cpp_python.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
 <details>
 
 <summary>Source code for <a href='../examples/kickstart_snippets/llama_cpp_python_.py' target='_blank'>llama_cpp_python_.py</a></summary>
