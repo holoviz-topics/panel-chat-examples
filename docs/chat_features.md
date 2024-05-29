@@ -95,7 +95,6 @@ Highlights:
     without it, only one letter would be displayed at a time.
 """
 
-
 from asyncio import sleep
 
 import panel as pn
@@ -321,7 +320,7 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         instance.respond()
     elif user == PERSON_2:
         instance.send(
-            f"Yup, I heard!",
+            "Yup, I heard!",
             user=PERSON_3,
             avatar="😆",
             respond=False,
@@ -387,7 +386,10 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     # use send instead of stream/yield/return to keep the placeholder text
     # while still sending a message; ensure respond=False to avoid a recursive loop
     instance.send(
-        "Let me flip the coin for you...", user="Game Master", avatar="🎲", respond=False
+        "Let me flip the coin for you...",
+        user="Game Master",
+        avatar="🎲",
+        respond=False,
     )
     await sleep(1)
 
@@ -405,7 +407,11 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         # equivalently, use a dict instead of a pn.chat.ChatMessage
         yield {"object": f"Woohoo, {result}! You win!", "user": "Coin", "avatar": "🎲"}
     else:
-        yield {"object": f"Aw, got {result}. Try again!", "user": "Coin", "avatar": "🎲"}
+        yield {
+            "object": f"Aw, got {result}. Try again!",
+            "user": "Coin",
+            "avatar": "🎲",
+        }
 
 
 chat_interface = pn.chat.ChatInterface(
@@ -457,6 +463,7 @@ Highlights:
 - Set `show_*` parameters to `False` to hide the respective buttons.
 - Use `message_params` to customize the appearance of each chat messages.
 """
+
 import panel as pn
 
 pn.extension()
