@@ -99,6 +99,14 @@ Highlights:
 - Uses `serialize` to get chat history from the `ChatInterface`.
 - Uses `yield` to continuously concatenate the parts of the response.
 
+<video controls poster="../assets/thumbnails/mistralai.png" >
+    <source src="../assets/videos/mistralai.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
 <details>
 
 <summary>Source code for <a href='../examples/kickstart_snippets/mistralai_.py' target='_blank'>mistralai_.py</a></summary>
@@ -179,6 +187,14 @@ Highlights:
 - Uses `PasswordInput` to set the API key, or uses the `OPENAI_API_KEY` environment variable.
 - Uses `serialize` to get chat history from the `ChatInterface`.
 - Uses `yield` to continuously concatenate the parts of the response
+
+<video controls poster="../assets/thumbnails/langchain.png" >
+    <source src="../assets/videos/langchain.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
 
 <details>
 
@@ -283,6 +299,14 @@ Highlights:
 - Uses `PasswordInput` to set the API key, or uses the `OPENAI_API_KEY` environment variable.
 - Uses `serialize` to get chat history from the `ChatInterface`.
 - Uses `yield` to continuously concatenate the parts of the response
+
+<video controls poster="../assets/thumbnails/openai.png" >
+    <source src="../assets/videos/openai.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
 
 <details>
 

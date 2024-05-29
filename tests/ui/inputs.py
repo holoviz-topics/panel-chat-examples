@@ -72,6 +72,12 @@ def delayed_placeholder(page: Page):
     page.wait_for_timeout(TIMEOUT * 3)
 
 
+def llama_cpp_python(page: Page):
+    chat = ChatInterface(page)
+    chat.send("What is HoloViz Panel in a sentence?")
+    page.wait_for_timeout(TIMEOUT * 10)
+
+
 def langchain_chat_with_pandas(page: Page):
     chat = ChatInterface(page)
     page.get_by_role("textbox").set_input_files(PENGUINS_CSV)

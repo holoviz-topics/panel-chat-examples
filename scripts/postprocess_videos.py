@@ -13,7 +13,7 @@ png_paths = TEST_RESULTS_DIR.rglob("*.png")
 for webm_path, png_path in zip(webm_paths, png_paths):
     # examples-...-openai-openai-chat-py-chromium -> openai_chat
     example_name = "_".join(
-        webm_path.parent.name.split("examples-")[-1].split("-")[1:-1]
+        webm_path.parent.name.split("examples-")[-1].split("-")[2:-1]
     ).replace("_py", "")
     mp4_path = (VIDEOS_DIR / example_name).with_suffix(".mp4").absolute()
     print(f"Converting {webm_path} to {mp4_path}")

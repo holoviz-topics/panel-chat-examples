@@ -15,7 +15,7 @@ async function startApplication() {
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded!");
   await self.pyodide.loadPackage("micropip");
-  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.0-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.0-rc.2/dist/wheels/panel-1.4.0a3-py3-none-any.whl', 'pyodide-http==0.2.1']
+  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.1-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.2/dist/wheels/panel-1.4.2-py3-none-any.whl', 'pyodide-http==0.2.1']
   for (const pkg of env_spec) {
     let pkg_name;
     if (pkg.endsWith('.whl')) {
@@ -40,54 +40,7 @@ async function startApplication() {
   console.log("Packages loaded!");
   self.postMessage({type: 'status', msg: 'Executing code'})
   const code = `
-
-import asyncio
-
-from panel.io.pyodide import init_doc, write_doc
-
-init_doc()
-
-"""
-Demonstrates how to use the \`ChatInterface\` and a \`callback\` function to
-stream back responses.
-
-The chatbot Assistant echoes back the message entered by the User in an
-*async streaming* fashion.
-
-Highlights:
-
-- The function is defined as \`async\` and uses \`yield\` to stream back responses.
-- Initialize \`message\` first to gather the characters and then \`yield\` it;
-    without it, only one letter would be displayed at a time.
-"""
-
-
-from asyncio import sleep
-
-import panel as pn
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    await sleep(1)
-    message = ""
-    for char in "Echoing User: " + contents:
-        await sleep(0.05)
-        message += char
-        yield message
-
-
-chat_interface = pn.chat.ChatInterface(callback=callback)
-chat_interface.send(
-    "Enter a message below and receive an echo!",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-
-
-await write_doc()
+  \nimport asyncio\n\nfrom panel.io.pyodide import init_doc, write_doc\n\ninit_doc()\n\n"""\nDemonstrates how to use the \`ChatInterface\` and a \`callback\` function to\nstream back responses.\n\nThe chatbot Assistant echoes back the message entered by the User in an\n*async streaming* fashion.\n\nHighlights:\n\n- The function is defined as \`async\` and uses \`yield\` to stream back responses.\n- Initialize \`message\` first to gather the characters and then \`yield\` it;\n    without it, only one letter would be displayed at a time.\n"""\n\n\nfrom asyncio import sleep\n\nimport panel as pn\n\npn.extension()\n\n\nasync def callback(contents: str, user: str, instance: pn.chat.ChatInterface):\n    await sleep(1)\n    message = ""\n    for char in "Echoing User: " + contents:\n        await sleep(0.05)\n        message += char\n        yield message\n\n\nchat_interface = pn.chat.ChatInterface(callback=callback)\nchat_interface.send(\n    "Enter a message below and receive an echo!",\n    user="System",\n    respond=False,\n)\nchat_interface.servable()\n\n\nawait write_doc()
   `
 
   try {

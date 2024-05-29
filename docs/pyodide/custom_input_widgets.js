@@ -15,7 +15,7 @@ async function startApplication() {
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded!");
   await self.pyodide.loadPackage("micropip");
-  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.0-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.0-rc.2/dist/wheels/panel-1.4.0a3-py3-none-any.whl', 'pyodide-http==0.2.1']
+  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.1-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.2/dist/wheels/panel-1.4.2-py3-none-any.whl', 'pyodide-http==0.2.1']
   for (const pkg of env_spec) {
     let pkg_name;
     if (pkg.endsWith('.whl')) {
@@ -40,52 +40,7 @@ async function startApplication() {
   console.log("Packages loaded!");
   self.postMessage({type: 'status', msg: 'Executing code'})
   const code = `
-
-import asyncio
-
-from panel.io.pyodide import init_doc, write_doc
-
-init_doc()
-
-"""
-Demonstrates how to use the \`ChatInterface\` and custom widgets,
-like \`ChatAreaInput\` and \`FileInput\`, to create a chatbot that counts
-the number of lines in a message or file.
-
-Highlights:
-
-- The \`ChatAreaInput\` and \`FileInput\` widgets are used to create a custom
-    chatbot that counts the number of lines in a message or file.
-- The \`callback\` function is used to count the number of lines in the message
-    or file and return the result to the User.
-"""
-
-import panel as pn
-
-pn.extension()
-
-
-def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    lines = contents.strip().count("\\n")
-    message = f"This snippet has {lines + 1} lines."
-    return message
-
-
-chat_input = pn.chat.ChatAreaInput(placeholder="Send a message")
-file_input = pn.widgets.FileInput(accept=".py")
-chat_interface = pn.chat.ChatInterface(
-    callback=callback, widgets=[chat_input, file_input]
-)
-chat_interface.send(
-    "Enter a message in the ChatAreaInput below to count how many lines there is, "
-    "or upload a Python file to count the number of lines in the file.",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-
-
-await write_doc()
+  \nimport asyncio\n\nfrom panel.io.pyodide import init_doc, write_doc\n\ninit_doc()\n\n"""\nDemonstrates how to use the \`ChatInterface\` and custom widgets,\nlike \`ChatAreaInput\` and \`FileInput\`, to create a chatbot that counts\nthe number of lines in a message or file.\n\nHighlights:\n\n- The \`ChatAreaInput\` and \`FileInput\` widgets are used to create a custom\n    chatbot that counts the number of lines in a message or file.\n- The \`callback\` function is used to count the number of lines in the message\n    or file and return the result to the User.\n"""\n\nimport panel as pn\n\npn.extension()\n\n\ndef callback(contents: str, user: str, instance: pn.chat.ChatInterface):\n    lines = contents.strip().count("\\n")\n    message = f"This snippet has {lines + 1} lines."\n    return message\n\n\nchat_input = pn.chat.ChatAreaInput(placeholder="Send a message")\nfile_input = pn.widgets.FileInput(accept=".py")\nchat_interface = pn.chat.ChatInterface(\n    callback=callback, widgets=[chat_input, file_input]\n)\nchat_interface.send(\n    "Enter a message in the ChatAreaInput below to count how many lines there is, "\n    "or upload a Python file to count the number of lines in the file.",\n    user="System",\n    respond=False,\n)\nchat_interface.servable()\n\n\nawait write_doc()
   `
 
   try {

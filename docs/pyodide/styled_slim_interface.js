@@ -15,7 +15,7 @@ async function startApplication() {
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded!");
   await self.pyodide.loadPackage("micropip");
-  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.0-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.0-rc.2/dist/wheels/panel-1.4.0a3-py3-none-any.whl', 'pyodide-http==0.2.1']
+  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.1-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.2/dist/wheels/panel-1.4.2-py3-none-any.whl', 'pyodide-http==0.2.1']
   for (const pkg of env_spec) {
     let pkg_name;
     if (pkg.endsWith('.whl')) {
@@ -40,74 +40,7 @@ async function startApplication() {
   console.log("Packages loaded!");
   self.postMessage({type: 'status', msg: 'Executing code'})
   const code = `
-
-import asyncio
-
-from panel.io.pyodide import init_doc, write_doc
-
-init_doc()
-
-"""
-Demonstrates how to create a slim \`ChatInterface\` that fits in the sidebar.
-
-Highlights:
-
-- The \`ChatInterface\` is placed in the sidebar.
-- Set \`show_*\` parameters to \`False\` to hide the respective buttons.
-- Use \`message_params\` to customize the appearance of each chat messages.
-"""
-import panel as pn
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    message = f"Echoing {user}: {contents}"
-    return message
-
-
-chat_interface = pn.chat.ChatInterface(
-    callback=callback,
-    show_send=False,
-    show_rerun=False,
-    show_undo=False,
-    show_clear=False,
-    show_avatar=False,
-    show_timestamp=False,
-    show_button_name=False,
-    show_reaction_icons=False,
-    sizing_mode="stretch_width",
-    height=700,
-    message_params={
-        "stylesheets": [
-            """
-            .message {
-                font-size: 1em;
-            }
-            .name {
-                font-size: 0.9em;
-            }
-            .timestamp {
-                font-size: 0.9em;
-            }
-            """
-        ]
-    },
-)
-
-main = """
-We've put a *slim* \`ChatInterface\` in the sidebar. In the main area you
-could add the object you are chatting about
-"""
-
-pn.template.FastListTemplate(
-    main=[main],
-    sidebar=[chat_interface],
-    sidebar_width=500,
-).servable()
-
-
-await write_doc()
+  \nimport asyncio\n\nfrom panel.io.pyodide import init_doc, write_doc\n\ninit_doc()\n\n"""\nDemonstrates how to create a slim \`ChatInterface\` that fits in the sidebar.\n\nHighlights:\n\n- The \`ChatInterface\` is placed in the sidebar.\n- Set \`show_*\` parameters to \`False\` to hide the respective buttons.\n- Use \`message_params\` to customize the appearance of each chat messages.\n"""\nimport panel as pn\n\npn.extension()\n\n\nasync def callback(contents: str, user: str, instance: pn.chat.ChatInterface):\n    message = f"Echoing {user}: {contents}"\n    return message\n\n\nchat_interface = pn.chat.ChatInterface(\n    callback=callback,\n    show_send=False,\n    show_rerun=False,\n    show_undo=False,\n    show_clear=False,\n    show_avatar=False,\n    show_timestamp=False,\n    show_button_name=False,\n    show_reaction_icons=False,\n    sizing_mode="stretch_width",\n    height=700,\n    message_params={\n        "stylesheets": [\n            """\n            .message {\n                font-size: 1em;\n            }\n            .name {\n                font-size: 0.9em;\n            }\n            .timestamp {\n                font-size: 0.9em;\n            }\n            """\n        ]\n    },\n)\n\nmain = """\nWe've put a *slim* \`ChatInterface\` in the sidebar. In the main area you\ncould add the object you are chatting about\n"""\n\npn.template.FastListTemplate(\n    main=[main],\n    sidebar=[chat_interface],\n    sidebar_width=500,\n).servable()\n\n\nawait write_doc()
   `
 
   try {

@@ -24,6 +24,10 @@ DESCRIPTION = {
         "Highlights some features of Panel's chat components; "
         "they do not require other packages besides Panel."
     ),
+    "applicable_recipes": (
+        "Demonstrates how to use Panel's chat components to "
+        "achieve specific tasks with popular LLM packages."
+    ),
     "kickstart_snippets": (
         "Quickly start using Panel's chat components with popular LLM packages "
         "by copying and pasting one of these snippets. All of these examples support:\n\n"
@@ -62,7 +66,7 @@ def run():
     _copy_readme_to_index()
 
     for folder in sorted(EXAMPLES_PATH.glob("**/"), key=lambda folder: folder.name):
-        if folder.name in ["examples", "__pycache__"]:
+        if folder.name not in DESCRIPTION.keys():
             continue
 
         # Loop through each .py file in the folder
@@ -78,7 +82,13 @@ def run():
             ),
         )
         for file in files:
-            title = file.name.replace(".py", "").replace("_", " ").strip().title()
+            title = (
+                file.name.replace(".py", "")
+                .replace("_", " ")
+                .strip()
+                .title()
+                .rstrip("_")
+            )
             parent_path = Path("..")
             source_path = parent_path / file.relative_to(EXAMPLES_PATH.parent)
             text += f"\n## {title}\n"
@@ -94,9 +104,14 @@ def run():
                     elif '"""' in line:
                         in_docstring = True
 
-                thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png")
-                video = VIDEOS_PATH / file.name.replace(".py", ".mp4")
+                thumbnail = THUMBNAILS_PATH / file.name.replace(".py", ".png").replace(
+                    "_.png", ".png"
+                )
+                video = VIDEOS_PATH / file.name.replace(".py", ".mp4").replace(
+                    "_.mp4", ".mp4"
+                )
 
+                print(video, video.exists())
                 if video.exists() and thumbnail.exists():
                     video_str = dedent(
                         f"""

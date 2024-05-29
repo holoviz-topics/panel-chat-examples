@@ -15,7 +15,7 @@ async function startApplication() {
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded!");
   await self.pyodide.loadPackage("micropip");
-  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.0-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.0-rc.2/dist/wheels/panel-1.4.0a3-py3-none-any.whl', 'pyodide-http==0.2.1']
+  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.1-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.2/dist/wheels/panel-1.4.2-py3-none-any.whl', 'pyodide-http==0.2.1']
   for (const pkg of env_spec) {
     let pkg_name;
     if (pkg.endsWith('.whl')) {
@@ -40,56 +40,7 @@ async function startApplication() {
   console.log("Packages loaded!");
   self.postMessage({type: 'status', msg: 'Executing code'})
   const code = `
-
-import asyncio
-
-from panel.io.pyodide import init_doc, write_doc
-
-init_doc()
-
-"""
-Demonstrates how to delay the display of the placeholder.
-
-Highlights:
-
-- The \`placeholder_threshold\` parameter is used to delay the display of the placeholder.
-    If the response time is less than the threshold, the placeholder will not be displayed.
-- The \`placeholder_text\` parameter is used to customize the placeholder text.
-"""
-
-from asyncio import sleep
-
-import panel as pn
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    try:
-        seconds = float(contents)
-        if 0 < seconds < 10:
-            await sleep(seconds)
-            return f"Slept {contents} seconds!"
-        else:
-            return "Please enter a number between 1 and 9!"
-    except ValueError:
-        return "Please enter a number!"
-
-
-chat_interface = pn.chat.ChatInterface(
-    callback=callback,
-    placeholder_threshold=2,
-    placeholder_text="Waiting for reply...",
-)
-chat_interface.send(
-    "Send a number to make the system sleep between 1 and 9 seconds!",
-    user="System",
-    respond=False,
-)
-chat_interface.servable()
-
-
-await write_doc()
+  \nimport asyncio\n\nfrom panel.io.pyodide import init_doc, write_doc\n\ninit_doc()\n\n"""\nDemonstrates how to delay the display of the placeholder.\n\nHighlights:\n\n- The \`placeholder_threshold\` parameter is used to delay the display of the placeholder.\n    If the response time is less than the threshold, the placeholder will not be displayed.\n- The \`placeholder_text\` parameter is used to customize the placeholder text.\n"""\n\nfrom asyncio import sleep\n\nimport panel as pn\n\npn.extension()\n\n\nasync def callback(contents: str, user: str, instance: pn.chat.ChatInterface):\n    try:\n        seconds = float(contents)\n        if 0 < seconds < 10:\n            await sleep(seconds)\n            return f"Slept {contents} seconds!"\n        else:\n            return "Please enter a number between 1 and 9!"\n    except ValueError:\n        return "Please enter a number!"\n\n\nchat_interface = pn.chat.ChatInterface(\n    callback=callback,\n    placeholder_threshold=2,\n    placeholder_text="Waiting for reply...",\n)\nchat_interface.send(\n    "Send a number to make the system sleep between 1 and 9 seconds!",\n    user="System",\n    respond=False,\n)\nchat_interface.servable()\n\n\nawait write_doc()
   `
 
   try {

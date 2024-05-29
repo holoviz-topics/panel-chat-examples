@@ -15,7 +15,7 @@ async function startApplication() {
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded!");
   await self.pyodide.loadPackage("micropip");
-  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.0-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.0-rc.2/dist/wheels/panel-1.4.0a3-py3-none-any.whl', 'pyodide-http==0.2.1']
+  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.1-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.2/dist/wheels/panel-1.4.2-py3-none-any.whl', 'pyodide-http==0.2.1']
   for (const pkg of env_spec) {
     let pkg_name;
     if (pkg.endsWith('.whl')) {
@@ -40,67 +40,7 @@ async function startApplication() {
   console.log("Packages loaded!");
   self.postMessage({type: 'status', msg: 'Executing code'})
   const code = `
-
-import asyncio
-
-from panel.io.pyodide import init_doc, write_doc
-
-init_doc()
-
-"""
-Demonstrates how to chain responses from a single message in the callback.
-
-Highlight:
-
-- The \`respond\` parameter in the \`send\` method is used to chain responses.
-- It's also possible to use \`respond\` as a method to chain responses.
-"""
-
-from asyncio import sleep
-
-import panel as pn
-
-pn.extension()
-
-PERSON_1 = "Happy User"
-PERSON_2 = "Excited User"
-PERSON_3 = "Passionate User"
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    await sleep(2)
-    if user == "User":
-        instance.send(
-            f"Hey, {PERSON_2}! Did you hear the user?",
-            user=PERSON_1,
-            avatar="😊",
-            respond=True,  # This is the default, but it's here for clarity
-        )
-    elif user == PERSON_1:
-        user_message = instance.objects[-2]
-        user_contents = user_message.object
-        yield pn.chat.ChatMessage(
-            f'Yeah, they said "{user_contents}"! Did you also hear {PERSON_3}?',
-            user=PERSON_2,
-            avatar="😄",
-        )
-        instance.respond()
-    elif user == PERSON_2:
-        instance.send(
-            f"Yup, I heard!",
-            user=PERSON_3,
-            avatar="😆",
-            respond=False,
-        )
-
-
-chat_interface = pn.chat.ChatInterface(
-    help_text="Send a message to start the conversation!", callback=callback
-)
-chat_interface.servable()
-
-
-await write_doc()
+  \nimport asyncio\n\nfrom panel.io.pyodide import init_doc, write_doc\n\ninit_doc()\n\n"""\nDemonstrates how to chain responses from a single message in the callback.\n\nHighlight:\n\n- The \`respond\` parameter in the \`send\` method is used to chain responses.\n- It's also possible to use \`respond\` as a method to chain responses.\n"""\n\nfrom asyncio import sleep\n\nimport panel as pn\n\npn.extension()\n\nPERSON_1 = "Happy User"\nPERSON_2 = "Excited User"\nPERSON_3 = "Passionate User"\n\n\nasync def callback(contents: str, user: str, instance: pn.chat.ChatInterface):\n    await sleep(2)\n    if user == "User":\n        instance.send(\n            f"Hey, {PERSON_2}! Did you hear the user?",\n            user=PERSON_1,\n            avatar="\U0001f60a",\n            respond=True,  # This is the default, but it's here for clarity\n        )\n    elif user == PERSON_1:\n        user_message = instance.objects[-2]\n        user_contents = user_message.object\n        yield pn.chat.ChatMessage(\n            f'Yeah, they said "{user_contents}"! Did you also hear {PERSON_3}?',\n            user=PERSON_2,\n            avatar="\U0001f604",\n        )\n        instance.respond()\n    elif user == PERSON_2:\n        instance.send(\n            f"Yup, I heard!",\n            user=PERSON_3,\n            avatar="\U0001f606",\n            respond=False,\n        )\n\n\nchat_interface = pn.chat.ChatInterface(\n    help_text="Send a message to start the conversation!", callback=callback\n)\nchat_interface.servable()\n\n\nawait write_doc()
   `
 
   try {

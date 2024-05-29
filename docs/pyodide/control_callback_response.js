@@ -15,7 +15,7 @@ async function startApplication() {
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded!");
   await self.pyodide.loadPackage("micropip");
-  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.0-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.0-rc.2/dist/wheels/panel-1.4.0a3-py3-none-any.whl', 'pyodide-http==0.2.1']
+  const env_spec = ['https://cdn.holoviz.org/panel/wheels/bokeh-3.4.1-py3-none-any.whl', 'https://cdn.holoviz.org/panel/1.4.2/dist/wheels/panel-1.4.2-py3-none-any.whl', 'pyodide-http==0.2.1']
   for (const pkg of env_spec) {
     let pkg_name;
     if (pkg.endsWith('.whl')) {
@@ -40,74 +40,7 @@ async function startApplication() {
   console.log("Packages loaded!");
   self.postMessage({type: 'status', msg: 'Executing code'})
   const code = `
-
-import asyncio
-
-from panel.io.pyodide import init_doc, write_doc
-
-init_doc()
-
-"""
-Demonstrates how to precisely control the callback response.
-
-Highlights:
-
-- Use a placeholder text to display a message while waiting for the response.
-- Use a placeholder threshold to control when the placeholder text is displayed.
-- Use send instead of stream/yield/return to keep the placeholder text while still sending a message, ensuring respond=False to avoid a recursive loop.
-- Use yield to continuously update the response message.
-- Use pn.chat.ChatMessage or dict to send a message with a custom user and avatar.
-"""
-
-from asyncio import sleep
-from random import choice
-
-import panel as pn
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    await sleep(0.5)
-    # use send instead of stream/yield/return to keep the placeholder text
-    # while still sending a message; ensure respond=False to avoid a recursive loop
-    instance.send(
-        "Let me flip the coin for you...", user="Game Master", avatar="🎲", respond=False
-    )
-    await sleep(1)
-
-    characters = "/|\\_"
-    index = 0
-    for _ in range(0, 28):
-        index = (index + 1) % len(characters)
-        # use yield to continuously update the response message
-        # use pn.chat.ChatMessage to send a message with a custom user and avatar
-        yield pn.chat.ChatMessage("\r" + characters[index], user="Coin", avatar="🪙")
-        await sleep(0.005)
-
-    result = choice(["heads", "tails"])
-    if result in contents.lower():
-        # equivalently, use a dict instead of a pn.chat.ChatMessage
-        yield {"object": f"Woohoo, {result}! You win!", "user": "Coin", "avatar": "🎲"}
-    else:
-        yield {"object": f"Aw, got {result}. Try again!", "user": "Coin", "avatar": "🎲"}
-
-
-chat_interface = pn.chat.ChatInterface(
-    widgets=[
-        pn.widgets.RadioButtonGroup(
-            options=["Heads!", "Tails!"], button_type="primary", button_style="outline"
-        )
-    ],
-    callback=callback,
-    help_text="Select heads or tails, then click send!",
-    placeholder_text="Waiting for the result...",
-    placeholder_threshold=0.1,
-)
-chat_interface.servable()
-
-
-await write_doc()
+  \nimport asyncio\n\nfrom panel.io.pyodide import init_doc, write_doc\n\ninit_doc()\n\n"""\nDemonstrates how to precisely control the callback response.\n\nHighlights:\n\n- Use a placeholder text to display a message while waiting for the response.\n- Use a placeholder threshold to control when the placeholder text is displayed.\n- Use send instead of stream/yield/return to keep the placeholder text while still sending a message, ensuring respond=False to avoid a recursive loop.\n- Use yield to continuously update the response message.\n- Use pn.chat.ChatMessage or dict to send a message with a custom user and avatar.\n"""\n\nfrom asyncio import sleep\nfrom random import choice\n\nimport panel as pn\n\npn.extension()\n\n\nasync def callback(contents: str, user: str, instance: pn.chat.ChatInterface):\n    await sleep(0.5)\n    # use send instead of stream/yield/return to keep the placeholder text\n    # while still sending a message; ensure respond=False to avoid a recursive loop\n    instance.send(\n        "Let me flip the coin for you...", user="Game Master", avatar="\U0001f3b2", respond=False\n    )\n    await sleep(1)\n\n    characters = "/|\\\\_"\n    index = 0\n    for _ in range(0, 28):\n        index = (index + 1) % len(characters)\n        # use yield to continuously update the response message\n        # use pn.chat.ChatMessage to send a message with a custom user and avatar\n        yield pn.chat.ChatMessage("\\r" + characters[index], user="Coin", avatar="\U0001fa99")\n        await sleep(0.005)\n\n    result = choice(["heads", "tails"])\n    if result in contents.lower():\n        # equivalently, use a dict instead of a pn.chat.ChatMessage\n        yield {"object": f"Woohoo, {result}! You win!", "user": "Coin", "avatar": "\U0001f3b2"}\n    else:\n        yield {"object": f"Aw, got {result}. Try again!", "user": "Coin", "avatar": "\U0001f3b2"}\n\n\nchat_interface = pn.chat.ChatInterface(\n    widgets=[\n        pn.widgets.RadioButtonGroup(\n            options=["Heads!", "Tails!"], button_type="primary", button_style="outline"\n        )\n    ],\n    callback=callback,\n    help_text="Select heads or tails, then click send!",\n    placeholder_text="Waiting for the result...",\n    placeholder_threshold=0.1,\n)\nchat_interface.servable()\n\n\nawait write_doc()
   `
 
   try {
