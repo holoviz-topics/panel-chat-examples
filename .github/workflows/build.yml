@@ -5,7 +5,23 @@ env:
   # https://github.com/pytest-dev/pytest/issues/7443
   PY_COLORS: 1
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - .github/workflows/build.yml
+      - docs/**
+      - pyproject.toml
+      - setup.py
+
+  pull_request:
+    paths:
+      - .github/workflows/build.yml
+      - docs/**
+      - pyproject.toml
+      - setup.py
+
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,8 +33,16 @@ jobs:
     strategy:
       matrix:
         # run no_llm tests across all python versions and oses
-        os: [ubuntu-latest]
-        python-version: ['3.10']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        test-type: ['no_llm']
+
+        include:
+          # Run LLM tests on 3.9
+          - python-version: '3.9'
+            os: 'ubuntu-latest'
+            test-type: ''
+        
         
     runs-on: ${{ matrix.os }}
 
@@ -29,9 +53,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
-      - name: Install requirements
-        run: pip install ".[all]"
+      - name: Install
+        run: pip install ".[tests]"
 
+      - name: Run tests without LLMs
+        run: pytest -n auto -vv -m "${{ matrix.test-type }}"
+        if: ${{ !(github.event.pull_request.head.repo.fork) && matrix.test-type != '' }}
+      
       - name: Run tests
         run: pytest -n auto -vv
         if: ${{ !(github.event.pull_request.head.repo.fork) && matrix.test-type == '' }}
