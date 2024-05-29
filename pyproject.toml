@@ -100,7 +100,7 @@ langchain = [
 llama_index = [
     "llama_index>=0.10.40",
 ]
-llama_cpp_python = [
+llama_cpp = [
     "llama_cpp_python",
 ]
 all = [
