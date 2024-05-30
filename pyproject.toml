@@ -55,7 +55,7 @@ lint-check = [
   "ruff .",
 ]
 docs-serve = "python scripts/generate_gallery.py;mkdocs serve"
-docs-build = "python scripts/postprocess_videos.py;python scripts/generate_gallery.py;mkdocs build;mkdocs serve"
+docs-build = "python scripts/postprocess_videos.py;python scripts/generate_gallery.py;mkdocs build"
 panel-serve = "panel serve docs/examples/**/*.py --static-dirs thumbnails=docs/assets/thumbnails --autoreload"
 panel-convert = "python scripts/convert_apps.py"
 docs-record = "pytest -s -m ui --screenshot on --video on --headed && python scripts/postprocess_videos.py"
