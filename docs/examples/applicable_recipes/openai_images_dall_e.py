@@ -1,3 +1,7 @@
+"""
+Use the OpenAI API to generate images using the DALL·E model.
+"""
+
 import panel as pn
 from openai import AsyncOpenAI
 
