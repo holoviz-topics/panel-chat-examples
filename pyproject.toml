@@ -47,12 +47,12 @@ test-cov-xml = "pytest --cov-report=xml"
 lint = [
   "isort .",
   "black .",
-  "ruff --fix .",
+  "ruff check --fix .",
 ]
 lint-check = [
   "isort . --check-only",
   "black --check .",
-  "ruff .",
+  "ruff check .",
 ]
 docs-serve = "python scripts/generate_gallery.py;mkdocs serve"
 docs-build = "python scripts/postprocess_videos.py;python scripts/generate_gallery.py;mkdocs build"

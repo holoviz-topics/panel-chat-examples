@@ -32,12 +32,13 @@ hatch run pre-commit install
 On contribution:
 
 1. Add desired example under `examples/`
-2. Update `tests/ui/user.py` to include your new example
+2. Update `tests/ui/inputs.py` to include your new example
 3. Then run the following commands, updating <NAME_OF_YOUR_EXAMPLE> and <YOUR_BRANCH_NAME>
 
 ```bash
 hatch run pytest -s -m ui --screenshot on --video on --headed -k <NAME_OF_YOUR_EXAMPLE>
 hatch run docs-build
+hatch run docs-serve  # to make sure everything looks correct
 git checkout -b <YOUR_BRANCH_NAME>
 git add commit
 git push origin <YOUR_BRANCH_NAME>

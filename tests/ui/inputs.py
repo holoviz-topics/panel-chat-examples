@@ -116,6 +116,12 @@ def openai_chat_with_hvplot(page: Page):
     page.wait_for_timeout(4000)
 
 
+def openai_images_dall_e(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Create a complex HoloViz dashboard")
+    page.wait_for_timeout(12000)
+
+
 # get all the local functions here
 # and put them in a dict
 # so we can call them by name like {"openai_two_bots.py": openai_two_bots}
