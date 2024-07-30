@@ -10,6 +10,8 @@ https://github.com/holoviz-topics/panel-chat-examples/assets/42288570/cdb78a39-b
 
 Panels Chat Components are available with `pip install "panel>=1.3.0"`; most examples require `pip install "panel>=1.4.0"`.
 
+More unmaintained examples can be found in [GitHub issues](https://github.com/holoviz-topics/panel-chat-examples/issues) and [HoloViz Discourse](https://discourse.holoviz.org/)
+
 ## Quick Start
 
 It's super easy to get started with Panel chat components.
