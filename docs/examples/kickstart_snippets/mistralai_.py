@@ -9,17 +9,22 @@ Highlights:
 - Uses `yield` to continuously concatenate the parts of the response.
 """
 
-import panel as pn
-from mistralai import Mistral, UserMessage
 import os
 
+import panel as pn
+from mistralai import Mistral, UserMessage
+
 pn.extension()
+
 
 def update_api_key(api_key):
     # Use the provided api_key or default to the environment variable
     pn.state.cache["aclient"] = (
-        Mistral(api_key=api_key) if api_key else Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
+        Mistral(api_key=api_key)
+        if api_key
+        else Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
     )
+
 
 async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     # memory is a list of serialized messages
@@ -39,6 +44,7 @@ async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         if part is not None:
             message += part
             yield message
+
 
 # Input widget for the API key
 api_key_input = pn.widgets.PasswordInput(
