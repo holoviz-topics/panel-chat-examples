@@ -121,6 +121,7 @@ def openai_images_dall_e(page: Page):
     chat.send("Create a complex HoloViz dashboard")
     page.wait_for_timeout(12000)
 
+
 def pydanticai_find_city_agent(page: Page):
     chat = ChatInterface(page)
     chat.send("Where is the AI capital of Europe?")

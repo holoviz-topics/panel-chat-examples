@@ -3,13 +3,14 @@
 Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
 """
 import os
+import urllib.parse
 from typing import cast
+
+import panel as pn
 import param
 from pydantic import BaseModel
-import urllib.parse
 from pydantic_ai import Agent
 from pydantic_ai.models import KnownModelName
-import panel as pn
 
 HEADER_CSS = """
 .header {
@@ -32,6 +33,7 @@ QUESTIONS = {
     "Gravel Cycling in Denmark": "Where do I find the best gravel cycling in Denmark",
     "Best food in Germany": "Where do I find the best food in Germany?",
 }
+
 
 class LocationModel(BaseModel):
     city: str
