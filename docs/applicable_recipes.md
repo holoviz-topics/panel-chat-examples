@@ -1,105 +1,6 @@
 # Applicable Recipes
 Demonstrates how to use Panel's chat components to achieve specific tasks with popular LLM packages.
 
-## Openai Images Dall E
-
-
-<video controls poster="../assets/thumbnails/openai_images_dall_e.png" >
-    <source src="../assets/videos/openai_images_dall_e.mp4" type="video/mp4"
-    style="max-height: 400px; max-width: 600px;">
-    Your browser does not support the video tag.
-</video>
-
-
-
-<details>
-
-<summary>Source code for <a href='../examples/applicable_recipes/openai_images_dall_e.py' target='_blank'>openai_images_dall_e.py</a></summary>
-
-```python
-import panel as pn
-from openai import AsyncOpenAI
-
-pn.extension()
-
-
-async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
-    if api_key_input.value:
-        # use api_key_input.value if set, otherwise use OPENAI_API_KEY
-        aclient.api_key = api_key_input.value
-
-    response = await aclient.images.generate(
-        model=model_buttons.value,
-        prompt=contents,
-        n=n_images_slider.value,
-        size=size_buttons.value,
-    )
-
-    image_panes = [(str(i), pn.pane.Image(data.url)) for i, data in enumerate(response.data)]
-    return pn.Tabs(*image_panes) if len(image_panes) > 1 else image_panes[0][1]
-
-
-def update_model_params(model):
-    if model == "dall-e-2":
-        size_buttons.param.update(
-            options=["256x256", "512x512", "1024x1024"],
-            value="256x256",
-        )
-        n_images_slider.param.update(
-            start=1,
-            end=10,
-            value=1,
-        )
-    else:
-        size_buttons.param.update(
-            options=["1024x1024", "1024x1792", "1792x1024"],
-            value="1024x1024",
-        )
-        n_images_slider.param.update(
-            start=1,
-            end=1,
-            value=1,
-        )
-
-
-aclient = AsyncOpenAI()
-api_key_input = pn.widgets.PasswordInput(
-    placeholder="sk-... uses $OPENAI_API_KEY if not set",
-    sizing_mode="stretch_width",
-    styles={"color": "black"},
-)
-model_buttons = pn.widgets.RadioButtonGroup(
-    options=["dall-e-2", "dall-e-3"],
-    value="dall-e-2",
-    name="Model",
-    sizing_mode="stretch_width",
-)
-size_buttons = pn.widgets.RadioButtonGroup(
-    options=["256x256", "512x512", "1024x1024"],
-    name="Size",
-    sizing_mode="stretch_width",
-)
-n_images_slider = pn.widgets.IntSlider(
-    start=1, end=10, value=1, name="Number of images"
-)
-pn.bind(update_model_params, model_buttons, watch=True)
-chat_interface = pn.chat.ChatInterface(
-    callback=callback,
-    callback_user="DALL·E",
-    help_text="Send a message to get a reply from DALL·E!",
-)
-template = pn.template.BootstrapTemplate(
-    title="OpenAI DALL·E",
-    header_background="#212121",
-    main=[chat_interface],
-    header=[api_key_input],
-    sidebar=[model_buttons, size_buttons, n_images_slider],
-)
-template.servable()
-```
-</details>
-
-
 ## Langchain Chat With Pdf
 
 Demonstrates how to use the `ChatInterface` to chat about a PDF using
@@ -219,6 +120,122 @@ chat_interface.active = 0
 # layout
 template = pn.template.BootstrapTemplate(sidebar=[sidebar], main=[chat_interface])
 template.servable()
+```
+</details>
+
+## pydantic-ai Find City Agent
+
+We use a [`pydantic-ai`](https://ai.pydantic.dev/) `Agent` to find the city that matches the users questions.
+This example is derived from the [pydantic-model example](https://ai.pydantic.dev/examples/pydantic-model/).
+
+<video controls poster="../assets/thumbnails/pydanticai_find_city_agent.png" >
+    <source src="../assets/videos/pydanticai_find_city_agent.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
+<details>
+
+<summary>Source code for <a href='../examples/applicable_recipes/pydanticai_find_city_agent.py' target='_blank'>pydanticai_find_city_agent.py</a></summary>
+
+```python
+"""An example Agent UI to find a city.
+
+Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
+"""
+import os
+from typing import cast
+from pydantic import BaseModel
+import urllib.parse
+from pydantic_ai import Agent
+from pydantic_ai.models import KnownModelName
+import panel as pn
+
+HEADER_CSS = """
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #0078d7, #00a1ff);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+"""
+
+SYSTEM_PROMPT = """"Find the city that best matches the question asked by the user and
+explain why you chose that city."""
+
+
+QUESTIONS = {
+    "AI Capital of Europe": "Where is the AI capital of Europe?",
+    "Gravel Cycling in Denmark": "Where do I find the best gravel cycling in Denmark",
+    "Best food in Germany": "Where do I find the best food in Germany?",
+}
+
+class LocationModel(BaseModel):
+    city: str
+    country: str
+    explanation: str
+
+    @property
+    def view(self, map_type="h", zoom: int = 8) -> str:
+        query = f"{self.city}, {self.country}"
+        encoded_query = urllib.parse.quote(query, safe="")
+        src = f"https://maps.google.com/maps?q={encoded_query}&z={zoom}&t={map_type}&output=embed"
+        return f"""
+        <h1>{self.city}, {self.country}</h1>
+        <p>{self.explanation}</p>
+        <iframe width="100%" height="400px" src="{src}"
+        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        """
+
+
+model = cast(KnownModelName, os.getenv("PYDANTIC_AI_MODEL", "openai:gpt-4o"))
+agent = Agent(
+    model,
+    result_type=LocationModel,
+    system_prompt=SYSTEM_PROMPT,
+)
+
+
+async def callback(contents):
+    result = await agent.run(contents)
+    return pn.pane.HTML(result.data.view, sizing_mode="stretch_width")
+
+
+chat = pn.chat.ChatInterface(callback=callback, sizing_mode="stretch_both")
+
+
+def send_chat_message(message):
+    return lambda e: chat.send(message)
+
+
+buttons = [
+    pn.widgets.Button(
+        name=key,
+        on_click=send_chat_message(value),
+    )
+    for key, value in QUESTIONS.items()
+]
+
+header = pn.pane.HTML(
+    "<h1 class='header'>City Finder<h1>",
+    stylesheets=[HEADER_CSS],
+    sizing_mode="stretch_width",
+    margin=0,
+)
+footer = pn.pane.Markdown("Made with Panel, pydantic-ai and ❤️", align="center")
+
+pn.Column(
+    header,
+    pn.Row(*buttons, align="center", margin=(10, 5, 25, 5)),
+    chat,
+    footer,
+    sizing_mode="stretch_both",
+).servable()
 ```
 </details>
 
@@ -761,5 +778,111 @@ layout = pn.template.MaterialTemplate(
 )
 
 layout.servable()
+```
+</details>
+
+
+## Openai Images Dall E
+
+Use the OpenAI API to generate images using the DALL·E model.
+
+<video controls poster="../assets/thumbnails/openai_images_dall_e.png" >
+    <source src="../assets/videos/openai_images_dall_e.mp4" type="video/mp4"
+    style="max-height: 400px; max-width: 600px;">
+    Your browser does not support the video tag.
+</video>
+
+
+
+<details>
+
+<summary>Source code for <a href='../examples/applicable_recipes/openai_images_dall_e.py' target='_blank'>openai_images_dall_e.py</a></summary>
+
+```python
+"""
+Use the OpenAI API to generate images using the DALL·E model.
+"""
+
+import panel as pn
+from openai import AsyncOpenAI
+
+pn.extension()
+
+
+async def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
+    if api_key_input.value:
+        # use api_key_input.value if set, otherwise use OPENAI_API_KEY
+        aclient.api_key = api_key_input.value
+
+    response = await aclient.images.generate(
+        model=model_buttons.value,
+        prompt=contents,
+        n=n_images_slider.value,
+        size=size_buttons.value,
+    )
+
+    image_panes = [
+        (str(i), pn.pane.Image(data.url)) for i, data in enumerate(response.data)
+    ]
+    return pn.Tabs(*image_panes) if len(image_panes) > 1 else image_panes[0][1]
+
+
+def update_model_params(model):
+    if model == "dall-e-2":
+        size_buttons.param.update(
+            options=["256x256", "512x512", "1024x1024"],
+            value="256x256",
+        )
+        n_images_slider.param.update(
+            start=1,
+            end=10,
+            value=1,
+        )
+    else:
+        size_buttons.param.update(
+            options=["1024x1024", "1024x1792", "1792x1024"],
+            value="1024x1024",
+        )
+        n_images_slider.param.update(
+            start=1,
+            end=1,
+            value=1,
+        )
+
+
+aclient = AsyncOpenAI()
+api_key_input = pn.widgets.PasswordInput(
+    placeholder="sk-... uses $OPENAI_API_KEY if not set",
+    sizing_mode="stretch_width",
+    styles={"color": "black"},
+)
+model_buttons = pn.widgets.RadioButtonGroup(
+    options=["dall-e-2", "dall-e-3"],
+    value="dall-e-2",
+    name="Model",
+    sizing_mode="stretch_width",
+)
+size_buttons = pn.widgets.RadioButtonGroup(
+    options=["256x256", "512x512", "1024x1024"],
+    name="Size",
+    sizing_mode="stretch_width",
+)
+n_images_slider = pn.widgets.IntSlider(
+    start=1, end=10, value=1, name="Number of images"
+)
+pn.bind(update_model_params, model_buttons, watch=True)
+chat_interface = pn.chat.ChatInterface(
+    callback=callback,
+    callback_user="DALL·E",
+    help_text="Send a message to get a reply from DALL·E!",
+)
+template = pn.template.BootstrapTemplate(
+    title="OpenAI DALL·E",
+    header_background="#212121",
+    main=[chat_interface],
+    header=[api_key_input],
+    sidebar=[model_buttons, size_buttons, n_images_slider],
+)
+template.servable()
 ```
 </details>

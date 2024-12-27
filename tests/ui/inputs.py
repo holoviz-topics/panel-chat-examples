@@ -122,6 +122,12 @@ def openai_images_dall_e(page: Page):
     page.wait_for_timeout(12000)
 
 
+def pydanticai_find_city_agent(page: Page):
+    chat = ChatInterface(page)
+    chat.send("Where is the AI capital of Europe?")
+    page.wait_for_timeout(12000)
+
+
 # get all the local functions here
 # and put them in a dict
 # so we can call them by name like {"openai_two_bots.py": openai_two_bots}

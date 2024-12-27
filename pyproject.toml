@@ -88,6 +88,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+pydanticai = [
+    "pydantic-ai"
+]
 openai = [
     "openai",
 ]
@@ -104,7 +107,7 @@ llamacpp = [
     "llama_cpp_python",
 ]
 all = [
-    "panel-chat-examples[openai,mistralai,langchain,llamaindex,llamacpp]",
+    "panel-chat-examples[openai,mistralai,langchain,llamaindex,llamacpp,pydanticai]",
 ]
 
 [project.urls]
