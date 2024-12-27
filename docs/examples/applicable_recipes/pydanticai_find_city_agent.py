@@ -8,7 +8,6 @@ import urllib.parse
 from typing import cast
 
 import panel as pn
-import param
 from pydantic import BaseModel
 from pydantic_ai import Agent
 from pydantic_ai.models import KnownModelName

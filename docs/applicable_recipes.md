@@ -147,7 +147,6 @@ Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
 """
 import os
 from typing import cast
-import param
 from pydantic import BaseModel
 import urllib.parse
 from pydantic_ai import Agent
