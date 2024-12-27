@@ -2,6 +2,7 @@
 
 Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
 """
+
 import os
 import urllib.parse
 from typing import cast
