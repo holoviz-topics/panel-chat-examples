@@ -123,9 +123,10 @@ template.servable()
 ```
 </details>
 
-## pydantic-ai Find City Agent
 
-We use a [`pydantic-ai`](https://ai.pydantic.dev/) `Agent` to find the city that matches the users questions.
+## Pydanticai Find City Agent
+
+
 This example is derived from the [pydantic-model example](https://ai.pydantic.dev/examples/pydantic-model/).
 
 <video controls poster="../assets/thumbnails/pydanticai_find_city_agent.png" >
@@ -141,17 +142,19 @@ This example is derived from the [pydantic-model example](https://ai.pydantic.de
 <summary>Source code for <a href='../examples/applicable_recipes/pydanticai_find_city_agent.py' target='_blank'>pydanticai_find_city_agent.py</a></summary>
 
 ```python
-"""An example Agent UI to find a city.
+"""We use a [`pydantic-ai`](https://ai.pydantic.dev/) `Agent` to find the city that matches the users questions.
 
-Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
+This example is derived from the [pydantic-model example](https://ai.pydantic.dev/examples/pydantic-model/).
 """
+
 import os
-from typing import cast
-from pydantic import BaseModel
 import urllib.parse
+from typing import cast
+
+import panel as pn
+from pydantic import BaseModel
 from pydantic_ai import Agent
 from pydantic_ai.models import KnownModelName
-import panel as pn
 
 HEADER_CSS = """
 .header {
@@ -174,6 +177,7 @@ QUESTIONS = {
     "Gravel Cycling in Denmark": "Where do I find the best gravel cycling in Denmark",
     "Best food in Germany": "Where do I find the best food in Germany?",
 }
+
 
 class LocationModel(BaseModel):
     city: str

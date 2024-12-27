@@ -1,6 +1,6 @@
-"""An example Agent UI to find a city.
+"""We use a [`pydantic-ai`](https://ai.pydantic.dev/) `Agent` to find the city that matches the users questions.
 
-Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
+This example is derived from the [pydantic-model example](https://ai.pydantic.dev/examples/pydantic-model/).
 """
 
 import os
