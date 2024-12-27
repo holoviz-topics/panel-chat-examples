@@ -123,11 +123,10 @@ template.servable()
 ```
 </details>
 
-
 ## pydantic-ai Find City Agent
 
-
-Originally derived from https://ai.pydantic.dev/examples/pydantic-model/.
+We use a [`pydantic-ai`](https://ai.pydantic.dev/) `Agent` to find the city that matches the users questions.
+This example is derived from the [pydantic-model example](https://ai.pydantic.dev/examples/pydantic-model/).
 
 <video controls poster="../assets/thumbnails/pydanticai_find_city_agent.png" >
     <source src="../assets/videos/pydanticai_find_city_agent.mp4" type="video/mp4"
